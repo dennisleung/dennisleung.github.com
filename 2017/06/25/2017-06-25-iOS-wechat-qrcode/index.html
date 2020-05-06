@@ -16,10 +16,10 @@
 <meta property="og:description" content="最近有同事反馈，微信邀请有奖分享的二维码在iOS上长按无法识别。排查后组内的同事KK发现移除一段history.replaceState代码后恢复正常。  先上这段神奇的代码（非源码）： 12345&#x2F;&#x2F;给当前 url 增加特殊的参数var url &#x3D; base.addQuery(window.location.href, &amp;#123;	&quot;param1&quot; : 1&amp;#125;);window.his">
 <meta property="og:locale" content="zh">
 <meta property="article:published_time" content="2017-06-25T06:54:00.000Z">
-<meta property="article:modified_time" content="2017-06-25T07:33:50.000Z">
+<meta property="article:modified_time" content="2020-05-06T14:13:41.496Z">
 <meta property="article:author" content="Dennis Leung">
-<meta property="article:tag" content="干货储物柜">
 <meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="干货储物柜">
 <meta name="twitter:card" content="summary">
   
   
@@ -170,7 +170,31 @@
 
 <p>上面这段代码的背景是产品做了分享的AB Test，需要知道两种用户的分享量。但是目前分享上报的参数已被塞爆（新版协议会解决这个问题），于是我提了个不成熟的小建议（手动扶额），通过在 url 中增加特殊标记来区分。修改location.href会跳转，考虑到移动端的对 h5的兼容性，于是采用了 history.replaceState。</p>
 <p>后来再做了测试，通过替换 history.replaceState 的各项入参观察能否识别二维码：</p>
-<p>| 终端类型 | state | title | url.query | url.hash |<br>|:—–|:—–|:—–|:—–|:—–|:—–|<br>| iOS | &radic; | &radic; | &times; | &radic; |<br>| android | &radic; | &radic; | &radic; | &radic; |</p>
+<table>
+<thead>
+<tr>
+<th>终端类型</th>
+<th>state</th>
+<th>title</th>
+<th>url.query</th>
+<th>url.hash</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>iOS</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&times;</td>
+<td>&radic;</td>
+</tr>
+<tr>
+<td>android</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&radic;</td>
+</tr>
+</tbody></table>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>在 iOS上替换 <code>url.query</code>导致二维码识别在网上找了很久没找到原因，android 和 iOS 的表现也不一致，猜测是 iOS 版微信的安全策略吧（但是这种策略是否会影响一些 SPA 应用？）。<br>分享上报的问题最终通过<code>改变hash</code>来解决了。</p>
 
       
@@ -185,11 +209,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">干货储物柜</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">干货储物柜</a>
         		</li>
       		
 		</ul>
@@ -337,11 +361,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Yii</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">php</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -349,7 +369,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+                <a href="javascript:void(0)" class="js-tag color4">Yii</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">php</a>
               </li>
              
               <li class="article-tag-list-item">
