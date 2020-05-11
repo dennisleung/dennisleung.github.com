@@ -140,6 +140,266 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-2017-06-25-iOS-wechat-qrcode" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/25/2017-06-25-iOS-wechat-qrcode/">iOS微信二维码长按无法识别的问题</a>
+    </h1>
+  
+
+        
+        <a href="/2017/06/25/2017-06-25-iOS-wechat-qrcode/" class="archive-article-date">
+  	<time datetime="2017-06-25T06:54:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-25</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>最近有同事反馈，微信邀请有奖分享的二维码在iOS上长按无法识别。排查后组内的同事KK发现移除一段<code>history.replaceState</code>代码后恢复正常。</p>
+</blockquote>
+<p>先上这段神奇的代码（非源码）：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//给当前 url 增加特殊的参数</span></span><br><span class="line"><span class="keyword">var</span> url = base.addQuery(<span class="built_in">window</span>.location.href, &#123;</span><br><span class="line">	<span class="string">"param1"</span> : <span class="number">1</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">window</span>.history.replaceState(history.state, <span class="built_in">document</span>.title, url);</span><br></pre></td></tr></table></figure>
+
+<p>上面这段代码的背景是产品做了分享的AB Test，需要知道两种用户的分享量。但是目前分享上报的参数已被塞爆（新版协议会解决这个问题），于是我提了个不成熟的小建议（手动扶额），通过在 url 中增加特殊标记来区分。修改location.href会跳转，考虑到移动端的对 h5的兼容性，于是采用了 history.replaceState。</p>
+<p>后来再做了测试，通过替换 history.replaceState 的各项入参观察能否识别二维码：</p>
+<table>
+<thead>
+<tr>
+<th>终端类型</th>
+<th>state</th>
+<th>title</th>
+<th>url.query</th>
+<th>url.hash</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>iOS</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&times;</td>
+<td>&radic;</td>
+</tr>
+<tr>
+<td>android</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&radic;</td>
+</tr>
+</tbody></table>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>在 iOS上替换 <code>url.query</code>导致二维码识别在网上找了很久没找到原因，android 和 iOS 的表现也不一致，猜测是 iOS 版微信的安全策略吧（但是这种策略是否会影响一些 SPA 应用？）。<br>分享上报的问题最终通过<code>改变hash</code>来解决了。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">干货储物柜</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/06/25/2017-06-25-iOS-wechat-qrcode/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-2017-06-04-yii-transition" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/04/2017-06-04-yii-transition/">Yii中事务不起作用的问题</a>
+    </h1>
+  
+
+        
+        <a href="/2017/06/04/2017-06-04-yii-transition/" class="archive-article-date">
+  	<time datetime="2017-06-04T07:07:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>在开发过程中操作 DB 事务时发现有时候会回滚失败。</p>
+</blockquote>
+<p>** 只有当所有操作都在同一个连接中进行时，才是可回滚的。 **<br>公司的前辈们针对不同的库操作自行维护了一个连接池（Yii中也有类似的逻辑），出现事务不起作用的时候，有可能是操作不是同一个连接导致的（特别是 Yii 这种通常使用 model 等 ORM 操作的的框架，很容易忽略这个问题）。</p>
+<br>
+
+<h1 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h1><p>对 DB 连接以及框架内部实现不透彻的时候很容易踩坑。<br>有时候写写sql也挺好，现在操作跨库事务的时候一般都写一个获取连接的工厂方法（负责保证唯一连接、心跳检测等）。<br>** 直接通过sql跨库操作时一定要注意权限！ **<br>** 直接通过sql跨库操作时一定要注意权限！ **<br>** 直接通过sql跨库操作时一定要注意权限！ **<br>（很重要所以说三次，踩坑老司机= =）</p>
+<p>PS: 除了权限，** 不同库是否在同一个实例 ** 也是一个需要注意的点 。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">干货储物柜</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Yii</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">php</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/06/04/2017-06-04-yii-transition/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-2017-06-04-yii-try-catch" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/04/2017-06-04-yii-try-catch/">Yii中try/catch不起作用的问题</a>
+    </h1>
+  
+
+        
+        <a href="/2017/06/04/2017-06-04-yii-try-catch/" class="archive-article-date">
+  	<time datetime="2017-06-04T06:26:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>最近公司的验证码接口被恶意刷，为此上线了各种各样的防刷策略。<br>生成验证码的逻辑很普通：当接收到请求的时候，检测 mobile 在 DB 中是否存在发送记录，如果没有，新建一条记录，mobile 为主键。插入记录在事务中，如果调用短信网关失败，会执行回滚。<br>当接口被恶意刷、请求密集的时候，同一个手机号前一条记录还未插入成功，后面的记录再执行插入会提示主键冲突。为了保证接口始终能正常返回（主要是主键冲突后会产生一个500错误，运维系统不断告警惊动了大佬= =），将操作DB的代码用try/catch 进行处理。</p>
+</blockquote>
+<p>看起来非常简单的一个改动，try/catch Exception后 <strong>phpStorm 自动补全依赖</strong> ，打算简单自测后上线。谁知道模拟密集请求的时候接口还是报错了，try/catch 未能捕获到错误。<br>排查后发现 phpStorm 自动补全依赖的时候引入的是 <code>yii\base\Exception</code>：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> <span class="title">yii</span>\<span class="title">base</span>\<span class="title">Exception</span>;</span><br></pre></td></tr></table></figure>
+<p>修改成 <code>\Exception</code> 后解决。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> \<span class="title">Exception</span>;</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">干货储物柜</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Yii</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">php</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/06/04/2017-06-04-yii-try-catch/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-2016-11-06-plus_in_JavaScript" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -186,8 +446,10 @@
 <li>{} + {} = NaN</li>
 </ul>
 <h4 id="Node-下表现"><a href="#Node-下表现" class="headerlink" title="Node 下表现"></a>Node 下表现</h4><p>与 chrome表现一致</p>
-<h4 id="ECMA中对“-”的描述："><a href="#ECMA中对“-”的描述：" class="headerlink" title="ECMA中对“+”的描述："></a>ECMA中对“+”的描述：</h4><p><img src="/2016/11/06/2016-11-06-plus_in_JavaScript/getValue_definition_in_ecma.png" alt="ECMA对+运算符的描述"><br>参考了 ecma 中对 <code>getValue</code> 的描述，里面有一句 <code>then let get be the [[Get]] internal method of base</code> 看得不太懂，找不到<code>get</code>这个函数变量是哪来的，不过在这个场景下，我们可以判断[]和{}调用 getValue 返回的结果分别是 []和{}。<br>接下来到 <code>getPrimitive</code> 方法， ECMA中的描述：<br><img src="/2016/11/06/2016-11-06-plus_in_JavaScript/getPrimitive_definition_in_ecma.png" alt="ECMA对getPrimitive的描述"><br>另外在网上找到了一个小诀窍：<strong>当+作用在一个是数字一个是字符串的情况下，+作为连接运算符</strong>。</p>
-<h4 id="分析："><a href="#分析：" class="headerlink" title="分析："></a>分析：</h4><p>** 使用+运算符进行运算时，是没有指定转换方式的，JavaScript 内部会默认进行 toNumber 转换。 **（划重点）</p>
+<h4 id="ECMA中对“-”的描述："><a href="#ECMA中对“-”的描述：" class="headerlink" title="ECMA中对“+”的描述："></a>ECMA中对“+”的描述：</h4><p><img src="/2016/11/06/2016-11-06-plus_in_JavaScript/getValue_definition_in_ecma.png" alt="ECMA对+运算符的描述"></p>
+<p>参考了 ecma 中对 <code>getValue</code> 的描述，里面有一句 <code>then let get be the [[Get]] internal method of base</code> 看得不太懂，找不到<code>get</code>这个函数变量是哪来的，不过在这个场景下，我们可以判断[]和{}调用 getValue 返回的结果分别是 []和{}。<br>接下来到 <code>getPrimitive</code> 方法， ECMA中的描述：<br><img src="/2016/11/06/2016-11-06-plus_in_JavaScript/getPrimitive_definition_in_ecma.png" alt="ECMA对getPrimitive的描述"></p>
+<p>另外在网上找到了一个小诀窍：<strong>当+作用在一个是数字一个是字符串的情况下，+作为连接运算符</strong>。</p>
+<h4 id="分析："><a href="#分析：" class="headerlink" title="分析："></a>分析：</h4><p><strong>使用+运算符进行运算时，是没有指定转换方式的，JavaScript 内部会默认进行 toNumber 转换。</strong>（划重点）</p>
 <ul>
 <li><p>[] + []</p>
 <p>  []调用 valueOf 返回 []，不是原始值，调用 toString，返回””，为原始值。因此结果是”” + “” = “”。</p>
@@ -385,6 +647,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">javascript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HTML</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">CSS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">网络安全</a>
               </li>
             
             <div class="clearfix"></div>

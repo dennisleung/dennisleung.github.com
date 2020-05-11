@@ -6,17 +6,28 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://dennisleung.github.io">
-  <title>Tag: HTML | 挖坑小能手的填坑日记</title>
+  <title>BFC | 挖坑小能手的填坑日记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前端开发攻城狮">
-<meta property="og:type" content="website">
-<meta property="og:title" content="挖坑小能手的填坑日记">
-<meta property="og:url" content="http://dennisleung.github.io/tags/HTML/index.html">
+  <meta name="description" content="这篇笔记主要是说说对这篇文章 BFC的理解和应用 中例子的理解  概念BFC全称为Block Formatting Context，即“块级格式化上下文”。 特点 BFC可以包含浮动元素（闭合浮动） BFC所确定的区域不会与外部浮动元素发生重叠 位于同一BFC下的相邻块级子元素在垂直方向上会发生margin重叠 位于不同BFC下的相邻元素之间不会发生margin重叠  如何触发若某个元素满足以下">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BFC">
+<meta property="og:url" content="http://dennisleung.github.io/2020/05/11/BFC/index.html">
 <meta property="og:site_name" content="挖坑小能手的填坑日记">
-<meta property="og:description" content="前端开发攻城狮">
+<meta property="og:description" content="这篇笔记主要是说说对这篇文章 BFC的理解和应用 中例子的理解  概念BFC全称为Block Formatting Context，即“块级格式化上下文”。 特点 BFC可以包含浮动元素（闭合浮动） BFC所确定的区域不会与外部浮动元素发生重叠 位于同一BFC下的相邻块级子元素在垂直方向上会发生margin重叠 位于不同BFC下的相邻元素之间不会发生margin重叠  如何触发若某个元素满足以下">
 <meta property="og:locale" content="zh">
+<meta property="og:image" content="http://dennisleung.github.io/2020/05/11/BFC/bfc-float-before.jpg">
+<meta property="og:image" content="http://dennisleung.github.io/2020/05/11/BFC/bfc-float-after.jpg">
+<meta property="og:image" content="http://dennisleung.github.io/2020/05/11/BFC/bfc-margin-before.jpg">
+<meta property="og:image" content="http://dennisleung.github.io/2020/05/11/BFC/bfc-margin-after.jpg">
+<meta property="og:image" content="http://dennisleung.github.io/2020/05/11/BFC/bfc-flow-before.jpg">
+<meta property="og:image" content="http://dennisleung.github.io/2020/05/11/BFC/bfc-flow-after.jpg">
+<meta property="article:published_time" content="2020-05-11T15:39:42.000Z">
+<meta property="article:modified_time" content="2020-05-11T15:41:30.989Z">
 <meta property="article:author" content="Dennis Leung">
+<meta property="article:tag" content="HTML">
+<meta property="article:tag" content="CSS">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://dennisleung.github.io/2020/05/11/BFC/bfc-float-before.jpg">
   
   
     <link rel="icon" href="/favicon.png">
@@ -138,36 +149,55 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-BFC" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/11/BFC/" class="archive-article-date">
-  	<time datetime="2020-05-11T15:39:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-11</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/11/BFC/">BFC</a>
+    <h1 class="article-title" itemprop="name">
+      BFC
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2020/05/11/BFC/" class="archive-article-date">
+  	<time datetime="2020-05-11T15:39:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>这篇笔记主要是说说对这篇文章 <a href="https://www.jianshu.com/p/4ed27e9ea441" target="_blank" rel="noopener">BFC的理解和应用</a> 中例子的理解</p>
+</blockquote>
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>BFC全称为Block Formatting Context，即“块级格式化上下文”。</p>
+<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ol>
+<li>BFC可以包含浮动元素（闭合浮动）</li>
+<li>BFC所确定的区域不会与外部浮动元素发生重叠</li>
+<li>位于同一BFC下的相邻块级子元素在垂直方向上会发生margin重叠</li>
+<li>位于不同BFC下的相邻元素之间不会发生margin重叠</li>
+</ol>
+<h2 id="如何触发"><a href="#如何触发" class="headerlink" title="如何触发"></a>如何触发</h2><p>若某个元素满足以下任一条件，则会对其创建BFC：</p>
+<ul>
+<li>&lt;html&gt;根元素</li>
+<li>float的值不为none</li>
+<li>overflow的值为auto、scroll或hidden</li>
+<li>display的值为table-cell、table-caption或inline-block</li>
+<li>position的值为fixed或absolute</li>
+</ul>
+<h2 id="常见用途"><a href="#常见用途" class="headerlink" title="常见用途"></a>常见用途</h2><h3 id="闭合浮动"><a href="#闭合浮动" class="headerlink" title="闭合浮动"></a>闭合浮动</h3><p>由于BFC可以包含浮动元素，所以当一个元素容器内部存在浮动元素时，为了防止容器高度“坍塌”，可以对容器创建BFC。<br><img src="/2020/05/11/BFC/bfc-float-before.jpg" alt="bfc-float-before"><br>创建BFC后：<br><img src="/2020/05/11/BFC/bfc-float-after.jpg" alt="bfc-float-after"><br>这里主要用到 <strong>特点1</strong>。</p>
+<h2 id="防止margin重叠"><a href="#防止margin重叠" class="headerlink" title="防止margin重叠"></a>防止margin重叠</h2><p>同一BFC内的相邻元素上下margin会融合（特点3）。<br><img src="/2020/05/11/BFC/bfc-margin-before.jpg" alt="bfc-margin-before"><br>创建BFC后：<br><img src="/2020/05/11/BFC/bfc-margin-after.jpg" alt="bfc-margin-after"><br>这里主要用到 <strong>特点4</strong>，通过给<code>ddd</code>的父节点添加<code>overflow:auto</code>创建BFC后，<code>ddd</code>和<code>ccc</code>已经不在同一个BFC中。</p>
+<h2 id="自适应流体布局"><a href="#自适应流体布局" class="headerlink" title="自适应流体布局"></a>自适应流体布局</h2><p><img src="/2020/05/11/BFC/bfc-flow-before.jpg" alt="bfc-flow-before"><br>创建BFC后：<br><img src="/2020/05/11/BFC/bfc-flow-after.jpg" alt="bfc-flow-after"><br>这里主要用到 <strong>特点2</strong>，给元素添加<code>overflow:auto</code>创建了新的BFC。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -183,19 +213,64 @@
 		</ul>
 	</div>
 
-          
+      
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2020/05/11/xss%E9%98%B2%E8%8C%83/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          xss防范
+        
+      </div>
+    </a>
   
   
-    </div></section>
+    <a href="/2020/05/11/String-raw%E5%A4%84%E7%90%86%E6%A8%A1%E6%9D%BF%E5%AD%97%E7%AC%A6%E4%B8%B2/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">String.raw处理模板字符串</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
+  
+  <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script>
+  var cloudTieConfig = {
+    url: "http://dennisleung.github.io/2020/05/11/BFC/", 
+    sourceId: "BFC",
+    productKey: "7b8ed868ba8c43919aec18514f14a586",
+    target: "cloud-tie-wrapper"
+  };
+</script>
+<script src="//img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
   
 
-    
+  
+
+  
 
 
           </div>
@@ -218,9 +293,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
@@ -434,27 +509,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             </div>
 
             <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-                <div class="pswp__share-tooltip"></div> 
-            </div>
-
-            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-            </button>
-
-            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-            </button>
-
-            <div class="pswp__caption">
-                <div class="pswp__caption__center"></div>
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-  </div>
-</body>
-</html>odal pswp__share-modal--hidden pswp__single-tap">
                 <div class="pswp__share-tooltip"></div> 
             </div>
 
