@@ -6,23 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://dennisleung.github.io">
-  <title>hexo插入本地图片失败问题 | 挖坑小能手的填坑日记</title>
+  <title>挖坑小能手的填坑日记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在hexo插入本地图片的方法网上很多，不再赘述，可以看这个：HEXO插入图片（详细版） 但是昨天尝试往markdown里面插入一张名称http-server.png的图片时一直失败，查看控制台的log发现没有这张图片的process log（正常应该会出现update link as xxx），生成html里面img src也是原来的，没有替换。 于是查看了node_modules&#x2F;hexo-as">
-<meta property="og:type" content="article">
-<meta property="og:title" content="hexo插入本地图片失败问题">
-<meta property="og:url" content="http://dennisleung.github.io/2020/05/06/hexo-asset-image-link-fail/index.html">
+  <meta name="description" content="前端开发攻城狮">
+<meta property="og:type" content="website">
+<meta property="og:title" content="挖坑小能手的填坑日记">
+<meta property="og:url" content="http://dennisleung.github.io/page/2/index.html">
 <meta property="og:site_name" content="挖坑小能手的填坑日记">
-<meta property="og:description" content="在hexo插入本地图片的方法网上很多，不再赘述，可以看这个：HEXO插入图片（详细版） 但是昨天尝试往markdown里面插入一张名称http-server.png的图片时一直失败，查看控制台的log发现没有这张图片的process log（正常应该会出现update link as xxx），生成html里面img src也是原来的，没有替换。 于是查看了node_modules&#x2F;hexo-as">
+<meta property="og:description" content="前端开发攻城狮">
 <meta property="og:locale" content="zh">
-<meta property="og:image" content="http://dennisleung.github.io/2020/05/06/hexo-asset-image-link-fail/console.jpg">
-<meta property="og:image" content="http://dennisleung.github.io/2020/05/06/hexo-asset-image-link-fail/wrong-reg.jpg">
-<meta property="article:published_time" content="2020-05-06T01:54:44.000Z">
-<meta property="article:modified_time" content="2020-05-06T02:06:02.715Z">
 <meta property="article:author" content="Dennis Leung">
-<meta property="article:tag" content="hexo">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://dennisleung.github.io/2020/05/06/hexo-asset-image-link-fail/console.jpg">
   
   
     <link rel="icon" href="/favicon.png">
@@ -144,32 +138,79 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-hexo-asset-image-link-fail" class="article article-type-post " itemscope itemprop="blogPost">
+            
+  
+    <article id="post-2016-11-06-plus_in_JavaScript" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 class="article-title" itemprop="name">
-      hexo插入本地图片失败问题
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/06/2016-11-06-plus_in_JavaScript/">JavaScript 中的“+”运算</a>
     </h1>
   
 
         
-        <a href="/2020/05/06/hexo-asset-image-link-fail/" class="archive-article-date">
-  	<time datetime="2020-05-06T01:54:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-06</time>
+        <a href="/2016/11/06/2016-11-06-plus_in_JavaScript/" class="archive-article-date">
+  	<time datetime="2016-11-06T14:22:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-11-06</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>在hexo插入本地图片的方法网上很多，不再赘述，可以看这个：<br><a href="https://www.jianshu.com/p/f72aaad7b852" target="_blank" rel="noopener">HEXO插入图片（详细版）</a></p>
-<p>但是昨天尝试往markdown里面插入一张名称<code>http-server.png</code>的图片时一直失败，查看控制台的log发现没有这张图片的process log（正常应该会出现<code>update link as xxx</code>），生成html里面img src也是原来的，没有替换。<br><img src="/2020/05/06/hexo-asset-image-link-fail/console.jpg" alt="console里面没有对应的process log"></p>
-<p>于是查看了<code>node_modules/hexo-assets-image/index.js</code>，发现里面判断src的正则有问题。这里原意应该是不替换http链接，但是错误把名称里面带有<code>http</code>的本地链接也过滤了。<br><img src="/2020/05/06/hexo-asset-image-link-fail/wrong-reg.jpg" alt="hexo-assets-image原代码"></p>
-<p>简单修改成：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(!<span class="regexp">/^http(s?)\/\/.*/</span>.test(src) &amp;&amp; !<span class="regexp">/^\s*\//</span>.test(src)) &#123;</span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>重新<code>hexo generate</code>生成后解决。</p>
+        <blockquote>
+<p>前几天在朋友圈看到看到一个JavaScript中对象和数组“+”运算的问题，发现自己不能完全理解里面的答案，来查漏补缺一下。</p>
+</blockquote>
+<ul>
+<li>TOC<br>{:toc}</li>
+</ul>
+<h4 id="Question"><a href="#Question" class="headerlink" title="Question:"></a>Question:</h4><p>问题包含四个：</p>
+<ul>
+<li>[] + [] = ?</li>
+<li>[] + {} = ?</li>
+<li>{} + [] = ?</li>
+<li>{} + {} = ?</li>
+</ul>
+<h4 id="chrome下表现"><a href="#chrome下表现" class="headerlink" title="chrome下表现"></a>chrome下表现</h4><ul>
+<li>[] + [] = “”</li>
+<li>[] + {} = “{object Object}”</li>
+<li>{} + [] = 0</li>
+<li>{} + {} = “{object Object}{object Object}”</li>
+</ul>
+<h4 id="FF-下表现"><a href="#FF-下表现" class="headerlink" title="FF 下表现"></a>FF 下表现</h4><ul>
+<li>[] + [] = “”</li>
+<li>[] + {} = “{object Object}”</li>
+<li>{} + [] = 0</li>
+<li>{} + {} = NaN</li>
+</ul>
+<h4 id="Node-下表现"><a href="#Node-下表现" class="headerlink" title="Node 下表现"></a>Node 下表现</h4><p>与 chrome表现一致</p>
+<h4 id="ECMA中对“-”的描述："><a href="#ECMA中对“-”的描述：" class="headerlink" title="ECMA中对“+”的描述："></a>ECMA中对“+”的描述：</h4><p><img src="/2016/11/06/2016-11-06-plus_in_JavaScript/getValue_definition_in_ecma.png" alt="ECMA对+运算符的描述"><br>参考了 ecma 中对 <code>getValue</code> 的描述，里面有一句 <code>then let get be the [[Get]] internal method of base</code> 看得不太懂，找不到<code>get</code>这个函数变量是哪来的，不过在这个场景下，我们可以判断[]和{}调用 getValue 返回的结果分别是 []和{}。<br>接下来到 <code>getPrimitive</code> 方法， ECMA中的描述：<br><img src="/2016/11/06/2016-11-06-plus_in_JavaScript/getPrimitive_definition_in_ecma.png" alt="ECMA对getPrimitive的描述"><br>另外在网上找到了一个小诀窍：<strong>当+作用在一个是数字一个是字符串的情况下，+作为连接运算符</strong>。</p>
+<h4 id="分析："><a href="#分析：" class="headerlink" title="分析："></a>分析：</h4><p>** 使用+运算符进行运算时，是没有指定转换方式的，JavaScript 内部会默认进行 toNumber 转换。 **（划重点）</p>
+<ul>
+<li><p>[] + []</p>
+<p>  []调用 valueOf 返回 []，不是原始值，调用 toString，返回””，为原始值。因此结果是”” + “” = “”。</p>
+</li>
+<li><p>[] + {}</p>
+<p>  {}调用 valueOf 返回 {}，不是原始值，调用 toString，返回”{object Object}”。因此结果是”” + “{object Object}” = “{object Object}”。</p>
+</li>
+</ul>
+<p>第三和第四个是以 <code>{</code>开始的，情况比较特殊，在 Chrome 和 FF 下的表现也不一致。</p>
+<ul>
+<li><p>{} + []</p>
+<p>  <em>当一个语句以 <code>{</code> 开始时，浏览器会认为它是一个语句块，知道匹配到一个 <code>}</code>。</em> 因此这个返回值实际上是后面 <code>+[]</code> 的结果，这是一个单值运算，隐式转化调用toNumber。toNumber 会先调用 getPrimitive 取到[]的原始值为””，然后将””转换为数字————0。</p>
+<p>  如果不想{}被默认为代码块，可以通过添加<code>()</code>。({} + [] = “{object Object}”)</p>
+</li>
+<li><p>{} + {}<br>  这个运算个人感觉Chrome 的实现是有问题的，它的逻辑和第三点矛盾了，而 FF 的结果才是正确的。</p>
+<p>  这个实际上是 +{} 的运算结果。toNumber 把 {}的原始值 “{object Object}” 转换成数值时是 NaN，很正确，没毛病~</p>
+</li>
+</ul>
+<h4 id="后话"><a href="#后话" class="headerlink" title="后话"></a>后话</h4><p>感觉自己的前端基础还是很一般，js有很多内部的逻辑都没弄清楚，上班后更是懒了很少学习新东西，真的很怀念以前在学校做项目，菜鸟一只每次学习到新东西很兴奋的时光。<br>ECMA的官方文档是个好东西，最权威，最透彻，虽然英文看起来有点痛苦。<br>给自己打下气，知道现在学习前端还是使我很愉♂悦的~望能坚持下去。</p>
+<h4 id="Reference"><a href="#Reference" class="headerlink" title="Reference:"></a>Reference:</h4><ul>
+<li><a href="http://http://ecma-international.org/ecma-262/" target="_blank" rel="noopener">ECMA 官网文档</a></li>
+<li><a href="http://www.cnblogs.com/ziyunfei/archive/2012/09/15/2685885.html" target="_blank" rel="noopener">[译]JavaScript中,{}+{}等于多少?</a></li>
+</ul>
 
       
 
@@ -183,7 +224,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">干货储物柜</a>
         		</li>
       		
 		</ul>
@@ -192,33 +237,16 @@
       
 
       
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/11/06/2016-11-06-plus_in_JavaScript/">展开全文 >></a>
+        </p>
+      
 
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2020/05/06/%E5%9B%BE%E7%89%87%E5%8A%A0%E8%BD%BD%E5%A4%B1%E8%B4%A5%E8%87%AA%E5%8A%A8%E4%BD%BF%E7%94%A8%E9%BB%98%E8%AE%A4%E5%8D%A0%E4%BD%8D%E5%9B%BE%E7%9A%84%E6%96%B9%E6%B3%95/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          图片加载失败自动使用默认占位图的方法
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2020/05/06/2020-05-06-python-simple-http-server/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">利用python在本地快速搭建一个http server</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -229,23 +257,12 @@
 
 
 
-  
-  
-  
-  <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
-<script>
-  var cloudTieConfig = {
-    url: "http://dennisleung.github.io/2020/05/06/hexo-asset-image-link-fail/", 
-    sourceId: "hexo-asset-image-link-fail",
-    productKey: "7b8ed868ba8c43919aec18514f14a586",
-    target: "cloud-tie-wrapper"
-  };
-</script>
-<script src="//img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
-  
 
   
-
+  
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    </nav>
   
 
 
@@ -268,8 +285,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: false,
-		isPost: true,
+		isHome: true,
+		isPost: false,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
