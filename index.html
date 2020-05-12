@@ -140,6 +140,79 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-hexo-lazyload-image不生效" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/13/hexo-lazyload-image%E4%B8%8D%E7%94%9F%E6%95%88/">hexo-lazyload-image不生效</a>
+    </h1>
+  
+
+        
+        <a href="/2020/05/13/hexo-lazyload-image%E4%B8%8D%E7%94%9F%E6%95%88/" class="archive-article-date">
+  	<time datetime="2020-05-12T17:09:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>hexo的yilla模板没有整合lazyload，导致首屏加载了一堆图片，又慢又卡。。</p>
+<p>引入 <code>hexo-lazyload-image</code>，发现除了首屏图片外，其他图片都没有加载。</p>
+<p>往<code>hexo-lazy-image/lib/simple-lazyload.js</code>的监听window scoll句柄中增加log，发现句柄完全没执行。</p>
+<p>随后在console里面调试：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'scroll'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;<span class="built_in">console</span>.log(<span class="string">'scroll'</span>)&#125;)</span><br><span class="line"><span class="built_in">document</span>.addEventListener(<span class="string">'scroll'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;<span class="built_in">console</span>.log(<span class="string">'scroll'</span>)&#125;)</span><br><span class="line"><span class="built_in">document</span>.body.addEventListener(<span class="string">'scroll'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;<span class="built_in">console</span>.log(<span class="string">'scroll'</span>)&#125;)</span><br><span class="line"><span class="comment">//滑动页面，上面都没输出scroll</span></span><br></pre></td></tr></table></figure>
+
+<p>怀疑是框架在文章dom上阻止了scroll的冒泡，先简单处理：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// node_modules/hexo-lazy-image/lib/simple-lazyload.js</span></span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'scroll'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    throttle(processImages, <span class="built_in">window</span>);</span><br><span class="line">&#125;, <span class="literal">true</span>);<span class="comment">//useCapture，捕获scroll事件</span></span><br></pre></td></tr></table></figure>
+<p>成功解决。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/05/13/hexo-lazyload-image%E4%B8%8D%E7%94%9F%E6%95%88/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-promise-prototype-finally的shim不生效解决办法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -163,7 +236,7 @@
         <blockquote>
 <p>今天被Promise.finanlly的兼容性坑了一波，记录一下。。</p>
 </blockquote>
-<p>先看<code>Promise.finally</code>的兼容性，其实和<code>Promise.all</code>、<code>Promise.race</code>不是同期的东西。。<br><img src="/2020/05/12/promise-prototype-finally%E7%9A%84shim%E4%B8%8D%E7%94%9F%E6%95%88%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/promise_finanlly.jpg" alt="Promise.finanlly兼容性"></p>
+<p>先看<code>Promise.finally</code>的兼容性，其实和<code>Promise.all</code>、<code>Promise.race</code>不是同期的东西。。<br><img src="/img/preloader.gif" data-original="/2020/05/12/promise-prototype-finally%E7%9A%84shim%E4%B8%8D%E7%94%9F%E6%95%88%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/promise_finanlly.jpg" alt="Promise.finanlly兼容性"></p>
 <p>用户反馈在微信公众号上无法输入，自己用iOS10的设备试了一下确实能复现，查看控制台发现提示<code>undefined is not a function</code>，看了下log最新的改动是增加了Promise.finanlly，再解决caniuse的兼容性报告，引入<code>promise.prototype.finally</code>。<br>然而，还是报一样的错。。。= =</p>
 <p>翻了下这个polyfill包的issue，唯三的issue都是开着的，里面还真找到了一样的反馈，创建与2017年8月。。。<br><a href="https://github.com/es-shims/Promise.prototype.finally/issues/6" target="_blank" rel="noopener">shim() not shimming on karma/phantomJS</a><br>参照里面的解决方法新建了一个模块：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//@webSrc/utils/promiseFinallyShim.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; shim &#125; <span class="keyword">from</span> <span class="string">'promise.prototype.finally'</span></span><br><span class="line"><span class="keyword">const</span> promiseFinallyShim = shim()</span><br><span class="line"><span class="keyword">if</span> (!<span class="built_in">Promise</span>.prototype.finanlly) &#123;</span><br><span class="line">  <span class="built_in">Promise</span>.prototype.finally = promiseFinallyShim</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//index.js</span></span><br><span class="line"><span class="keyword">import</span> promiseFinallyShim <span class="keyword">from</span> <span class="string">'@webSrc/utils/promiseFinallyShim'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//引入后能正常使用</span></span><br><span class="line">(<span class="keyword">new</span> <span class="built_in">Promise</span>()).finally</span><br></pre></td></tr></table></figure>
@@ -426,7 +499,7 @@
 <li>flex-start</li>
 <li>flex-end</li>
 <li>center</li>
-<li>baseline 项目第一行文字的基线对齐<br><img src="/2020/05/11/flex%E5%B8%83%E5%B1%80/baseline.jpg" alt="baseline"><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.flex-box</span> &#123;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">500px</span>;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#000</span>;</span><br><span class="line">    <span class="attribute">display</span>: flex;</span><br><span class="line">    <span class="attribute">flex-direction</span>: row;</span><br><span class="line">    <span class="attribute">justify-content</span>: space-around;</span><br><span class="line">    <span class="attribute">align-items</span>: baseline;</span><br><span class="line">    <span class="attribute">flex-wrap</span>: wrap;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.child-box</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: inline-block;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#333</span>;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#fff</span>;</span><br><span class="line">    <span class="attribute">text-align</span>: center;</span><br><span class="line">    <span class="attribute">line-height</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">20px</span>;</span><br><span class="line">    <span class="attribute">box-sizing</span>: border-box;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li>baseline 项目第一行文字的基线对齐<br><img src="/img/preloader.gif" data-original="/2020/05/11/flex%E5%B8%83%E5%B1%80/baseline.jpg" alt="baseline"><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.flex-box</span> &#123;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">500px</span>;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#000</span>;</span><br><span class="line">    <span class="attribute">display</span>: flex;</span><br><span class="line">    <span class="attribute">flex-direction</span>: row;</span><br><span class="line">    <span class="attribute">justify-content</span>: space-around;</span><br><span class="line">    <span class="attribute">align-items</span>: baseline;</span><br><span class="line">    <span class="attribute">flex-wrap</span>: wrap;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.child-box</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: inline-block;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#333</span>;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#fff</span>;</span><br><span class="line">    <span class="attribute">text-align</span>: center;</span><br><span class="line">    <span class="attribute">line-height</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">20px</span>;</span><br><span class="line">    <span class="attribute">box-sizing</span>: border-box;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"flex-box"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"child-box"</span>&gt;</span>1<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"child-box"</span>&gt;</span>2<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"child-box"</span> <span class="attr">style</span>=<span class="string">"padding-top:20px"</span>&gt;</span>3<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"child-box"</span>&gt;</span>4<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
 <li>stretch 如果项目未设置高度或设为auto，将占满整个容器的高度</li>
 </ul>
@@ -456,7 +529,7 @@
 <p>定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大</p>
 </blockquote>
 <p>如果所有项目的flex-grow属性都为1，则它们将等分剩余空间（如果有的话）。如果一个项目的flex-grow属性为2，其他项目都为1，则前者占据的剩余空间将比其他项多一倍。</p>
-<p><img src="/2020/05/11/flex%E5%B8%83%E5%B1%80/flex-grow.jpg" alt="flex-grow"></p>
+<p><img src="/img/preloader.gif" data-original="/2020/05/11/flex%E5%B8%83%E5%B1%80/flex-grow.jpg" alt="flex-grow"></p>
 <h3 id="flex-shrink"><a href="#flex-shrink" class="headerlink" title="flex-shrink"></a>flex-shrink</h3><blockquote>
 <p>定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小<br>如果所有项目的flex-shrink属性都为1，当空间不足时，都将等比例缩小。如果一个项目的flex-shrink属性为0，其他项目都为1，则空间不足时，前者不缩小。</p>
 </blockquote>
@@ -464,7 +537,7 @@
 <h3 id="flex-basis"><a href="#flex-basis" class="headerlink" title="flex-basis"></a>flex-basis</h3><blockquote>
 <p>定义了在分配多余空间之前，项目占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为<code>auto</code>，即项目的本来大小。</p>
 </blockquote>
-<p><img src="/2020/05/11/flex%E5%B8%83%E5%B1%80/flex-basis.jpg" alt="flex-basis"></p>
+<p><img src="/img/preloader.gif" data-original="/2020/05/11/flex%E5%B8%83%E5%B1%80/flex-basis.jpg" alt="flex-basis"></p>
 <h3 id="flex"><a href="#flex" class="headerlink" title="flex"></a>flex</h3><p>是flex-grow, flex-shrink 和 flex-basis的简写，默认值为<code>0 1 auto</code>。后两个属性可选。建议优先使用这个属性。</p>
 <ul>
 <li>(默认) <code>0 1 auto</code></li>
@@ -633,9 +706,9 @@
 <li>display的值为table-cell、table-caption或inline-block</li>
 <li>position的值为fixed或absolute</li>
 </ul>
-<h2 id="常见用途"><a href="#常见用途" class="headerlink" title="常见用途"></a>常见用途</h2><h3 id="闭合浮动"><a href="#闭合浮动" class="headerlink" title="闭合浮动"></a>闭合浮动</h3><p>由于BFC可以包含浮动元素，所以当一个元素容器内部存在浮动元素时，为了防止容器高度“坍塌”，可以对容器创建BFC。<br><img src="/2020/05/11/BFC/bfc-float-before.jpg" alt="bfc-float-before"><br>创建BFC后：<br><img src="/2020/05/11/BFC/bfc-float-after.jpg" alt="bfc-float-after"><br>这里主要用到 <strong>特点1</strong>。</p>
-<h2 id="防止margin重叠"><a href="#防止margin重叠" class="headerlink" title="防止margin重叠"></a>防止margin重叠</h2><p>同一BFC内的相邻元素上下margin会融合（特点3）。<br><img src="/2020/05/11/BFC/bfc-margin-before.jpg" alt="bfc-margin-before"><br>创建BFC后：<br><img src="/2020/05/11/BFC/bfc-margin-after.jpg" alt="bfc-margin-after"><br>这里主要用到 <strong>特点4</strong>，通过给<code>ddd</code>的父节点添加<code>overflow:auto</code>创建BFC后，<code>ddd</code>和<code>ccc</code>已经不在同一个BFC中。</p>
-<h2 id="自适应流体布局"><a href="#自适应流体布局" class="headerlink" title="自适应流体布局"></a>自适应流体布局</h2><p><img src="/2020/05/11/BFC/bfc-flow-before.jpg" alt="bfc-flow-before"><br>创建BFC后：<br><img src="/2020/05/11/BFC/bfc-flow-after.jpg" alt="bfc-flow-after"><br>这里主要用到 <strong>特点2</strong>，给元素添加<code>overflow:auto</code>创建了新的BFC。</p>
+<h2 id="常见用途"><a href="#常见用途" class="headerlink" title="常见用途"></a>常见用途</h2><h3 id="闭合浮动"><a href="#闭合浮动" class="headerlink" title="闭合浮动"></a>闭合浮动</h3><p>由于BFC可以包含浮动元素，所以当一个元素容器内部存在浮动元素时，为了防止容器高度“坍塌”，可以对容器创建BFC。<br><img src="/img/preloader.gif" data-original="/2020/05/11/BFC/bfc-float-before.jpg" alt="bfc-float-before"><br>创建BFC后：<br><img src="/img/preloader.gif" data-original="/2020/05/11/BFC/bfc-float-after.jpg" alt="bfc-float-after"><br>这里主要用到 <strong>特点1</strong>。</p>
+<h2 id="防止margin重叠"><a href="#防止margin重叠" class="headerlink" title="防止margin重叠"></a>防止margin重叠</h2><p>同一BFC内的相邻元素上下margin会融合（特点3）。<br><img src="/img/preloader.gif" data-original="/2020/05/11/BFC/bfc-margin-before.jpg" alt="bfc-margin-before"><br>创建BFC后：<br><img src="/img/preloader.gif" data-original="/2020/05/11/BFC/bfc-margin-after.jpg" alt="bfc-margin-after"><br>这里主要用到 <strong>特点4</strong>，通过给<code>ddd</code>的父节点添加<code>overflow:auto</code>创建BFC后，<code>ddd</code>和<code>ccc</code>已经不在同一个BFC中。</p>
+<h2 id="自适应流体布局"><a href="#自适应流体布局" class="headerlink" title="自适应流体布局"></a>自适应流体布局</h2><p><img src="/img/preloader.gif" data-original="/2020/05/11/BFC/bfc-flow-before.jpg" alt="bfc-flow-before"><br>创建BFC后：<br><img src="/img/preloader.gif" data-original="/2020/05/11/BFC/bfc-flow-after.jpg" alt="bfc-flow-after"><br>这里主要用到 <strong>特点2</strong>，给元素添加<code>overflow:auto</code>创建了新的BFC。</p>
 
       
 
@@ -705,7 +778,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>假设现在有这样一个需求，将需要将<code>´${a}\n${b}´</code> （a=1，b=2）处理成 <code>1\n2</code>。</p>
-<p>如果不做任何处理，模板字符串将输出：<br><img src="/2020/05/11/String-raw%E5%A4%84%E7%90%86%E6%A8%A1%E6%9D%BF%E5%AD%97%E7%AC%A6%E4%B8%B2/output.jpg" alt="output"></p>
+<p>如果不做任何处理，模板字符串将输出：<br><img src="/img/preloader.gif" data-original="/2020/05/11/String-raw%E5%A4%84%E7%90%86%E6%A8%A1%E6%9D%BF%E5%AD%97%E7%AC%A6%E4%B8%B2/output.jpg" alt="output"></p>
 <p>解决这个问题有两个办法：</p>
 <ul>
 <li><p>模板字符串中增加转义符：</p>
@@ -861,8 +934,8 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>在hexo插入本地图片的方法网上很多，不再赘述，可以看这个：<br><a href="https://www.jianshu.com/p/f72aaad7b852" target="_blank" rel="noopener">HEXO插入图片（详细版）</a></p>
-<p>但是昨天尝试往markdown里面插入一张名称<code>http-server.png</code>的图片时一直失败，查看控制台的log发现没有这张图片的process log（正常应该会出现<code>update link as xxx</code>），生成html里面img src也是原来的，没有替换。<br><img src="/2020/05/06/hexo-asset-image-link-fail/console.jpg" alt="console里面没有对应的process log"></p>
-<p>于是查看了<code>node_modules/hexo-assets-image/index.js</code>，发现里面判断src的正则有问题。这里原意应该是不替换http链接，但是错误把名称里面带有<code>http</code>的本地链接也过滤了。<br><img src="/2020/05/06/hexo-asset-image-link-fail/wrong-reg.jpg" alt="hexo-assets-image原代码"></p>
+<p>但是昨天尝试往markdown里面插入一张名称<code>http-server.png</code>的图片时一直失败，查看控制台的log发现没有这张图片的process log（正常应该会出现<code>update link as xxx</code>），生成html里面img src也是原来的，没有替换。<br><img src="/img/preloader.gif" data-original="/2020/05/06/hexo-asset-image-link-fail/console.jpg" alt="console里面没有对应的process log"></p>
+<p>于是查看了<code>node_modules/hexo-assets-image/index.js</code>，发现里面判断src的正则有问题。这里原意应该是不替换http链接，但是错误把名称里面带有<code>http</code>的本地链接也过滤了。<br><img src="/img/preloader.gif" data-original="/2020/05/06/hexo-asset-image-link-fail/wrong-reg.jpg" alt="hexo-assets-image原代码"></p>
 <p>简单修改成：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(!<span class="regexp">/^http(s?)\/\/.*/</span>.test(src) &amp;&amp; !<span class="regexp">/^\s*\//</span>.test(src)) &#123;</span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>重新<code>hexo generate</code>生成后解决。</p>
@@ -890,84 +963,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2020/05/06/hexo-asset-image-link-fail/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-2020-05-06-python-simple-http-server" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/06/2020-05-06-python-simple-http-server/">利用python在本地快速搭建一个http server</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/06/2020-05-06-python-simple-http-server/" class="archive-article-date">
-  	<time datetime="2020-05-05T16:51:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>假设需要在本地搭建一个http server，根目录为/home/web/site</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /home/web/site</span><br><span class="line">python -m SimpleHTTPServer [port] <span class="comment">#默认是8000端口</span></span><br></pre></td></tr></table></figure>
-
-<p>执行后在本地创建了一个简易的http server：<br><img src="/2020/05/06/2020-05-06-python-simple-http-server/http-server.png" alt="http-server"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">干货储物柜</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">http</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/06/2020-05-06-python-simple-http-server/">展开全文 >></a>
         </p>
       
 
@@ -1077,14 +1072,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">干货储物柜</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Yii</a>
               </li>
              
@@ -1093,11 +1080,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">css</a>
+                <a href="javascript:void(0)" class="js-tag color1">干货储物柜</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">html</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1109,14 +1096,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">HTML</a>
               </li>
              
@@ -1125,7 +1104,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">网络安全</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">css</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">html</a>
               </li>
             
             <div class="clearfix"></div>
@@ -1250,5 +1245,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
 
 </div>
   </div>
-</body>
+<script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=i;var o=n.imageLazyLoadSetting.isSPA,l=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){console.log("aaaaa"),o&&(l=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,e,a=0;a<l.length;a++)t=l[a],0<=(e=t.getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(n.innerHeight||document.documentElement.clientHeight)&&function(){var t,e,n,o,i=l[a];t=i,e=function(){l=l.filter(function(t){return i!==t})},n=new Image,o=t.getAttribute("data-original"),n.onload=function(){t.src=o,e&&e()},n.src=o}()}i(),n.addEventListener("scroll",function(){var t,e;t=i,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)},!0)}(this);</script></body>
 </html>

@@ -15,15 +15,15 @@
 <meta property="og:site_name" content="挖坑小能手的填坑日记">
 <meta property="og:description" content="前几天在朋友圈看到看到一个JavaScript中对象和数组“+”运算的问题，发现自己不能完全理解里面的答案，来查漏补缺一下。   TOC{:toc}  Question:问题包含四个：  [] + [] &#x3D; ? [] + {} &#x3D; ? {} + [] &#x3D; ? {} + {} &#x3D; ?  chrome下表现 [] + [] &#x3D; “” [] + {} &#x3D; “{object Object}” {} +">
 <meta property="og:locale" content="zh">
-<meta property="og:image" content="http://dennisleung.github.io/2016/11/06/2016-11-06-plus_in_JavaScript/getValue_definition_in_ecma.png">
-<meta property="og:image" content="http://dennisleung.github.io/2016/11/06/2016-11-06-plus_in_JavaScript/getPrimitive_definition_in_ecma.png">
+<meta property="og:image" content="http://dennisleung.github.io/img/preloader.gif">
+<meta property="og:image" content="http://dennisleung.github.io/img/preloader.gif">
 <meta property="article:published_time" content="2016-11-06T14:22:00.000Z">
 <meta property="article:modified_time" content="2020-05-11T03:19:02.346Z">
 <meta property="article:author" content="Dennis Leung">
-<meta property="article:tag" content="JavaScript">
 <meta property="article:tag" content="干货储物柜">
+<meta property="article:tag" content="JavaScript">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://dennisleung.github.io/2016/11/06/2016-11-06-plus_in_JavaScript/getValue_definition_in_ecma.png">
+<meta name="twitter:image" content="http://dennisleung.github.io/img/preloader.gif">
   
   
     <link rel="icon" href="/favicon.png">
@@ -191,8 +191,8 @@
 <li>{} + {} = NaN</li>
 </ul>
 <h4 id="Node-下表现"><a href="#Node-下表现" class="headerlink" title="Node 下表现"></a>Node 下表现</h4><p>与 chrome表现一致</p>
-<h4 id="ECMA中对“-”的描述："><a href="#ECMA中对“-”的描述：" class="headerlink" title="ECMA中对“+”的描述："></a>ECMA中对“+”的描述：</h4><p><img src="/2016/11/06/2016-11-06-plus_in_JavaScript/getValue_definition_in_ecma.png" alt="ECMA对+运算符的描述"></p>
-<p>参考了 ecma 中对 <code>getValue</code> 的描述，里面有一句 <code>then let get be the [[Get]] internal method of base</code> 看得不太懂，找不到<code>get</code>这个函数变量是哪来的，不过在这个场景下，我们可以判断[]和{}调用 getValue 返回的结果分别是 []和{}。<br>接下来到 <code>getPrimitive</code> 方法， ECMA中的描述：<br><img src="/2016/11/06/2016-11-06-plus_in_JavaScript/getPrimitive_definition_in_ecma.png" alt="ECMA对getPrimitive的描述"></p>
+<h4 id="ECMA中对“-”的描述："><a href="#ECMA中对“-”的描述：" class="headerlink" title="ECMA中对“+”的描述："></a>ECMA中对“+”的描述：</h4><p><img src="/img/preloader.gif" data-original="/2016/11/06/2016-11-06-plus_in_JavaScript/getValue_definition_in_ecma.png" alt="ECMA对+运算符的描述"></p>
+<p>参考了 ecma 中对 <code>getValue</code> 的描述，里面有一句 <code>then let get be the [[Get]] internal method of base</code> 看得不太懂，找不到<code>get</code>这个函数变量是哪来的，不过在这个场景下，我们可以判断[]和{}调用 getValue 返回的结果分别是 []和{}。<br>接下来到 <code>getPrimitive</code> 方法， ECMA中的描述：<br><img src="/img/preloader.gif" data-original="/2016/11/06/2016-11-06-plus_in_JavaScript/getPrimitive_definition_in_ecma.png" alt="ECMA对getPrimitive的描述"></p>
 <p>另外在网上找到了一个小诀窍：<strong>当+作用在一个是数字一个是字符串的情况下，+作为连接运算符</strong>。</p>
 <h4 id="分析："><a href="#分析：" class="headerlink" title="分析："></a>分析：</h4><p><strong>使用+运算符进行运算时，是没有指定转换方式的，JavaScript 内部会默认进行 toNumber 转换。</strong>（划重点）</p>
 <ul>
@@ -231,11 +231,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">干货储物柜</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">干货储物柜</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
         		</li>
       		
 		</ul>
@@ -378,14 +378,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">干货储物柜</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Yii</a>
               </li>
              
@@ -394,11 +386,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">css</a>
+                <a href="javascript:void(0)" class="js-tag color1">干货储物柜</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">html</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -410,14 +402,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">HTML</a>
               </li>
              
@@ -426,7 +410,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">网络安全</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">css</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">html</a>
               </li>
             
             <div class="clearfix"></div>
@@ -551,5 +551,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
 
 </div>
   </div>
-</body>
+<script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=i;var o=n.imageLazyLoadSetting.isSPA,l=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){console.log("aaaaa"),o&&(l=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,e,a=0;a<l.length;a++)t=l[a],0<=(e=t.getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(n.innerHeight||document.documentElement.clientHeight)&&function(){var t,e,n,o,i=l[a];t=i,e=function(){l=l.filter(function(t){return i!==t})},n=new Image,o=t.getAttribute("data-original"),n.onload=function(){t.src=o,e&&e()},n.src=o}()}i(),n.addEventListener("scroll",function(){var t,e;t=i,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)},!0)}(this);</script></body>
 </html>

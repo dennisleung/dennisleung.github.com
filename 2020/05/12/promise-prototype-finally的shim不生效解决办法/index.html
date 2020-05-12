@@ -15,13 +15,13 @@
 <meta property="og:site_name" content="挖坑小能手的填坑日记">
 <meta property="og:description" content="今天被Promise.finanlly的兼容性坑了一波，记录一下。。  先看Promise.finally的兼容性，其实和Promise.all、Promise.race不是同期的东西。。 用户反馈在微信公众号上无法输入，自己用iOS10的设备试了一下确实能复现，查看控制台发现提示undefined is not a function，看了下log最新的改动是增加了Promise.finanll">
 <meta property="og:locale" content="zh">
-<meta property="og:image" content="http://dennisleung.github.io/2020/05/12/promise-prototype-finally%E7%9A%84shim%E4%B8%8D%E7%94%9F%E6%95%88%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/promise_finanlly.jpg">
+<meta property="og:image" content="http://dennisleung.github.io/img/preloader.gif">
 <meta property="article:published_time" content="2020-05-12T15:45:11.000Z">
 <meta property="article:modified_time" content="2020-05-12T16:04:16.489Z">
 <meta property="article:author" content="Dennis Leung">
 <meta property="article:tag" content="javascript">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://dennisleung.github.io/2020/05/12/promise-prototype-finally%E7%9A%84shim%E4%B8%8D%E7%94%9F%E6%95%88%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/promise_finanlly.jpg">
+<meta name="twitter:image" content="http://dennisleung.github.io/img/preloader.gif">
   
   
     <link rel="icon" href="/favicon.png">
@@ -166,7 +166,7 @@
         <blockquote>
 <p>今天被Promise.finanlly的兼容性坑了一波，记录一下。。</p>
 </blockquote>
-<p>先看<code>Promise.finally</code>的兼容性，其实和<code>Promise.all</code>、<code>Promise.race</code>不是同期的东西。。<br><img src="/2020/05/12/promise-prototype-finally%E7%9A%84shim%E4%B8%8D%E7%94%9F%E6%95%88%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/promise_finanlly.jpg" alt="Promise.finanlly兼容性"></p>
+<p>先看<code>Promise.finally</code>的兼容性，其实和<code>Promise.all</code>、<code>Promise.race</code>不是同期的东西。。<br><img src="/img/preloader.gif" data-original="/2020/05/12/promise-prototype-finally%E7%9A%84shim%E4%B8%8D%E7%94%9F%E6%95%88%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/promise_finanlly.jpg" alt="Promise.finanlly兼容性"></p>
 <p>用户反馈在微信公众号上无法输入，自己用iOS10的设备试了一下确实能复现，查看控制台发现提示<code>undefined is not a function</code>，看了下log最新的改动是增加了Promise.finanlly，再解决caniuse的兼容性报告，引入<code>promise.prototype.finally</code>。<br>然而，还是报一样的错。。。= =</p>
 <p>翻了下这个polyfill包的issue，唯三的issue都是开着的，里面还真找到了一样的反馈，创建与2017年8月。。。<br><a href="https://github.com/es-shims/Promise.prototype.finally/issues/6" target="_blank" rel="noopener">shim() not shimming on karma/phantomJS</a><br>参照里面的解决方法新建了一个模块：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//@webSrc/utils/promiseFinallyShim.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; shim &#125; <span class="keyword">from</span> <span class="string">'promise.prototype.finally'</span></span><br><span class="line"><span class="keyword">const</span> promiseFinallyShim = shim()</span><br><span class="line"><span class="keyword">if</span> (!<span class="built_in">Promise</span>.prototype.finanlly) &#123;</span><br><span class="line">  <span class="built_in">Promise</span>.prototype.finally = promiseFinallyShim</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//index.js</span></span><br><span class="line"><span class="keyword">import</span> promiseFinallyShim <span class="keyword">from</span> <span class="string">'@webSrc/utils/promiseFinallyShim'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//引入后能正常使用</span></span><br><span class="line">(<span class="keyword">new</span> <span class="built_in">Promise</span>()).finally</span><br></pre></td></tr></table></figure>
@@ -200,6 +200,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2020/05/13/hexo-lazyload-image%E4%B8%8D%E7%94%9F%E6%95%88/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          hexo-lazyload-image不生效
+        
+      </div>
+    </a>
   
   
     <a href="/2020/05/12/%E8%AE%A9fetch%E6%94%AF%E6%8C%81timeout/" id="article-nav-older" class="article-nav-link-wrap">
@@ -321,14 +330,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">干货储物柜</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Yii</a>
               </li>
              
@@ -337,11 +338,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">css</a>
+                <a href="javascript:void(0)" class="js-tag color1">干货储物柜</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">html</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -353,14 +354,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">HTML</a>
               </li>
              
@@ -369,7 +362,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">网络安全</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">css</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">html</a>
               </li>
             
             <div class="clearfix"></div>
@@ -494,5 +503,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
 
 </div>
   </div>
-</body>
+<script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=i;var o=n.imageLazyLoadSetting.isSPA,l=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){console.log("aaaaa"),o&&(l=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,e,a=0;a<l.length;a++)t=l[a],0<=(e=t.getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(n.innerHeight||document.documentElement.clientHeight)&&function(){var t,e,n,o,i=l[a];t=i,e=function(){l=l.filter(function(t){return i!==t})},n=new Image,o=t.getAttribute("data-original"),n.onload=function(){t.src=o,e&&e()},n.src=o}()}i(),n.addEventListener("scroll",function(){var t,e;t=i,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)},!0)}(this);</script></body>
 </html>

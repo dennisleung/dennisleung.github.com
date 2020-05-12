@@ -15,19 +15,19 @@
 <meta property="og:site_name" content="挖坑小能手的填坑日记">
 <meta property="og:description" content="这篇笔记主要是说说对这篇文章 BFC的理解和应用 中例子的理解  概念BFC全称为Block Formatting Context，即“块级格式化上下文”。 特点 BFC可以包含浮动元素（闭合浮动） BFC所确定的区域不会与外部浮动元素发生重叠 位于同一BFC下的相邻块级子元素在垂直方向上会发生margin重叠 位于不同BFC下的相邻元素之间不会发生margin重叠  如何触发若某个元素满足以下">
 <meta property="og:locale" content="zh">
-<meta property="og:image" content="http://dennisleung.github.io/2020/05/11/BFC/bfc-float-before.jpg">
-<meta property="og:image" content="http://dennisleung.github.io/2020/05/11/BFC/bfc-float-after.jpg">
-<meta property="og:image" content="http://dennisleung.github.io/2020/05/11/BFC/bfc-margin-before.jpg">
-<meta property="og:image" content="http://dennisleung.github.io/2020/05/11/BFC/bfc-margin-after.jpg">
-<meta property="og:image" content="http://dennisleung.github.io/2020/05/11/BFC/bfc-flow-before.jpg">
-<meta property="og:image" content="http://dennisleung.github.io/2020/05/11/BFC/bfc-flow-after.jpg">
+<meta property="og:image" content="http://dennisleung.github.io/img/preloader.gif">
+<meta property="og:image" content="http://dennisleung.github.io/img/preloader.gif">
+<meta property="og:image" content="http://dennisleung.github.io/img/preloader.gif">
+<meta property="og:image" content="http://dennisleung.github.io/img/preloader.gif">
+<meta property="og:image" content="http://dennisleung.github.io/img/preloader.gif">
+<meta property="og:image" content="http://dennisleung.github.io/img/preloader.gif">
 <meta property="article:published_time" content="2020-05-11T15:39:42.000Z">
 <meta property="article:modified_time" content="2020-05-11T15:41:30.989Z">
 <meta property="article:author" content="Dennis Leung">
 <meta property="article:tag" content="HTML">
 <meta property="article:tag" content="CSS">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://dennisleung.github.io/2020/05/11/BFC/bfc-float-before.jpg">
+<meta name="twitter:image" content="http://dennisleung.github.io/img/preloader.gif">
   
   
     <link rel="icon" href="/favicon.png">
@@ -187,9 +187,9 @@
 <li>display的值为table-cell、table-caption或inline-block</li>
 <li>position的值为fixed或absolute</li>
 </ul>
-<h2 id="常见用途"><a href="#常见用途" class="headerlink" title="常见用途"></a>常见用途</h2><h3 id="闭合浮动"><a href="#闭合浮动" class="headerlink" title="闭合浮动"></a>闭合浮动</h3><p>由于BFC可以包含浮动元素，所以当一个元素容器内部存在浮动元素时，为了防止容器高度“坍塌”，可以对容器创建BFC。<br><img src="/2020/05/11/BFC/bfc-float-before.jpg" alt="bfc-float-before"><br>创建BFC后：<br><img src="/2020/05/11/BFC/bfc-float-after.jpg" alt="bfc-float-after"><br>这里主要用到 <strong>特点1</strong>。</p>
-<h2 id="防止margin重叠"><a href="#防止margin重叠" class="headerlink" title="防止margin重叠"></a>防止margin重叠</h2><p>同一BFC内的相邻元素上下margin会融合（特点3）。<br><img src="/2020/05/11/BFC/bfc-margin-before.jpg" alt="bfc-margin-before"><br>创建BFC后：<br><img src="/2020/05/11/BFC/bfc-margin-after.jpg" alt="bfc-margin-after"><br>这里主要用到 <strong>特点4</strong>，通过给<code>ddd</code>的父节点添加<code>overflow:auto</code>创建BFC后，<code>ddd</code>和<code>ccc</code>已经不在同一个BFC中。</p>
-<h2 id="自适应流体布局"><a href="#自适应流体布局" class="headerlink" title="自适应流体布局"></a>自适应流体布局</h2><p><img src="/2020/05/11/BFC/bfc-flow-before.jpg" alt="bfc-flow-before"><br>创建BFC后：<br><img src="/2020/05/11/BFC/bfc-flow-after.jpg" alt="bfc-flow-after"><br>这里主要用到 <strong>特点2</strong>，给元素添加<code>overflow:auto</code>创建了新的BFC。</p>
+<h2 id="常见用途"><a href="#常见用途" class="headerlink" title="常见用途"></a>常见用途</h2><h3 id="闭合浮动"><a href="#闭合浮动" class="headerlink" title="闭合浮动"></a>闭合浮动</h3><p>由于BFC可以包含浮动元素，所以当一个元素容器内部存在浮动元素时，为了防止容器高度“坍塌”，可以对容器创建BFC。<br><img src="/img/preloader.gif" data-original="/2020/05/11/BFC/bfc-float-before.jpg" alt="bfc-float-before"><br>创建BFC后：<br><img src="/img/preloader.gif" data-original="/2020/05/11/BFC/bfc-float-after.jpg" alt="bfc-float-after"><br>这里主要用到 <strong>特点1</strong>。</p>
+<h2 id="防止margin重叠"><a href="#防止margin重叠" class="headerlink" title="防止margin重叠"></a>防止margin重叠</h2><p>同一BFC内的相邻元素上下margin会融合（特点3）。<br><img src="/img/preloader.gif" data-original="/2020/05/11/BFC/bfc-margin-before.jpg" alt="bfc-margin-before"><br>创建BFC后：<br><img src="/img/preloader.gif" data-original="/2020/05/11/BFC/bfc-margin-after.jpg" alt="bfc-margin-after"><br>这里主要用到 <strong>特点4</strong>，通过给<code>ddd</code>的父节点添加<code>overflow:auto</code>创建BFC后，<code>ddd</code>和<code>ccc</code>已经不在同一个BFC中。</p>
+<h2 id="自适应流体布局"><a href="#自适应流体布局" class="headerlink" title="自适应流体布局"></a>自适应流体布局</h2><p><img src="/img/preloader.gif" data-original="/2020/05/11/BFC/bfc-flow-before.jpg" alt="bfc-flow-before"><br>创建BFC后：<br><img src="/img/preloader.gif" data-original="/2020/05/11/BFC/bfc-flow-after.jpg" alt="bfc-flow-after"><br>这里主要用到 <strong>特点2</strong>，给元素添加<code>overflow:auto</code>创建了新的BFC。</p>
 
       
 
@@ -355,14 +355,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">干货储物柜</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Yii</a>
               </li>
              
@@ -371,11 +363,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">css</a>
+                <a href="javascript:void(0)" class="js-tag color1">干货储物柜</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">html</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -387,14 +379,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">HTML</a>
               </li>
              
@@ -403,7 +387,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">网络安全</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">css</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">html</a>
               </li>
             
             <div class="clearfix"></div>
@@ -528,5 +528,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
 
 </div>
   </div>
-</body>
+<script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=i;var o=n.imageLazyLoadSetting.isSPA,l=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){console.log("aaaaa"),o&&(l=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,e,a=0;a<l.length;a++)t=l[a],0<=(e=t.getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(n.innerHeight||document.documentElement.clientHeight)&&function(){var t,e,n,o,i=l[a];t=i,e=function(){l=l.filter(function(t){return i!==t})},n=new Image,o=t.getAttribute("data-original"),n.onload=function(){t.src=o,e&&e()},n.src=o}()}i(),n.addEventListener("scroll",function(){var t,e;t=i,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)},!0)}(this);</script></body>
 </html>
