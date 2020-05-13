@@ -8,15 +8,15 @@
   <link rel="dns-prefetch" href="http://dennisleung.github.io">
   <title>&#34;为什么我插入body的script标签不执行?&#34; | 挖坑小能手的填坑日记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="今天发现某些情况下append进body的script标签不一定执行，记录一下。下面的例子在FF和Chrome上均表现  demo11234const container &#x3D; document.createElement(&quot;div&quot;)container.innerHTML &#x3D; &#39;&lt;script type&#x3D;&quot;text&#x2F;javascript&quot;&gt;alert(&quot;aaa&quot;)&lt;&#x2F;scrip">
+  <meta name="description" content="今天发现某些情况下append进body的script标签不一定执行，记录一下。下面的例子在FF和Chrome上均表现一致  demo11234const container &#x3D; document.createElement(&quot;div&quot;)container.innerHTML &#x3D; &#39;&lt;script type&#x3D;&quot;text&#x2F;javascript&quot;&gt;alert(&quot;aaa&quot;)&lt;&#x2F;scr">
 <meta property="og:type" content="article">
 <meta property="og:title" content="&quot;为什么我插入body的script标签不执行?&quot;">
 <meta property="og:url" content="http://dennisleung.github.io/2020/05/12/%E6%8F%92%E5%85%A5body%E7%9A%84script%E6%A0%87%E7%AD%BE%E4%B8%8D%E6%89%A7%E8%A1%8C/index.html">
 <meta property="og:site_name" content="挖坑小能手的填坑日记">
-<meta property="og:description" content="今天发现某些情况下append进body的script标签不一定执行，记录一下。下面的例子在FF和Chrome上均表现  demo11234const container &#x3D; document.createElement(&quot;div&quot;)container.innerHTML &#x3D; &#39;&lt;script type&#x3D;&quot;text&#x2F;javascript&quot;&gt;alert(&quot;aaa&quot;)&lt;&#x2F;scrip">
+<meta property="og:description" content="今天发现某些情况下append进body的script标签不一定执行，记录一下。下面的例子在FF和Chrome上均表现一致  demo11234const container &#x3D; document.createElement(&quot;div&quot;)container.innerHTML &#x3D; &#39;&lt;script type&#x3D;&quot;text&#x2F;javascript&quot;&gt;alert(&quot;aaa&quot;)&lt;&#x2F;scr">
 <meta property="og:locale" content="zh">
 <meta property="article:published_time" content="2020-05-12T15:15:44.000Z">
-<meta property="article:modified_time" content="2020-05-12T15:30:47.953Z">
+<meta property="article:modified_time" content="2020-05-13T00:00:51.158Z">
 <meta property="article:author" content="Dennis Leung">
 <meta property="article:tag" content="javascript">
 <meta name="twitter:card" content="summary">
@@ -162,7 +162,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <blockquote>
-<p>今天发现某些情况下append进body的script标签不一定执行，记录一下。<br>下面的例子在FF和Chrome上均表现</p>
+<p>今天发现某些情况下append进body的script标签不一定执行，记录一下。<br>下面的例子在FF和Chrome上均表现一致</p>
 </blockquote>
 <h2 id="demo1"><a href="#demo1" class="headerlink" title="demo1"></a>demo1</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> container = <span class="built_in">document</span>.createElement(<span class="string">"div"</span>)</span><br><span class="line">container.innerHTML = <span class="string">'&lt;script type="text/javascript"&gt;alert("aaa")&lt;/script&gt;'</span></span><br><span class="line"><span class="built_in">document</span>.body.appendChild(container)</span><br><span class="line"><span class="comment">//不弹出任何东西</span></span><br></pre></td></tr></table></figure>
 
@@ -215,7 +215,7 @@
   
   
     <a href="/2020/05/11/flex%E5%B8%83%E5%B1%80/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">flex布局</div>
+      <div class="article-nav-title">flex布局学习笔记</div>
       <i class="icon-circle-right"></i>
     </a>
   
