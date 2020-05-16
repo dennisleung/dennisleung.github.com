@@ -6,16 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://dennisleung.github.io">
-  <title>Archives: 2016/11 | 挖坑小能手的填坑日记</title>
+  <title>找出旧数组变成新数组的操作 | 挖坑小能手的填坑日记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前端开发攻城狮">
-<meta property="og:type" content="website">
-<meta property="og:title" content="挖坑小能手的填坑日记">
-<meta property="og:url" content="http://dennisleung.github.io/archives/2016/11/index.html">
+  <meta name="description" content="面试时候的一道算法题。给出新旧两个数组，找出旧数组演变成新数组的一个可行的operations。operations可能包含的操作有remove&#x2F;insert&#x2F;swap三种。 思路：先通过remove&#x2F;insert使得旧数组和新数组有一样的元素，然后再通过swap演变成和新数组一样。 给出brute force的解法： 123456789101112131415161718192021222324">
+<meta property="og:type" content="article">
+<meta property="og:title" content="找出旧数组变成新数组的操作">
+<meta property="og:url" content="http://dennisleung.github.io/2020/05/16/%E6%89%BE%E5%87%BA%E6%97%A7%E6%95%B0%E7%BB%84%E5%8F%98%E6%88%90%E6%96%B0%E6%95%B0%E7%BB%84%E7%9A%84%E6%93%8D%E4%BD%9C/index.html">
 <meta property="og:site_name" content="挖坑小能手的填坑日记">
-<meta property="og:description" content="前端开发攻城狮">
+<meta property="og:description" content="面试时候的一道算法题。给出新旧两个数组，找出旧数组演变成新数组的一个可行的operations。operations可能包含的操作有remove&#x2F;insert&#x2F;swap三种。 思路：先通过remove&#x2F;insert使得旧数组和新数组有一样的元素，然后再通过swap演变成和新数组一样。 给出brute force的解法： 123456789101112131415161718192021222324">
 <meta property="og:locale" content="zh">
+<meta property="article:published_time" content="2020-05-16T07:46:43.000Z">
+<meta property="article:modified_time" content="2020-05-16T07:52:32.816Z">
 <meta property="article:author" content="Dennis Leung">
+<meta property="article:tag" content="算法">
 <meta name="twitter:card" content="summary">
   
   
@@ -138,64 +141,98 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-找出旧数组变成新数组的操作" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/11/06/2016-11-06-plus_in_JavaScript/" class="archive-article-date">
-  	<time datetime="2016-11-06T14:22:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-11-06</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/11/06/2016-11-06-plus_in_JavaScript/">JavaScript 中的“+”运算</a>
+    <h1 class="article-title" itemprop="name">
+      找出旧数组变成新数组的操作
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2020/05/16/%E6%89%BE%E5%87%BA%E6%97%A7%E6%95%B0%E7%BB%84%E5%8F%98%E6%88%90%E6%96%B0%E6%95%B0%E7%BB%84%E7%9A%84%E6%93%8D%E4%BD%9C/" class="archive-article-date">
+  	<time datetime="2020-05-16T07:46:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>面试时候的一道算法题。<br>给出新旧两个数组，找出旧数组演变成新数组的一个可行的operations。operations可能包含的操作有remove/insert/swap三种。</p>
+<p>思路：先通过remove/insert使得旧数组和新数组有一样的元素，然后再通过swap演变成和新数组一样。</p>
+<p>给出brute force的解法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> findOperations = <span class="function"><span class="keyword">function</span>(<span class="params">oldArr, newArr</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> makeMap = <span class="function"><span class="params">arr</span>=&gt;</span>arr.reduce(<span class="function">(<span class="params">prev, v, i</span>)=&gt;</span>&#123;</span><br><span class="line">        prev.set(v, (prev.get(v) || <span class="number">0</span>) + <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span> prev;</span><br><span class="line">    &#125;, <span class="keyword">new</span> <span class="built_in">Map</span>());</span><br><span class="line">    <span class="keyword">const</span> oldMap = makeMap(oldArr);</span><br><span class="line">    <span class="keyword">const</span> newMap = makeMap(newArr);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> inserts = <span class="keyword">new</span> <span class="built_in">Map</span>();</span><br><span class="line">    <span class="keyword">const</span> removes = <span class="keyword">new</span> <span class="built_in">Map</span>();</span><br><span class="line">    <span class="keyword">const</span> swap = <span class="keyword">new</span> <span class="built_in">Map</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> findInsert = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> [v, count] <span class="keyword">of</span> newMap) &#123;</span><br><span class="line">            <span class="keyword">if</span>(!oldMap.get(v)) &#123;</span><br><span class="line">                inserts.set(v, count)</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(oldMap.get(v)&lt;count) &#123;</span><br><span class="line">                inserts.set(v, count - oldMap.get(v));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> findRemove = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> [v, count] <span class="keyword">of</span> oldMap) &#123;</span><br><span class="line">            <span class="keyword">if</span>(!newMap.get(v)) &#123;</span><br><span class="line">                removes.set(v, count)</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(oldMap.get(v)&gt;newMap.get(v)) &#123;</span><br><span class="line">                removes.set(v, count - newMap.get(v));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    findInsert();</span><br><span class="line">    findRemove();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> operations = [];</span><br><span class="line">    <span class="keyword">const</span> removeOld = <span class="function"><span class="keyword">function</span>(<span class="params">v, count</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i&lt;count; i++) &#123;</span><br><span class="line">            <span class="keyword">const</span> index = oldArr.indexOf(v);<span class="comment">//这里无需再判断-1了</span></span><br><span class="line">            operations.push([<span class="string">"remove"</span>, index]);</span><br><span class="line">            oldArr = oldArr.slice(<span class="number">0</span>, index).concat(oldArr.slice(index+<span class="number">1</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> insertOld = <span class="function"><span class="keyword">function</span>(<span class="params">v, count</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i&lt;count; i++) &#123;</span><br><span class="line">            operations.push([<span class="string">"insert"</span>, oldArr.length, v]);</span><br><span class="line">            oldArr.push(v);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> [v, count] <span class="keyword">of</span> removes) &#123;</span><br><span class="line">        removeOld(v, count);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> [v, count] <span class="keyword">of</span> inserts) &#123;</span><br><span class="line">        insertOld(v, count);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(i&lt;newArr.length) &#123;</span><br><span class="line">        <span class="keyword">if</span>(oldArr[i]==newArr[i]) &#123;</span><br><span class="line">            i++;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">const</span> swapIndex = oldArr.indexOf(newArr[i], i+<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">const</span> tmp = oldArr[i];</span><br><span class="line">        oldArr[i] = oldArr[swapIndex];</span><br><span class="line">        oldArr[swapIndex] = tmp;</span><br><span class="line">        swap.set(i, swapIndex);</span><br><span class="line">        i++;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> [v, swapIndex] <span class="keyword">of</span> swap) &#123;</span><br><span class="line">        operations.push([<span class="string">"swap"</span>, v, swapIndex]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> operations;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//test code:</span></span><br><span class="line"><span class="keyword">const</span> oldArr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"><span class="keyword">const</span> newArr = [<span class="number">4</span>, <span class="number">3</span>];</span><br><span class="line"><span class="built_in">console</span>.log(findOperations(oldArr, newArr));</span><br><span class="line"></span><br><span class="line"><span class="comment">//output</span></span><br><span class="line">[ </span><br><span class="line">  [ <span class="string">'remove'</span>, <span class="number">0</span> ],<span class="comment">//移除第0个元素</span></span><br><span class="line">  [ <span class="string">'remove'</span>, <span class="number">0</span> ],</span><br><span class="line">  [ <span class="string">'insert'</span>, <span class="number">1</span>, <span class="number">4</span> ],<span class="comment">//在索引1的位置插入4</span></span><br><span class="line">  [ <span class="string">'swap'</span>, <span class="number">0</span>, <span class="number">1</span> ] <span class="comment">//交换索引0和索引1的元素</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">干货储物柜</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2020/05/16/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E9%99%90%E5%88%B6%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5-%E4%B8%BA%E4%BB%80%E4%B9%88script%E6%A0%87%E7%AD%BE%E4%B8%8D%E5%8F%97%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5%E9%99%90%E5%88%B6/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">浏览器为什么要限制同源策略?为什么script标签不受同源策略限制?</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
+  
+  <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script>
+  var cloudTieConfig = {
+    url: "http://dennisleung.github.io/2020/05/16/%E6%89%BE%E5%87%BA%E6%97%A7%E6%95%B0%E7%BB%84%E5%8F%98%E6%88%90%E6%96%B0%E6%95%B0%E7%BB%84%E7%9A%84%E6%93%8D%E4%BD%9C/", 
+    sourceId: "找出旧数组变成新数组的操作",
+    productKey: "7b8ed868ba8c43919aec18514f14a586",
+    target: "cloud-tie-wrapper"
+  };
+</script>
+<script src="//img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
   
 
-    
+  
+
+  
 
 
           </div>
@@ -218,8 +255,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
