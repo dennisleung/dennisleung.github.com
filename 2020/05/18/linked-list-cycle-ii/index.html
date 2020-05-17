@@ -6,22 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://dennisleung.github.io">
-  <title>图片加载失败自动使用默认占位图的方法 | 挖坑小能手的填坑日记</title>
+  <title>linked-list-cycle-ii | 挖坑小能手的填坑日记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="加载图片 imgs&#x2F;qrcode1.png 失败的时候，自动展示默认占位图 imgs&#x2F;hot.png 。  方法1：使用伪元素123456789101112131415&lt;style&gt;    .broken-img:before &amp;#123;        content: &quot;&quot;;        display: inline-block;        width: 75px;">
+  <meta name="description" content="原题地址：Linked List Cycle II  解法一12345678910111213&#x2F;&#x2F;brute force，很容易想到var detectCycle &#x3D; function(head) &amp;#123;    const set &#x3D; new Set();    while(head) &amp;#123;        if(set.has(head)) &amp;#123;            re">
 <meta property="og:type" content="article">
-<meta property="og:title" content="图片加载失败自动使用默认占位图的方法">
-<meta property="og:url" content="http://dennisleung.github.io/2020/05/06/%E5%9B%BE%E7%89%87%E5%8A%A0%E8%BD%BD%E5%A4%B1%E8%B4%A5%E8%87%AA%E5%8A%A8%E4%BD%BF%E7%94%A8%E9%BB%98%E8%AE%A4%E5%8D%A0%E4%BD%8D%E5%9B%BE%E7%9A%84%E6%96%B9%E6%B3%95/index.html">
+<meta property="og:title" content="linked-list-cycle-ii">
+<meta property="og:url" content="http://dennisleung.github.io/2020/05/18/linked-list-cycle-ii/index.html">
 <meta property="og:site_name" content="挖坑小能手的填坑日记">
-<meta property="og:description" content="加载图片 imgs&#x2F;qrcode1.png 失败的时候，自动展示默认占位图 imgs&#x2F;hot.png 。  方法1：使用伪元素123456789101112131415&lt;style&gt;    .broken-img:before &amp;#123;        content: &quot;&quot;;        display: inline-block;        width: 75px;">
+<meta property="og:description" content="原题地址：Linked List Cycle II  解法一12345678910111213&#x2F;&#x2F;brute force，很容易想到var detectCycle &#x3D; function(head) &amp;#123;    const set &#x3D; new Set();    while(head) &amp;#123;        if(set.has(head)) &amp;#123;            re">
 <meta property="og:locale" content="zh">
-<meta property="article:published_time" content="2020-05-06T04:53:48.000Z">
-<meta property="article:modified_time" content="2020-05-06T14:11:46.824Z">
+<meta property="og:image" content="http://dennisleung.github.io/img/preloader.gif">
+<meta property="article:published_time" content="2020-05-17T23:36:15.000Z">
+<meta property="article:modified_time" content="2020-05-17T23:50:07.005Z">
 <meta property="article:author" content="Dennis Leung">
-<meta property="article:tag" content="干货储物柜">
-<meta property="article:tag" content="css">
-<meta property="article:tag" content="html">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="leetcode">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://dennisleung.github.io/img/preloader.gif">
   
   
     <link rel="icon" href="/favicon.png">
@@ -143,20 +144,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-图片加载失败自动使用默认占位图的方法" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-linked-list-cycle-ii" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      图片加载失败自动使用默认占位图的方法
+      linked-list-cycle-ii
     </h1>
   
 
         
-        <a href="/2020/05/06/%E5%9B%BE%E7%89%87%E5%8A%A0%E8%BD%BD%E5%A4%B1%E8%B4%A5%E8%87%AA%E5%8A%A8%E4%BD%BF%E7%94%A8%E9%BB%98%E8%AE%A4%E5%8D%A0%E4%BD%8D%E5%9B%BE%E7%9A%84%E6%96%B9%E6%B3%95/" class="archive-article-date">
-  	<time datetime="2020-05-06T04:53:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-06</time>
+        <a href="/2020/05/18/linked-list-cycle-ii/" class="archive-article-date">
+  	<time datetime="2020-05-17T23:36:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-18</time>
 </a>
         
       </header>
@@ -164,11 +165,26 @@
     <div class="article-entry" itemprop="articleBody">
       
         <blockquote>
-<p>加载图片 <code>imgs/qrcode1.png</code> 失败的时候，自动展示默认占位图 <code>imgs/hot.png</code> 。</p>
+<p>原题地址：<a href="https://leetcode.com/problems/linked-list-cycle-ii/" target="_blank" rel="noopener">Linked List Cycle II</a></p>
 </blockquote>
-<h3 id="方法1：使用伪元素"><a href="#方法1：使用伪元素" class="headerlink" title="方法1：使用伪元素"></a>方法1：使用伪元素</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="css">    <span class="selector-class">.broken-img</span><span class="selector-pseudo">:before</span> &#123;</span></span><br><span class="line">        content: "";</span><br><span class="line">        display: inline-block;</span><br><span class="line">        width: 75px;</span><br><span class="line">        height: 42px;</span><br><span class="line">        background: url('imgs/hot.png');</span><br><span class="line">        background-position: center;</span><br><span class="line">        background-size: cover;</span><br><span class="line">        background-repeat: no-repeat;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--注意图片的alt要设置为空--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"imgs/qrcode1.png"</span> <span class="attr">class</span>=<span class="string">"broken-img"</span> <span class="attr">alt</span>=<span class="string">""</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="解法一"><a href="#解法一" class="headerlink" title="解法一"></a>解法一</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//brute force，很容易想到</span></span><br><span class="line"><span class="keyword">var</span> detectCycle = <span class="function"><span class="keyword">function</span>(<span class="params">head</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">set</span> = new Set();</span><br><span class="line">    while(head) &#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">set</span>.has(head)) &#123;</span><br><span class="line">            <span class="keyword">return</span> head;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">set</span>.add(head);</span><br><span class="line">        head = head.next;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return null;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<h3 id="方法2：使用onerror替换src"><a href="#方法2：使用onerror替换src" class="headerlink" title="方法2：使用onerror替换src"></a>方法2：使用onerror替换src</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--注意onerror里面要清空onerror的句柄（this.onerror=null）--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"imgs/qrcode1.png"</span> <span class="attr">alt</span>=<span class="string">"qrcode"</span> <span class="attr">onerror</span>=<span class="string">"this.onerror=null;this.src='imgs/hot.png'"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="解法二"><a href="#解法二" class="headerlink" title="解法二"></a>解法二</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> detectCycle = <span class="function"><span class="keyword">function</span>(<span class="params">head</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> slow = head;</span><br><span class="line">    <span class="keyword">let</span> fast = head;</span><br><span class="line">    <span class="keyword">while</span> (slow &amp;&amp; fast &amp;&amp; fast.next) &#123;</span><br><span class="line">        slow = slow.next;</span><br><span class="line">        fast = fast.next.next;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (slow === fast) &#123; <span class="comment">//这里有些难理解</span></span><br><span class="line">            <span class="keyword">while</span> (head !== fast) &#123;</span><br><span class="line">                head = head.next;</span><br><span class="line">                fast = fast.next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> head;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>这个解法用的还是 <a href="https://leetcode.com/problems/linked-list-cycle/" target="_blank" rel="noopener">Linked List Cycle</a>里面的<strong>快慢双指针</strong>的思路。</p>
+<p>外层循环通过快慢指针<strong>判断是否有环</strong>，内层循环<strong>找出环的起始点</strong>。</p>
+<p>下面用一幅图解释下为什么内层循环这样做可以找到环的起始点：<br><img src="/img/preloader.gif" data-original="/2020/05/18/linked-list-cycle-ii/pic.jpg" alt="pic"><br>假设链表起点到环起点距离为x1，环起点到快慢指针相遇节点距离为x3，环的长度为2*x2。</p>
+<p>快慢指针相遇时慢指针走的距离是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">slowDistance &#x3D; x1 + x2</span><br></pre></td></tr></table></figure>
+<p>快指针有的距离是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fastDistance &#x3D; x1 + x3 + 2 * x2</span><br></pre></td></tr></table></figure>
+<p>由于快指针移动速度是慢指针两倍：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fastDistance &#x3D; 2 * slowDistance</span><br></pre></td></tr></table></figure>
+<p>由上可得：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x1 &#x3D; 2 * x2 - x3</span><br></pre></td></tr></table></figure>
+<p><code>x1</code>是链表起点到环起点的距离，<code>2 * x2 - x3</code>是快指针<strong>绕回</strong>环起点的距离。<strong>因此只要以相同速度移动链表起点和快指针，它们第一次一定会在环起点相遇。</strong></p>
+
       
 
       
@@ -181,15 +197,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">干货储物柜</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">css</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">html</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
         		</li>
       		
 		</ul>
@@ -208,18 +220,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/05/11/String-raw%E5%A4%84%E7%90%86%E6%A8%A1%E6%9D%BF%E5%AD%97%E7%AC%A6%E4%B8%B2/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          String.raw处理模板字符串
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/05/06/hexo-asset-image-link-fail/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">hexo插入本地图片失败问题</div>
+    <a href="/2020/05/16/%E6%89%BE%E5%87%BA%E6%97%A7%E6%95%B0%E7%BB%84%E5%8F%98%E6%88%90%E6%96%B0%E6%95%B0%E7%BB%84%E7%9A%84%E6%93%8D%E4%BD%9C/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">找出旧数组变成新数组的操作</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -241,8 +244,8 @@
   <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
 <script>
   var cloudTieConfig = {
-    url: "http://dennisleung.github.io/2020/05/06/%E5%9B%BE%E7%89%87%E5%8A%A0%E8%BD%BD%E5%A4%B1%E8%B4%A5%E8%87%AA%E5%8A%A8%E4%BD%BF%E7%94%A8%E9%BB%98%E8%AE%A4%E5%8D%A0%E4%BD%8D%E5%9B%BE%E7%9A%84%E6%96%B9%E6%B3%95/", 
-    sourceId: "图片加载失败自动使用默认占位图的方法",
+    url: "http://dennisleung.github.io/2020/05/18/linked-list-cycle-ii/", 
+    sourceId: "linked-list-cycle-ii",
     productKey: "7b8ed868ba8c43919aec18514f14a586",
     target: "cloud-tie-wrapper"
   };
