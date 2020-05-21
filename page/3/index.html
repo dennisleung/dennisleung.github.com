@@ -140,6 +140,164 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-xss防范" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/11/xss%E9%98%B2%E8%8C%83/">xss防范</a>
+    </h1>
+  
+
+        
+        <a href="/2020/05/11/xss%E9%98%B2%E8%8C%83/" class="archive-article-date">
+  	<time datetime="2020-05-11T15:42:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="预防xss的方法"><a href="#预防xss的方法" class="headerlink" title="预防xss的方法"></a>预防xss的方法</h2><ul>
+<li>innerText</li>
+<li>对输出内容进行转义或者过滤html标签  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//最简单的正则过滤</span></span><br><span class="line">str = <span class="string">'&lt;a href="aa"&gt;aaa&lt;/a&gt;ccc&lt;b&gt;bbb&lt;/bbb&gt;'</span></span><br><span class="line">str.replace(<span class="regexp">/&lt;[^&gt;]+/g</span>, <span class="string">''</span>) <span class="comment">//aaacccbbb</span></span><br><span class="line">str.replace(<span class="regexp">/&lt;[^(&lt;\/)]+&lt;\/[^&gt;]+&gt;/g</span>, <span class="string">''</span>) <span class="comment">//ccc</span></span><br></pre></td></tr></table></figure></li>
+<li>CSP<br> <a href="https://developers.google.cn/web/fundamentals/security/csp/?hl=zh-cn" target="_blank" rel="noopener">内容安全策略 Content Security Policy</a></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">网络安全</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/05/11/xss%E9%98%B2%E8%8C%83/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-BFC" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/11/BFC/">BFC</a>
+    </h1>
+  
+
+        
+        <a href="/2020/05/11/BFC/" class="archive-article-date">
+  	<time datetime="2020-05-11T15:39:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>这篇笔记主要是说说对这篇文章 <a href="https://www.jianshu.com/p/4ed27e9ea441" target="_blank" rel="noopener">BFC的理解和应用</a> 中例子的理解</p>
+</blockquote>
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>BFC全称为Block Formatting Context，即“块级格式化上下文”。</p>
+<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ol>
+<li>BFC可以包含浮动元素（闭合浮动）</li>
+<li>BFC所确定的区域不会与外部浮动元素发生重叠</li>
+<li>位于同一BFC下的相邻块级子元素在垂直方向上会发生margin重叠</li>
+<li>位于不同BFC下的相邻元素之间不会发生margin重叠</li>
+</ol>
+<h2 id="如何触发"><a href="#如何触发" class="headerlink" title="如何触发"></a>如何触发</h2><p>若某个元素满足以下任一条件，则会对其创建BFC：</p>
+<ul>
+<li>&lt;html&gt;根元素</li>
+<li>float的值不为none</li>
+<li>overflow的值为auto、scroll或hidden</li>
+<li>display的值为table-cell、table-caption或inline-block</li>
+<li>position的值为fixed或absolute</li>
+</ul>
+<h2 id="常见用途"><a href="#常见用途" class="headerlink" title="常见用途"></a>常见用途</h2><h3 id="闭合浮动"><a href="#闭合浮动" class="headerlink" title="闭合浮动"></a>闭合浮动</h3><p>由于BFC可以包含浮动元素，所以当一个元素容器内部存在浮动元素时，为了防止容器高度“坍塌”，可以对容器创建BFC。<br><img src="/img/preloader.gif" data-original="/2020/05/11/BFC/bfc-float-before.jpg" alt="bfc-float-before"><br>创建BFC后：<br><img src="/img/preloader.gif" data-original="/2020/05/11/BFC/bfc-float-after.jpg" alt="bfc-float-after"><br>这里主要用到 <strong>特点1</strong>。</p>
+<h2 id="防止margin重叠"><a href="#防止margin重叠" class="headerlink" title="防止margin重叠"></a>防止margin重叠</h2><p>同一BFC内的相邻元素上下margin会融合（特点3）。<br><img src="/img/preloader.gif" data-original="/2020/05/11/BFC/bfc-margin-before.jpg" alt="bfc-margin-before"><br>创建BFC后：<br><img src="/img/preloader.gif" data-original="/2020/05/11/BFC/bfc-margin-after.jpg" alt="bfc-margin-after"><br>这里主要用到 <strong>特点4</strong>，通过给<code>ddd</code>的父节点添加<code>overflow:auto</code>创建BFC后，<code>ddd</code>和<code>ccc</code>已经不在同一个BFC中。</p>
+<h2 id="自适应流体布局"><a href="#自适应流体布局" class="headerlink" title="自适应流体布局"></a>自适应流体布局</h2><p><img src="/img/preloader.gif" data-original="/2020/05/11/BFC/bfc-flow-before.jpg" alt="bfc-flow-before"><br>创建BFC后：<br><img src="/img/preloader.gif" data-original="/2020/05/11/BFC/bfc-flow-after.jpg" alt="bfc-flow-after"><br>这里主要用到 <strong>特点2</strong>，给元素添加<code>overflow:auto</code>创建了新的BFC。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">HTML</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CSS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/05/11/BFC/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-String-raw处理模板字符串" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -772,164 +930,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/06/25/2017-06-25-iOS-wechat-qrcode/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-2017-06-04-yii-transition" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/04/2017-06-04-yii-transition/">Yii中事务不起作用的问题</a>
-    </h1>
-  
-
-        
-        <a href="/2017/06/04/2017-06-04-yii-transition/" class="archive-article-date">
-  	<time datetime="2017-06-04T07:07:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>在开发过程中操作 DB 事务时发现有时候会回滚失败。</p>
-</blockquote>
-<p>** 只有当所有操作都在同一个连接中进行时，才是可回滚的。 **<br>公司的前辈们针对不同的库操作自行维护了一个连接池（Yii中也有类似的逻辑），出现事务不起作用的时候，有可能是操作不是同一个连接导致的（特别是 Yii 这种通常使用 model 等 ORM 操作的的框架，很容易忽略这个问题）。</p>
-<br>
-
-<h1 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h1><p>对 DB 连接以及框架内部实现不透彻的时候很容易踩坑。<br>有时候写写sql也挺好，现在操作跨库事务的时候一般都写一个获取连接的工厂方法（负责保证唯一连接、心跳检测等）。<br>** 直接通过sql跨库操作时一定要注意权限！ **<br>** 直接通过sql跨库操作时一定要注意权限！ **<br>** 直接通过sql跨库操作时一定要注意权限！ **<br>（很重要所以说三次，踩坑老司机= =）</p>
-<p>PS: 除了权限，** 不同库是否在同一个实例 ** 也是一个需要注意的点 。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">干货储物柜</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Yii</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">php</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/06/04/2017-06-04-yii-transition/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-2017-06-04-yii-try-catch" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/04/2017-06-04-yii-try-catch/">Yii中try/catch不起作用的问题</a>
-    </h1>
-  
-
-        
-        <a href="/2017/06/04/2017-06-04-yii-try-catch/" class="archive-article-date">
-  	<time datetime="2017-06-04T06:26:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>最近公司的验证码接口被恶意刷，为此上线了各种各样的防刷策略。<br>生成验证码的逻辑很普通：当接收到请求的时候，检测 mobile 在 DB 中是否存在发送记录，如果没有，新建一条记录，mobile 为主键。插入记录在事务中，如果调用短信网关失败，会执行回滚。<br>当接口被恶意刷、请求密集的时候，同一个手机号前一条记录还未插入成功，后面的记录再执行插入会提示主键冲突。为了保证接口始终能正常返回（主要是主键冲突后会产生一个500错误，运维系统不断告警惊动了大佬= =），将操作DB的代码用try/catch 进行处理。</p>
-</blockquote>
-<p>看起来非常简单的一个改动，try/catch Exception后 <strong>phpStorm 自动补全依赖</strong> ，打算简单自测后上线。谁知道模拟密集请求的时候接口还是报错了，try/catch 未能捕获到错误。<br>排查后发现 phpStorm 自动补全依赖的时候引入的是 <code>yii\base\Exception</code>：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> <span class="title">yii</span>\<span class="title">base</span>\<span class="title">Exception</span>;</span><br></pre></td></tr></table></figure>
-<p>修改成 <code>\Exception</code> 后解决。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> \<span class="title">Exception</span>;</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">干货储物柜</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Yii</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">php</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/06/04/2017-06-04-yii-try-catch/">展开全文 >></a>
         </p>
       
 
