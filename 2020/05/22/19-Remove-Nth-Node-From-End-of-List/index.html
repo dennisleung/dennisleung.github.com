@@ -6,23 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://dennisleung.github.io">
-  <title>为contenteditable增加placeholder | 挖坑小能手的填坑日记</title>
+  <title>19. Remove Nth Node From End of List | 挖坑小能手的填坑日记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="加了contenteditable的div默认是没有placeholder的，下面尝试用css实现一个placeholder的效果： 1&lt;div class&#x3D;&quot;richTextBox empty&quot; contenteditable placeholder&#x3D;&quot;请输入&quot;&gt;&lt;&#x2F;div&gt; 12345678910.richTextBox &amp;#123;    border: 1px so">
+  <meta name="description" content="原题：19. Remove Nth Node From End of List  这道题考察的是滑动窗口。 解法一时间复杂度：O(n) 123456789101112131415161718192021222324&#x2F;&#x2F; Runtime: 76 ms, faster than 14.67% of JavaScript online submissions for Remove Nth Node F">
 <meta property="og:type" content="article">
-<meta property="og:title" content="为contenteditable增加placeholder">
-<meta property="og:url" content="http://dennisleung.github.io/2020/05/22/%E4%B8%BAcontenteditable%E5%A2%9E%E5%8A%A0placeholder/index.html">
+<meta property="og:title" content="19. Remove Nth Node From End of List">
+<meta property="og:url" content="http://dennisleung.github.io/2020/05/22/19-Remove-Nth-Node-From-End-of-List/index.html">
 <meta property="og:site_name" content="挖坑小能手的填坑日记">
-<meta property="og:description" content="加了contenteditable的div默认是没有placeholder的，下面尝试用css实现一个placeholder的效果： 1&lt;div class&#x3D;&quot;richTextBox empty&quot; contenteditable placeholder&#x3D;&quot;请输入&quot;&gt;&lt;&#x2F;div&gt; 12345678910.richTextBox &amp;#123;    border: 1px so">
+<meta property="og:description" content="原题：19. Remove Nth Node From End of List  这道题考察的是滑动窗口。 解法一时间复杂度：O(n) 123456789101112131415161718192021222324&#x2F;&#x2F; Runtime: 76 ms, faster than 14.67% of JavaScript online submissions for Remove Nth Node F">
 <meta property="og:locale" content="zh">
-<meta property="og:image" content="http://dennisleung.github.io/img/preloader.gif">
-<meta property="article:published_time" content="2020-05-21T16:39:44.000Z">
-<meta property="article:modified_time" content="2020-05-21T16:43:41.611Z">
+<meta property="article:published_time" content="2020-05-21T16:50:27.000Z">
+<meta property="article:modified_time" content="2020-05-21T16:59:37.651Z">
 <meta property="article:author" content="Dennis Leung">
-<meta property="article:tag" content="css">
-<meta property="article:tag" content="html">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="leetcode">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://dennisleung.github.io/img/preloader.gif">
   
   
     <link rel="icon" href="/favicon.png">
@@ -144,31 +142,38 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-为contenteditable增加placeholder" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-19-Remove-Nth-Node-From-End-of-List" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      为contenteditable增加placeholder
+      19. Remove Nth Node From End of List
     </h1>
   
 
         
-        <a href="/2020/05/22/%E4%B8%BAcontenteditable%E5%A2%9E%E5%8A%A0placeholder/" class="archive-article-date">
-  	<time datetime="2020-05-21T16:39:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-22</time>
+        <a href="/2020/05/22/19-Remove-Nth-Node-From-End-of-List/" class="archive-article-date">
+  	<time datetime="2020-05-21T16:50:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-22</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>加了contenteditable的div默认是没有placeholder的，下面尝试用css实现一个placeholder的效果：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"richTextBox empty"</span> <span class="attr">contenteditable</span> <span class="attr">placeholder</span>=<span class="string">"请输入"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.richTextBox</span> &#123;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#eee</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.richTextBox</span><span class="selector-class">.empty</span><span class="selector-pseudo">:before</span> &#123;</span><br><span class="line">    <span class="attribute">position</span>: absolute; <span class="comment">/*强制使伪元素脱离文档流，否则ff下输入的文字会跟在placeholder后面*/</span></span><br><span class="line">    <span class="attribute">content</span>: <span class="built_in">attr</span>(placeholder); <span class="comment">/*注意这里不能用引号*/</span></span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#ddd</span>;</span><br><span class="line">    <span class="attribute">cursor</span>: text;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>效果图：<br><img src="/img/preloader.gif" data-original="/2020/05/22/%E4%B8%BAcontenteditable%E5%A2%9E%E5%8A%A0placeholder/%E6%95%88%E6%9E%9C%E5%9B%BE.jpg" alt="效果图"></p>
+        <blockquote>
+<p>原题：<a href="https://leetcode.com/problems/remove-nth-node-from-end-of-list/" target="_blank" rel="noopener">19. Remove Nth Node From End of List</a></p>
+</blockquote>
+<p>这道题考察的是滑动窗口。</p>
+<h2 id="解法一"><a href="#解法一" class="headerlink" title="解法一"></a>解法一</h2><p>时间复杂度：O(n)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 76 ms, faster than 14.67% of JavaScript online submissions for Remove Nth Node From End of List.</span></span><br><span class="line"><span class="comment">// Memory Usage: 34.8 MB, less than 13.64% of JavaScript online submissions for Remove Nth Node From End of List.</span></span><br><span class="line"><span class="keyword">var</span> removeNthFromEnd = <span class="function"><span class="keyword">function</span> (<span class="params">head, n</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> queue = [];</span><br><span class="line">  <span class="keyword">const</span> enqueue = <span class="function"><span class="keyword">function</span> (<span class="params">node</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (queue.length &gt;= n + <span class="number">1</span>) &#123;</span><br><span class="line">      queue.shift();</span><br><span class="line">    &#125;</span><br><span class="line">    queue.push(node);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> _head = <span class="keyword">new</span> ListNode();</span><br><span class="line">  _head.next = head;</span><br><span class="line">  <span class="keyword">let</span> cur = _head;</span><br><span class="line">  <span class="keyword">while</span> (cur) &#123;</span><br><span class="line">    enqueue(cur);</span><br><span class="line">    cur = cur.next;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  queue[<span class="number">0</span>].next = queue[<span class="number">2</span>] || <span class="literal">null</span>; <span class="comment">//删除</span></span><br><span class="line">  queue[<span class="number">1</span>].next = <span class="literal">null</span>; <span class="comment">//清理</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> _head.next;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
+<h2 id="解法二（Recommend）"><a href="#解法二（Recommend）" class="headerlink" title="解法二（Recommend）"></a>解法二（Recommend）</h2><p>时间复杂度：O(n)</p>
+<p>比解法一优化了空间复杂度，只保留了窗口的头尾指针。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 96 ms, faster than 8.34% of JavaScript online submissions for Remove Nth Node From End of List.</span></span><br><span class="line"><span class="comment">// Memory Usage: 34.1 MB, less than 68.18% of JavaScript online submissions for Remove Nth Node From End of List.</span></span><br><span class="line"><span class="keyword">var</span> removeNthFromEnd = <span class="function"><span class="keyword">function</span> (<span class="params">head, n</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> _head = <span class="keyword">new</span> ListNode();</span><br><span class="line">  _head.next = head;</span><br><span class="line">  <span class="keyword">let</span> left = _head;</span><br><span class="line">  <span class="keyword">let</span> right = _head;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (n-- &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">    right = right.next;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">while</span> (right) &#123;</span><br><span class="line">    left = left.next;</span><br><span class="line">    right = right.next;</span><br><span class="line">  &#125;</span><br><span class="line">  left.next = left.next.next;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> _head.next;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Test-Cases"><a href="#Test-Cases" class="headerlink" title="Test Cases:"></a>Test Cases:</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">"test1"</span>, () =&gt; &#123;</span><br><span class="line">  expect(removeNthFromEnd(makeLink([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]), <span class="number">2</span>)).toEqual(</span><br><span class="line">    makeLink([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>])</span><br><span class="line">  );</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test2"</span>, () =&gt; &#123;</span><br><span class="line">  expect(removeNthFromEnd(makeLink([<span class="number">1</span>]), <span class="number">1</span>)).toEqual(makeLink([]));</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
       
 
       
@@ -181,11 +186,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">css</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">html</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
         		</li>
       		
 		</ul>
@@ -204,18 +209,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/05/22/19-Remove-Nth-Node-From-End-of-List/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          19. Remove Nth Node From End of List
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/05/21/%E7%94%A8%E7%BA%AFcss%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAiOS%E7%9A%84switch%E5%BC%80%E5%85%B3/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">用纯css实现一个iOS的switch开关</div>
+    <a href="/2020/05/22/%E4%B8%BAcontenteditable%E5%A2%9E%E5%8A%A0placeholder/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">为contenteditable增加placeholder</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -237,8 +233,8 @@
   <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
 <script>
   var cloudTieConfig = {
-    url: "http://dennisleung.github.io/2020/05/22/%E4%B8%BAcontenteditable%E5%A2%9E%E5%8A%A0placeholder/", 
-    sourceId: "为contenteditable增加placeholder",
+    url: "http://dennisleung.github.io/2020/05/22/19-Remove-Nth-Node-From-End-of-List/", 
+    sourceId: "19-Remove-Nth-Node-From-End-of-List",
     productKey: "7b8ed868ba8c43919aec18514f14a586",
     target: "cloud-tie-wrapper"
   };

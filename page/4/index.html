@@ -140,6 +140,81 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-2017-08-12-ios-input-space" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/12/2017-08-12-ios-input-space/">iOS上input清空数据光标出现空格</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/12/2017-08-12-ios-input-space/" class="archive-article-date">
+  	<time datetime="2017-08-11T17:28:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>最近在做微信改版，把微信上的 UI向 APP靠拢，重构登录页面的时候出现了奇怪的 Bug。</p>
+</blockquote>
+<p>输入手机号，再一直删除，删到最后光标没有回到最前面。偶现，iOS 专属。<br><img src="/img/preloader.gif" data-original="/2017/08/12/2017-08-12-ios-input-space/ios_space.png" alt="iOS输入框光标前出现空格"></p>
+<h1 id="Step1"><a href="#Step1" class="headerlink" title="Step1"></a>Step1</h1><p>input 里面 placeholder 都出来了，查看 input 的 value也是空值，但是光标前面还是有空隙。<br>由于这个input 加了 autocomplete=off, 猜测是微信为了解决自动填充而做了处理（默认插入空格之类的），于是去掉 autocomplete。<br>事实证明我想多了（扶额），测试反馈问题还是存在，safari 也有这个问题，bug reopen。</p>
+<h1 id="Step2"><a href="#Step2" class="headerlink" title="Step2"></a>Step2</h1><p>自己找了很久没发现原因后让 Givon 帮忙看了下，最终发现是由于input 后面清空输入框按钮导致。<br><img src="/img/preloader.gif" data-original="/2017/08/12/2017-08-12-ios-input-space/login.png" alt="登陆页"><br>产品的逻辑是这样的：<br>输入框内有值的时候展示清空按钮，为空的时候隐藏。<br>监听 input，为空的时候将删除按钮 hide，<strong>由于dom位置变化，导致光标渲染异常</strong>。</p>
+<h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	$clearInput.hide();</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">干货储物柜</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/12/2017-08-12-ios-input-space/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-2017-08-11-autocomplete-off" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
