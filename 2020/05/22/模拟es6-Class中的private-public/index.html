@@ -6,16 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://dennisleung.github.io">
-  <title>Archives: 2020 | 挖坑小能手的填坑日记</title>
+  <title>模拟es6 Class中的private/public | 挖坑小能手的填坑日记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前端开发攻城狮">
-<meta property="og:type" content="website">
-<meta property="og:title" content="挖坑小能手的填坑日记">
-<meta property="og:url" content="http://dennisleung.github.io/archives/2020/page/2/index.html">
+  <meta name="description" content="阿里笔试中的一道题，一眼看上去挺简单，但是仔细想想有挺多地方要注意的。。  原题请实现一个Person类，且拥有private的成员变量及函数，public的成员变量及函数 提示：参考ts实现 12345678910111213141516171819202122232425class Person &amp;#123;  private name &#x3D; &#39;&#39;;  public address &#x3D; &#39;&#39;;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="模拟es6 Class中的private&#x2F;public">
+<meta property="og:url" content="http://dennisleung.github.io/2020/05/22/%E6%A8%A1%E6%8B%9Fes6-Class%E4%B8%AD%E7%9A%84private-public/index.html">
 <meta property="og:site_name" content="挖坑小能手的填坑日记">
-<meta property="og:description" content="前端开发攻城狮">
+<meta property="og:description" content="阿里笔试中的一道题，一眼看上去挺简单，但是仔细想想有挺多地方要注意的。。  原题请实现一个Person类，且拥有private的成员变量及函数，public的成员变量及函数 提示：参考ts实现 12345678910111213141516171819202122232425class Person &amp;#123;  private name &#x3D; &#39;&#39;;  public address &#x3D; &#39;&#39;;">
 <meta property="og:locale" content="zh">
+<meta property="article:published_time" content="2020-05-22T01:09:55.000Z">
+<meta property="article:modified_time" content="2020-05-22T02:00:27.766Z">
 <meta property="article:author" content="Dennis Leung">
+<meta property="article:tag" content="javascript">
 <meta name="twitter:card" content="summary">
   
   
@@ -138,368 +141,51 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-模拟es6-Class中的private-public" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      模拟es6 Class中的private/public
+    </h1>
+  
+
+        
+        <a href="/2020/05/22/%E6%A8%A1%E6%8B%9Fes6-Class%E4%B8%AD%E7%9A%84private-public/" class="archive-article-date">
+  	<time datetime="2020-05-22T01:09:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-22</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>阿里笔试中的一道题，一眼看上去挺简单，但是仔细想想有挺多地方要注意的。。</p>
+</blockquote>
+<h2 id="原题"><a href="#原题" class="headerlink" title="原题"></a>原题</h2><p>请实现一个Person类，且拥有private的成员变量及函数，public的成员变量及函数</p>
+<p>提示：参考ts实现</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  private name = <span class="string">''</span>;</span><br><span class="line"></span><br><span class="line">  public address = <span class="string">''</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">constructor</span>(name: string, address: string) &#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    <span class="keyword">this</span>.address = address;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  private makeWords() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">`My name is: <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>`</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  public say() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.makeWords());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//结果预期</span></span><br><span class="line">me = <span class="keyword">new</span> Person(<span class="string">'alibaba'</span>, <span class="string">'hangzhou'</span>);</span><br><span class="line">me.say() <span class="comment">// My name is: alibaba</span></span><br><span class="line">me.makeWords() <span class="comment">// Error</span></span><br><span class="line">me.name <span class="comment">// undefined</span></span><br><span class="line">me.address <span class="comment">// hangzhou</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="解题过程"><a href="#解题过程" class="headerlink" title="解题过程"></a>解题过程</h2><p>第一眼看到这道题的时候马上想到的是最简单的实现，用<strong>约定俗成</strong>的方法，给私有变量/方法名前缀加下划线：</p>
+<h3 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Person = <span class="function"><span class="keyword">function</span>(<span class="params">name, address</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>._name = name;</span><br><span class="line">    <span class="keyword">this</span>.address = address;</span><br><span class="line">    <span class="comment">// 其他类似</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h3><p>法一只是一种约定，外部还是能通过<code>_name</code>取到私有属性。然后想到通过<code>Object.defineProperty</code>或者<code>Proxy</code>拦截私有属性的访问，于是写了一个版本：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Person = <span class="function"><span class="keyword">function</span> (<span class="params">name, address</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> obj = &#123;</span><br><span class="line">    name,</span><br><span class="line">    address,</span><br><span class="line">    makeWords() &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">`My name is: <span class="subst">$&#123;<span class="keyword">this</span>._safeGet(<span class="string">"name"</span>)&#125;</span>`</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    say() &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="keyword">this</span>._safeGet(<span class="string">"makeWords"</span>)());</span><br><span class="line">    &#125;,</span><br><span class="line">    _safeGet(propName) &#123;</span><br><span class="line">      <span class="keyword">const</span> propVal = <span class="built_in">Reflect</span>.get(obj, propName);</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">typeof</span> propVal === <span class="string">"function"</span> ? propVal.bind(<span class="keyword">this</span>) : propVal;</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Proxy</span>(obj, &#123;</span><br><span class="line">    <span class="keyword">get</span>(target, propName) &#123;</span><br><span class="line">      <span class="keyword">const</span> privateProps = [<span class="string">"name"</span>, <span class="string">"makeWords"</span>];</span><br><span class="line">      <span class="keyword">if</span> (privateProps.includes(propName)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">undefined</span>;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">typeof</span> target[propName] === <span class="string">"function"</span></span><br><span class="line">          ? target[propName].bind(target)</span><br><span class="line">          : target[propName]; <span class="comment">//proxy拦截方法里面的this指向Proxy</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>这个方法能屏蔽外部对私有属性的访问，但是内部调用必须经过<code>_safeGet</code>，和题目要求有微妙的区别。。而且某些浏览器不支持Proxy。</p>
+<h3 id="方法三"><a href="#方法三" class="headerlink" title="方法三"></a>方法三</h3><p>相当于方法二的简单实现，用闭包屏蔽外部访问，还是没解决内部调用的问题：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Person = <span class="function"><span class="keyword">function</span> (<span class="params">name, address</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> makeWords = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">`My name is: <span class="subst">$&#123;name&#125;</span>`</span>;<span class="comment">//怎么改造可以使用this.name？</span></span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> say = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(makeWords());<span class="comment">//怎么改造可以使用this.makeWords？</span></span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123; address, say &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="方法四"><a href="#方法四" class="headerlink" title="方法四"></a>方法四</h3><p>通过原型链屏蔽私有属性的访问，这个解法是符合题目要求的，但是是否是最优解不得而知：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Person = <span class="function"><span class="keyword">function</span> (<span class="params">name, address</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> privateObj = &#123;&#125;;</span><br><span class="line">  <span class="keyword">const</span> publicObj = &#123;&#125;;</span><br><span class="line">  privateObj.__proto__ = publicObj;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> makeWords = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">`My name is: <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>`</span>;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> say = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.makeWords());</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> props = [<span class="comment">//属性配置元组</span></span><br><span class="line">    [<span class="string">"name"</span>, name, <span class="literal">true</span>], <span class="comment">//propName, propValue, isPrivate</span></span><br><span class="line">    [<span class="string">"address"</span>, address, <span class="literal">false</span>],</span><br><span class="line">    [<span class="string">"makeWords"</span>, makeWords, <span class="literal">true</span>],</span><br><span class="line">    [<span class="string">"say"</span>, say, <span class="literal">false</span>],</span><br><span class="line">  ];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> [propName, propValue, isPrivate] <span class="keyword">of</span> props) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> propValue === <span class="string">"function"</span>) &#123;</span><br><span class="line">      propValue = propValue.bind(privateObj);</span><br><span class="line">    &#125;</span><br><span class="line">    (isPrivate ? privateObj : publicObj)[propName] = propValue;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> publicObj;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/19/703-Kth-Largest-Element-in-a-Stream/" class="archive-article-date">
-  	<time datetime="2020-05-19T14:01:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/19/703-Kth-Largest-Element-in-a-Stream/">703. Kth Largest Element in a Stream</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/19/232-implement-queue-using-stacks/" class="archive-article-date">
-  	<time datetime="2020-05-18T16:26:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/19/232-implement-queue-using-stacks/">232. Implement Queue using Stacks</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/18/20-Valid-Parentheses/" class="archive-article-date">
-  	<time datetime="2020-05-18T15:56:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/18/20-Valid-Parentheses/">20. Valid Parentheses</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/18/Reverse-Nodes-in-k-Group/" class="archive-article-date">
-  	<time datetime="2020-05-18T03:20:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/18/Reverse-Nodes-in-k-Group/">Reverse Nodes in k-Group</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/18/linked-list-cycle-ii/" class="archive-article-date">
-  	<time datetime="2020-05-17T23:36:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/18/linked-list-cycle-ii/">Linked List Cycle ii</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/16/%E6%89%BE%E5%87%BA%E6%97%A7%E6%95%B0%E7%BB%84%E5%8F%98%E6%88%90%E6%96%B0%E6%95%B0%E7%BB%84%E7%9A%84%E6%93%8D%E4%BD%9C/" class="archive-article-date">
-  	<time datetime="2020-05-16T07:46:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/16/%E6%89%BE%E5%87%BA%E6%97%A7%E6%95%B0%E7%BB%84%E5%8F%98%E6%88%90%E6%96%B0%E6%95%B0%E7%BB%84%E7%9A%84%E6%93%8D%E4%BD%9C/">找出旧数组变成新数组的操作</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/16/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E9%99%90%E5%88%B6%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5-%E4%B8%BA%E4%BB%80%E4%B9%88script%E6%A0%87%E7%AD%BE%E4%B8%8D%E5%8F%97%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5%E9%99%90%E5%88%B6/" class="archive-article-date">
-  	<time datetime="2020-05-16T01:49:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/16/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E9%99%90%E5%88%B6%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5-%E4%B8%BA%E4%BB%80%E4%B9%88script%E6%A0%87%E7%AD%BE%E4%B8%8D%E5%8F%97%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5%E9%99%90%E5%88%B6/">浏览器为什么要限制同源策略?为什么script标签不受同源策略限制?</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">网络安全</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">html</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/15/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E8%A7%A6%E6%91%B8-%E7%82%B9%E5%87%BB%E4%BA%8B%E4%BB%B6%E5%8F%91%E7%94%9F%E9%A1%BA%E5%BA%8F/" class="archive-article-date">
-  	<time datetime="2020-05-15T13:57:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/15/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E8%A7%A6%E6%91%B8-%E7%82%B9%E5%87%BB%E4%BA%8B%E4%BB%B6%E5%8F%91%E7%94%9F%E9%A1%BA%E5%BA%8F/">移动端触摸/点击事件发生顺序</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">html</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">移动开发</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/14/this%E6%8C%87%E5%90%91%E7%9A%84%E6%94%B9%E5%8F%98/" class="archive-article-date">
-  	<time datetime="2020-05-14T03:06:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/14/this%E6%8C%87%E5%90%91%E7%9A%84%E6%94%B9%E5%8F%98/">this指向的改变</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -511,60 +197,54 @@
 		</ul>
 	</div>
 
-          
+      
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/13/hexo-lazyload-image%E4%B8%8D%E7%94%9F%E6%95%88/" class="archive-article-date">
-  	<time datetime="2020-05-12T17:09:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-13</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/13/hexo-lazyload-image%E4%B8%8D%E7%94%9F%E6%95%88/">hexo-lazyload-image不生效</a>
-    </h1>
+  
+    <a href="/2020/05/22/19-Remove-Nth-Node-From-End-of-List/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">19. Remove Nth Node From End of List</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
+  
+  <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script>
+  var cloudTieConfig = {
+    url: "http://dennisleung.github.io/2020/05/22/%E6%A8%A1%E6%8B%9Fes6-Class%E4%B8%AD%E7%9A%84private-public/", 
+    sourceId: "模拟es6-Class中的private-public",
+    productKey: "7b8ed868ba8c43919aec18514f14a586",
+    target: "cloud-tie-wrapper"
+  };
+</script>
+<script src="//img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2020/">&amp;laquo; Prev</a><a class="page-number" href="/archives/2020/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/2020/page/3/">3</a><a class="extend next" rel="next" href="/archives/2020/page/3/">Next &amp;raquo;</a>
-    </nav>
   
 
 
@@ -588,8 +268,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
