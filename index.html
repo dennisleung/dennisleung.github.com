@@ -140,6 +140,79 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-22-Generate-Parentheses" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/23/22-Generate-Parentheses/">22. Generate Parentheses</a>
+    </h1>
+  
+
+        
+        <a href="/2020/05/23/22-Generate-Parentheses/" class="archive-article-date">
+  	<time datetime="2020-05-23T07:22:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>原题：<a href="https://leetcode.com/problems/generate-parentheses/" target="_blank" rel="noopener">22. Generate Parentheses</a></p>
+</blockquote>
+<h2 id="source-code"><a href="#source-code" class="headerlink" title="source code"></a>source code</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 68 ms, faster than 23.67% of JavaScript online submissions for Generate Parentheses.</span></span><br><span class="line"><span class="comment">// Memory Usage: 37.1 MB, less than 7.69% of JavaScript online submissions for Generate Parentheses.</span></span><br><span class="line"><span class="keyword">var</span> generateParenthesis = <span class="function"><span class="keyword">function</span> (<span class="params">n</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> result = [];</span><br><span class="line">  <span class="keyword">const</span> helper = <span class="function"><span class="keyword">function</span> (<span class="params">left, right, str</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//left:左括号还剩几个，right:右括号还剩几个，str:当前结果子串</span></span><br><span class="line">    <span class="keyword">if</span> (left === <span class="number">0</span> &amp;&amp; right === <span class="number">0</span>) &#123;</span><br><span class="line">      result.push(str);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (left &gt; <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="comment">//只要当前子串合法，左括号可以随意加</span></span><br><span class="line">      helper(left - <span class="number">1</span>, right, str + <span class="string">"("</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (right &gt; left) &#123;</span><br><span class="line">      <span class="comment">//如果当前子串合法，子串中的左括号一定比右括号多</span></span><br><span class="line">      helper(left, right - <span class="number">1</span>, str + <span class="string">")"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  helper(n, n, <span class="string">""</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="test-cases"><a href="#test-cases" class="headerlink" title="test cases"></a>test cases</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">"test1"</span>, () =&gt; &#123;</span><br><span class="line">  expect(generateParenthesis(<span class="number">1</span>).sort()).toEqual([<span class="string">"()"</span>].sort());</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test2"</span>, () =&gt; &#123;</span><br><span class="line">  expect(generateParenthesis(<span class="number">2</span>).sort()).toEqual([<span class="string">"()()"</span>, <span class="string">"(())"</span>].sort());</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test3"</span>, () =&gt; &#123;</span><br><span class="line">  expect(generateParenthesis(<span class="number">3</span>).sort()).toEqual(</span><br><span class="line">    [<span class="string">"((()))"</span>, <span class="string">"(()())"</span>, <span class="string">"(())()"</span>, <span class="string">"()(())"</span>, <span class="string">"()()()"</span>].sort()</span><br><span class="line">  );</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/05/23/22-Generate-Parentheses/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-111-Minimum-Depth-of-Binary-Tree" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -827,81 +900,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2020/05/21/169-Majority-Element/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-50-Pow-x-n" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/21/50-Pow-x-n/">50. Pow(x, n)</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/21/50-Pow-x-n/" class="archive-article-date">
-  	<time datetime="2020-05-21T02:02:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>原题：<a href="https://leetcode.com/problems/powx-n/" target="_blank" rel="noopener">50. Pow(x, n)</a></p>
-</blockquote>
-<p>这道题用的是分治的思路。js实现可能会出现由于精度原因无法通过本地的单元测试，但是leetcode上面提交是能AC的。</p>
-<h3 id="Source-Code"><a href="#Source-Code" class="headerlink" title="Source Code"></a>Source Code</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myPow = <span class="function"><span class="keyword">function</span> (<span class="params">x, n</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">switch</span> (n) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">      <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">      <span class="keyword">return</span> x;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">-1</span>:</span><br><span class="line">      <span class="keyword">return</span> <span class="number">1</span> / x;</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> y = myPow(x, ~~(n / <span class="number">2</span>));</span><br><span class="line">  <span class="keyword">return</span> y * y * (n % <span class="number">2</span> === <span class="number">0</span> ? <span class="number">1</span> : n &gt; <span class="number">0</span> ? x : <span class="number">1</span> / x);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h3 id="Test-Cases"><a href="#Test-Cases" class="headerlink" title="Test Cases:"></a>Test Cases:</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">"test1"</span>, () =&gt; &#123;<span class="comment">//本地精度问题无法通过单元测试</span></span><br><span class="line">  expect(myPow(<span class="number">2.1</span>, <span class="number">3</span>)).toEqual(<span class="number">9.261</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test2"</span>, () =&gt; &#123;</span><br><span class="line">  expect(myPow(<span class="number">2.0</span>, <span class="number">-2</span>)).toEqual(<span class="number">0.25</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test3"</span>, () =&gt; &#123;</span><br><span class="line">  expect(myPow(<span class="number">2.0</span>, <span class="number">1</span>)).toEqual(<span class="number">2.0</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test4"</span>, () =&gt; &#123;</span><br><span class="line">  expect(myPow(<span class="number">2.0</span>, <span class="number">-1</span>)).toEqual(<span class="number">0.5</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test5"</span>, () =&gt; &#123;</span><br><span class="line">  expect(myPow(<span class="number">2.0</span>, <span class="number">0</span>)).toEqual(<span class="number">1.0</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test6"</span>, () =&gt; &#123;<span class="comment">//本地精度问题无法通过单元测试</span></span><br><span class="line">  expect(myPow(<span class="number">34.00515</span>, <span class="number">-3</span>)).toEqual(<span class="number">0.00003</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/21/50-Pow-x-n/">展开全文 >></a>
         </p>
       
 
