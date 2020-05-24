@@ -6,17 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://dennisleung.github.io">
-  <title>Archives | 挖坑小能手的填坑日记</title>
+  <title>69. Sqrt(x) | 挖坑小能手的填坑日记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前端开发攻城狮">
-<meta property="og:type" content="website">
-<meta property="og:title" content="挖坑小能手的填坑日记">
-<meta property="og:url" content="http://dennisleung.github.io/archives/index.html">
+  <meta name="description" content="原题：69. Sqrt(x)  方法一思路二分法 要牢记二分法的模板： 12345678910111213let left &#x3D; 0;let right &#x3D; arr.length-1;while(left &lt;&#x3D; right) &amp;#123;  let mid &#x3D; (left + right) &#x2F; 2;  if(arr[mid] &#x3D;&#x3D;&#x3D; target) &amp;#123;    &#x2F;&#x2F; find the">
+<meta property="og:type" content="article">
+<meta property="og:title" content="69. Sqrt(x)">
+<meta property="og:url" content="http://dennisleung.github.io/2020/05/24/69-Sqrt-x/index.html">
 <meta property="og:site_name" content="挖坑小能手的填坑日记">
-<meta property="og:description" content="前端开发攻城狮">
+<meta property="og:description" content="原题：69. Sqrt(x)  方法一思路二分法 要牢记二分法的模板： 12345678910111213let left &#x3D; 0;let right &#x3D; arr.length-1;while(left &lt;&#x3D; right) &amp;#123;  let mid &#x3D; (left + right) &#x2F; 2;  if(arr[mid] &#x3D;&#x3D;&#x3D; target) &amp;#123;    &#x2F;&#x2F; find the">
 <meta property="og:locale" content="zh">
+<meta property="og:image" content="http://dennisleung.github.io/img/preloader.gif">
+<meta property="article:published_time" content="2020-05-24T14:14:38.000Z">
+<meta property="article:modified_time" content="2020-05-24T15:07:00.103Z">
 <meta property="article:author" content="Dennis Leung">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="leetcode">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://dennisleung.github.io/img/preloader.gif">
   
   
     <link rel="icon" href="/favicon.png">
@@ -138,36 +144,53 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-69-Sqrt-x" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      69. Sqrt(x)
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/24/69-Sqrt-x/" class="archive-article-date">
+
+        
+        <a href="/2020/05/24/69-Sqrt-x/" class="archive-article-date">
   	<time datetime="2020-05-24T14:14:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-24</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/24/69-Sqrt-x/">69. Sqrt(x)</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>原题：<a href="https://leetcode.com/problems/sqrtx/" target="_blank" rel="noopener">69. Sqrt(x)</a></p>
+</blockquote>
+<h2 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h2><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>二分法</p>
+<p>要牢记二分法的模板：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> left = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">let</span> right = arr.length<span class="number">-1</span>;</span><br><span class="line"><span class="keyword">while</span>(left &lt;= right) &#123;</span><br><span class="line">  <span class="keyword">let</span> mid = (left + right) / <span class="number">2</span>;</span><br><span class="line">  <span class="keyword">if</span>(arr[mid] === target) &#123;</span><br><span class="line">    <span class="comment">// find the target</span></span><br><span class="line">    <span class="keyword">break</span> or <span class="keyword">return</span> result;</span><br><span class="line">  &#125;<span class="keyword">else</span> <span class="keyword">if</span>(arr[mid] &lt; target) &#123;</span><br><span class="line">    left = mid + <span class="number">1</span>;</span><br><span class="line">  &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">    right = mid - <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-        <div class="article-info info-on-right">
-          
+<h3 id="source-code"><a href="#source-code" class="headerlink" title="source code:"></a>source code:</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 88 ms, faster than 35.63% of JavaScript online submissions for Sqrt(x).</span></span><br><span class="line"><span class="comment">// Memory Usage: 36.1 MB, less than 11.11% of JavaScript online submissions for Sqrt(x).</span></span><br><span class="line"><span class="keyword">var</span> mySqrt = <span class="function"><span class="keyword">function</span> (<span class="params">x</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> left = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">let</span> right = x;</span><br><span class="line">  <span class="keyword">while</span> (left &lt;= right) &#123;</span><br><span class="line">    <span class="keyword">let</span> mid = ~~((left + right) / <span class="number">2</span>);</span><br><span class="line">    <span class="keyword">let</span> tmp = mid * mid;</span><br><span class="line">    <span class="keyword">if</span> (tmp == x) &#123;</span><br><span class="line">      <span class="keyword">return</span> mid;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (tmp &lt; x) &#123;</span><br><span class="line">      left = mid + <span class="number">1</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      right = mid - <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> right;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h3><p>求sqart(x)，要求精度为n</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// init variable</span></span><br><span class="line"><span class="keyword">while</span>(<span class="built_in">Math</span>.abs(right-left)&lt; <span class="number">1</span>/<span class="built_in">Math</span>.pow(<span class="number">10</span>, n)) &#123;<span class="comment">// 退出条件为小于具体的精度</span></span><br><span class="line">  <span class="keyword">let</span> mid = (left + right) / <span class="number">2</span>;</span><br><span class="line">  <span class="keyword">let</span> tmp = mid * mid;</span><br><span class="line">  <span class="keyword">if</span> (tmp == x) &#123;</span><br><span class="line">    <span class="keyword">return</span> mid;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (tmp &lt; x) &#123;</span><br><span class="line">    left = mid;<span class="comment">// 这里不能+1</span></span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    right = mid;<span class="comment">// 这里不能-1</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> left;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h2><h3 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h3><p>牛顿迭代法：</p>
+<p><img src="/img/preloader.gif" data-original="/2020/05/24/69-Sqrt-x/%E7%89%9B%E9%A1%BF%E8%BF%AD%E4%BB%A3%E6%B3%95.jpg" alt="牛顿迭代法"></p>
+<p>这道题中，<code>f(xn) = xn ^ 2 - y</code>，f(xn)的导数 <code>f&#39;(xn) = 2 * xn</code>。</p>
+<p>最终可得：<code>x(n+1) = (xn + y/xn)/2</code>。</p>
+<h3 id="source-code-1"><a href="#source-code-1" class="headerlink" title="source code"></a>source code</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 64 ms, faster than 95.63% of JavaScript online submissions for Sqrt(x).</span></span><br><span class="line"><span class="comment">// Memory Usage: 37.2 MB, less than 8.33% of JavaScript online submissions for Sqrt(x).</span></span><br><span class="line"><span class="keyword">var</span> mySqrt = <span class="function"><span class="keyword">function</span> (<span class="params">x</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> r = x;</span><br><span class="line">  <span class="keyword">while</span> (r * r &gt; x) &#123;</span><br><span class="line">    r = ~~((r + x / r) / <span class="number">2</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> r;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="test-cases"><a href="#test-cases" class="headerlink" title="test cases"></a>test cases</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">"test1"</span>, () =&gt; &#123;</span><br><span class="line">  expect(mySqrt(<span class="number">4</span>)).toEqual(<span class="number">2</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test2"</span>, () =&gt; &#123;</span><br><span class="line">  expect(mySqrt(<span class="number">8</span>)).toEqual(<span class="number">2</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test3"</span>, () =&gt; &#123;</span><br><span class="line">  expect(mySqrt(<span class="number">1</span>)).toEqual(<span class="number">1</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test4"</span>, () =&gt; &#123;</span><br><span class="line">  expect(mySqrt(<span class="number">5</span>)).toEqual(<span class="number">2</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -183,396 +206,54 @@
 		</ul>
 	</div>
 
-          
+      
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/24/37-Sudoku-Solver/" class="archive-article-date">
-  	<time datetime="2020-05-24T08:38:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-24</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/24/37-Sudoku-Solver/">37. Sudoku Solver</a>
-    </h1>
+  
+    <a href="/2020/05/24/37-Sudoku-Solver/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">37. Sudoku Solver</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
+  
+  <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script>
+  var cloudTieConfig = {
+    url: "http://dennisleung.github.io/2020/05/24/69-Sqrt-x/", 
+    sourceId: "69-Sqrt-x",
+    productKey: "7b8ed868ba8c43919aec18514f14a586",
+    target: "cloud-tie-wrapper"
+  };
+</script>
+<script src="//img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/24/36-Valid-Sudoku/" class="archive-article-date">
-  	<time datetime="2020-05-24T06:59:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-24</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/24/36-Valid-Sudoku/">36. Valid Sudoku</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/23/51-N-Queens/" class="archive-article-date">
-  	<time datetime="2020-05-23T08:34:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/23/51-N-Queens/">51. N-Queens</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/23/22-Generate-Parentheses/" class="archive-article-date">
-  	<time datetime="2020-05-23T07:22:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/23/22-Generate-Parentheses/">22. Generate Parentheses</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/23/111-Minimum-Depth-of-Binary-Tree/" class="archive-article-date">
-  	<time datetime="2020-05-23T06:50:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/23/111-Minimum-Depth-of-Binary-Tree/">111. Minimum Depth of Binary Tree</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/23/104-Maximum-Depth-of-Binary-Tree/" class="archive-article-date">
-  	<time datetime="2020-05-23T06:38:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/23/104-Maximum-Depth-of-Binary-Tree/">104. Maximum Depth of Binary Tree</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/23/102-Binary-Tree-Level-Order-Traversal/" class="archive-article-date">
-  	<time datetime="2020-05-23T06:24:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/23/102-Binary-Tree-Level-Order-Traversal/">102. Binary Tree Level Order Traversal</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/22/Best-Time-to-Buy-and-Sell-Stock/" class="archive-article-date">
-  	<time datetime="2020-05-22T15:42:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/22/Best-Time-to-Buy-and-Sell-Stock/">Best Time to Buy and Sell Stock</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/22/%E6%A8%A1%E6%8B%9Fes6-Class%E4%B8%AD%E7%9A%84private-public/" class="archive-article-date">
-  	<time datetime="2020-05-22T01:09:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/22/%E6%A8%A1%E6%8B%9Fes6-Class%E4%B8%AD%E7%9A%84private-public/">模拟es6 Class中的private/public</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/5/">5</a><a class="extend next" rel="next" href="/archives/page/2/">Next &amp;raquo;</a>
-    </nav>
   
 
 
@@ -596,8 +277,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
