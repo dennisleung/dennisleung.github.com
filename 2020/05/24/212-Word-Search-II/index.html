@@ -6,16 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://dennisleung.github.io">
-  <title>挖坑小能手的填坑日记</title>
+  <title>212. Word Search II | 挖坑小能手的填坑日记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前端开发攻城狮">
-<meta property="og:type" content="website">
-<meta property="og:title" content="挖坑小能手的填坑日记">
-<meta property="og:url" content="http://dennisleung.github.io/index.html">
+  <meta name="description" content="原题：212. Word Search II  方法一思路DFS。这道题借用了 79. Word Search 中的exist方法。 source code1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950&#x2F;&#x2F; RuRuntime: 1352 ms, faster">
+<meta property="og:type" content="article">
+<meta property="og:title" content="212. Word Search II">
+<meta property="og:url" content="http://dennisleung.github.io/2020/05/24/212-Word-Search-II/index.html">
 <meta property="og:site_name" content="挖坑小能手的填坑日记">
-<meta property="og:description" content="前端开发攻城狮">
+<meta property="og:description" content="原题：212. Word Search II  方法一思路DFS。这道题借用了 79. Word Search 中的exist方法。 source code1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950&#x2F;&#x2F; RuRuntime: 1352 ms, faster">
 <meta property="og:locale" content="zh">
+<meta property="article:published_time" content="2020-05-24T15:48:28.000Z">
+<meta property="article:modified_time" content="2020-05-24T16:13:54.547Z">
 <meta property="article:author" content="Dennis Leung">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="leetcode">
 <meta name="twitter:card" content="summary">
   
   
@@ -138,95 +142,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-191-Number-of-1-Bits" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-212-Word-Search-II" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/25/191-Number-of-1-Bits/">191. Number of 1 Bits</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/25/191-Number-of-1-Bits/" class="archive-article-date">
-  	<time datetime="2020-05-24T16:59:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-25</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>原题：<a href="https://leetcode.com/problems/number-of-1-bits/" target="_blank" rel="noopener">191. Number of 1 Bits</a></p>
-</blockquote>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>位运算。</p>
-<h3 id="常用位运算操作"><a href="#常用位运算操作" class="headerlink" title="常用位运算操作"></a>常用位运算操作</h3><ul>
-<li>x&amp;1==1 or ==0 判断奇偶</li>
-<li>x = x &amp; (x-1) 清零最低位的 1</li>
-<li>x &amp; -x 得到最低位的 1</li>
-</ul>
-<h2 id="source-code"><a href="#source-code" class="headerlink" title="source code"></a>source code</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 72 ms, faster than 26.58% of JavaScript online submissions for Number of 1 Bits.</span></span><br><span class="line"><span class="comment">// Memory Usage: 36.1 MB, less than 10.00% of JavaScript online submissions for Number of 1 Bits.</span></span><br><span class="line"><span class="keyword">var</span> hammingWeight = <span class="function"><span class="keyword">function</span> (<span class="params">n</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> count = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span> (n != <span class="number">0</span>) &#123;</span><br><span class="line">    count++;</span><br><span class="line">    n = n &amp; (n - <span class="number">1</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> count;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="test-case"><a href="#test-case" class="headerlink" title="test case"></a>test case</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">"test1"</span>, () =&gt; &#123;</span><br><span class="line">  expect(hammingWeight(<span class="number">11</span>)).toEqual(<span class="number">3</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/25/191-Number-of-1-Bits/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-212-Word-Search-II" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/24/212-Word-Search-II/">212. Word Search II</a>
+    <h1 class="article-title" itemprop="name">
+      212. Word Search II
     </h1>
   
 
@@ -275,16 +198,33 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/24/212-Word-Search-II/">展开全文 >></a>
-        </p>
-      
 
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2020/05/25/191-Number-of-1-Bits/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          191. Number of 1 Bits
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/05/24/79-Word-Search/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">79. Word Search</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -295,632 +235,23 @@
 
 
 
-
-  
-    <article id="post-79-Word-Search" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/24/79-Word-Search/">79. Word Search</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/24/79-Word-Search/" class="archive-article-date">
-  	<time datetime="2020-05-24T15:42:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>原题：<a href="https://leetcode.com/problems/word-search/" target="_blank" rel="noopener">79. Word Search</a></p>
-</blockquote>
-<p>使用回溯法解决。</p>
-<h2 id="source-code"><a href="#source-code" class="headerlink" title="source code"></a>source code</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 76 ms, faster than 89.67% of JavaScript online submissions for Word Search.</span></span><br><span class="line"><span class="comment">// Memory Usage: 38.2 MB, less than 76.92% of JavaScript online submissions for Word Search.</span></span><br><span class="line"><span class="keyword">var</span> exist = <span class="function"><span class="keyword">function</span> (<span class="params">board, word</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> helper = <span class="function"><span class="keyword">function</span> (<span class="params">i, j, w</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (w &gt;= word.length) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (i &lt; <span class="number">0</span> || j &lt; <span class="number">0</span> || i &gt;= board.length || j &gt;= board[<span class="number">0</span>].length) &#123;</span><br><span class="line">      <span class="comment">//越界</span></span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (board[i][j] != word[w]) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//backtrace</span></span><br><span class="line">    <span class="keyword">const</span> tmp = board[i][j];</span><br><span class="line">    board[i][j] = <span class="string">"*"</span>;</span><br><span class="line">    <span class="keyword">if</span> (</span><br><span class="line">      helper(i - <span class="number">1</span>, j, w + <span class="number">1</span>) ||</span><br><span class="line">      helper(i, j + <span class="number">1</span>, w + <span class="number">1</span>) ||</span><br><span class="line">      helper(i + <span class="number">1</span>, j, w + <span class="number">1</span>) ||</span><br><span class="line">      helper(i, j - <span class="number">1</span>, w + <span class="number">1</span>)</span><br><span class="line">    ) &#123;</span><br><span class="line">      <span class="comment">//上右下左</span></span><br><span class="line">      <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      board[i][j] = tmp;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (!board || !board.length || !word) &#123;</span><br><span class="line">    <span class="comment">//sanity check</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; board.length; i++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; board[<span class="number">0</span>].length; j++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (helper(i, j, <span class="number">0</span>)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="test-cases"><a href="#test-cases" class="headerlink" title="test cases"></a>test cases</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> board = [</span><br><span class="line">  [<span class="string">"A"</span>, <span class="string">"B"</span>, <span class="string">"C"</span>, <span class="string">"E"</span>],</span><br><span class="line">  [<span class="string">"S"</span>, <span class="string">"F"</span>, <span class="string">"C"</span>, <span class="string">"S"</span>],</span><br><span class="line">  [<span class="string">"A"</span>, <span class="string">"D"</span>, <span class="string">"E"</span>, <span class="string">"E"</span>],</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test1"</span>, () =&gt; &#123;</span><br><span class="line">  expect(exist(<span class="built_in">JSON</span>.parse(<span class="built_in">JSON</span>.stringify(board)), <span class="string">"ABCCED"</span>)).toEqual(<span class="literal">true</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test2"</span>, () =&gt; &#123;</span><br><span class="line">  expect(exist(<span class="built_in">JSON</span>.parse(<span class="built_in">JSON</span>.stringify(board)), <span class="string">"SEE"</span>)).toEqual(<span class="literal">true</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test3"</span>, () =&gt; &#123;</span><br><span class="line">  expect(exist(<span class="built_in">JSON</span>.parse(<span class="built_in">JSON</span>.stringify(board)), <span class="string">"ABCB"</span>)).toEqual(<span class="literal">false</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/24/79-Word-Search/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-208-Implement-Trie-Prefix-Tree" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/24/208-Implement-Trie-Prefix-Tree/">208. Implement Trie (Prefix Tree)</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/24/208-Implement-Trie-Prefix-Tree/" class="archive-article-date">
-  	<time datetime="2020-05-24T15:20:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>原题：<a href="https://leetcode.com/problems/implement-trie-prefix-tree/" target="_blank" rel="noopener">208. Implement Trie (Prefix Tree)</a></p>
-</blockquote>
-<h2 id="source-code"><a href="#source-code" class="headerlink" title="source code"></a>source code</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 212 ms, faster than 34.03% of JavaScript online submissions for Implement Trie (Prefix Tree).</span></span><br><span class="line"><span class="comment">// Memory Usage: 55.7 MB, less than 100.00% of JavaScript online submissions for Implement Trie (Prefix Tree).</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Trie</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>() &#123;</span><br><span class="line">    <span class="keyword">this</span>.arr = [];</span><br><span class="line">    <span class="keyword">this</span>.isWord = <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  insert(word) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!word) &#123;</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> queue = word.split(<span class="string">""</span>);</span><br><span class="line">    <span class="keyword">let</span> current = <span class="keyword">this</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; word.length; i++) &#123;</span><br><span class="line">      <span class="keyword">const</span> ch = word[i];</span><br><span class="line">      <span class="keyword">const</span> index = ch.charCodeAt(<span class="number">0</span>) - <span class="number">97</span>;</span><br><span class="line">      <span class="keyword">let</span> next = current.arr[index];</span><br><span class="line">      <span class="keyword">if</span> (!next) &#123;</span><br><span class="line">        next = current.arr[index] = <span class="keyword">new</span> Trie();</span><br><span class="line">      &#125;</span><br><span class="line">      current = next;</span><br><span class="line">      <span class="keyword">if</span> (i == word.length - <span class="number">1</span>) &#123;</span><br><span class="line">        next.isWord = <span class="literal">true</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  search(word) &#123;</span><br><span class="line">    <span class="keyword">const</span> node = <span class="keyword">this</span>._getPathNode(word);</span><br><span class="line">    <span class="keyword">return</span> !!(node &amp;&amp; node.isWord);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  startsWith(prefix) &#123;</span><br><span class="line">    <span class="keyword">return</span> !!<span class="keyword">this</span>._getPathNode(prefix);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  _getPathNode(word) &#123;</span><br><span class="line">    <span class="keyword">let</span> current = <span class="keyword">this</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; word.length; i++) &#123;</span><br><span class="line">      <span class="keyword">const</span> next = current.arr[word[i].charCodeAt(<span class="number">0</span>) - <span class="number">97</span>];</span><br><span class="line">      <span class="keyword">if</span> (!next) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      current = next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> current;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/24/208-Implement-Trie-Prefix-Tree/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-69-Sqrt-x" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/24/69-Sqrt-x/">69. Sqrt(x)</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/24/69-Sqrt-x/" class="archive-article-date">
-  	<time datetime="2020-05-24T14:14:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>原题：<a href="https://leetcode.com/problems/sqrtx/" target="_blank" rel="noopener">69. Sqrt(x)</a></p>
-</blockquote>
-<h2 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h2><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>二分法</p>
-<p>要牢记二分法的模板：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> left = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">let</span> right = arr.length<span class="number">-1</span>;</span><br><span class="line"><span class="keyword">while</span>(left &lt;= right) &#123;</span><br><span class="line">  <span class="keyword">let</span> mid = (left + right) / <span class="number">2</span>;</span><br><span class="line">  <span class="keyword">if</span>(arr[mid] === target) &#123;</span><br><span class="line">    <span class="comment">// find the target</span></span><br><span class="line">    <span class="keyword">break</span> or <span class="keyword">return</span> result;</span><br><span class="line">  &#125;<span class="keyword">else</span> <span class="keyword">if</span>(arr[mid] &lt; target) &#123;</span><br><span class="line">    left = mid + <span class="number">1</span>;</span><br><span class="line">  &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">    right = mid - <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="source-code"><a href="#source-code" class="headerlink" title="source code:"></a>source code:</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 88 ms, faster than 35.63% of JavaScript online submissions for Sqrt(x).</span></span><br><span class="line"><span class="comment">// Memory Usage: 36.1 MB, less than 11.11% of JavaScript online submissions for Sqrt(x).</span></span><br><span class="line"><span class="keyword">var</span> mySqrt = <span class="function"><span class="keyword">function</span> (<span class="params">x</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> left = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">let</span> right = x;</span><br><span class="line">  <span class="keyword">while</span> (left &lt;= right) &#123;</span><br><span class="line">    <span class="keyword">let</span> mid = ~~((left + right) / <span class="number">2</span>);</span><br><span class="line">    <span class="keyword">let</span> tmp = mid * mid;</span><br><span class="line">    <span class="keyword">if</span> (tmp == x) &#123;</span><br><span class="line">      <span class="keyword">return</span> mid;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (tmp &lt; x) &#123;</span><br><span class="line">      left = mid + <span class="number">1</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      right = mid - <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> right;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h3 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h3><p>求sqart(x)，要求精度为n</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// init variable</span></span><br><span class="line"><span class="keyword">while</span>(<span class="built_in">Math</span>.abs(right-left)&lt; <span class="number">1</span>/<span class="built_in">Math</span>.pow(<span class="number">10</span>, n)) &#123;<span class="comment">// 退出条件为小于具体的精度</span></span><br><span class="line">  <span class="keyword">let</span> mid = (left + right) / <span class="number">2</span>;</span><br><span class="line">  <span class="keyword">let</span> tmp = mid * mid;</span><br><span class="line">  <span class="keyword">if</span> (tmp == x) &#123;</span><br><span class="line">    <span class="keyword">return</span> mid;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (tmp &lt; x) &#123;</span><br><span class="line">    left = mid;<span class="comment">// 这里不能+1</span></span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    right = mid;<span class="comment">// 这里不能-1</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> left;</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h2><h3 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h3><p>牛顿迭代法：</p>
-<p><img src="/img/preloader.gif" data-original="/2020/05/24/69-Sqrt-x/%E7%89%9B%E9%A1%BF%E8%BF%AD%E4%BB%A3%E6%B3%95.jpg" alt="牛顿迭代法"></p>
-<p>这道题中，<code>f(xn) = xn ^ 2 - y</code>，f(xn)的导数 <code>f&#39;(xn) = 2 * xn</code>。</p>
-<p>最终可得：<code>x(n+1) = (xn + y/xn)/2</code>。</p>
-<h3 id="source-code-1"><a href="#source-code-1" class="headerlink" title="source code"></a>source code</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 64 ms, faster than 95.63% of JavaScript online submissions for Sqrt(x).</span></span><br><span class="line"><span class="comment">// Memory Usage: 37.2 MB, less than 8.33% of JavaScript online submissions for Sqrt(x).</span></span><br><span class="line"><span class="keyword">var</span> mySqrt = <span class="function"><span class="keyword">function</span> (<span class="params">x</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> r = x;</span><br><span class="line">  <span class="keyword">while</span> (r * r &gt; x) &#123;</span><br><span class="line">    r = ~~((r + x / r) / <span class="number">2</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> r;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="test-cases"><a href="#test-cases" class="headerlink" title="test cases"></a>test cases</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">"test1"</span>, () =&gt; &#123;</span><br><span class="line">  expect(mySqrt(<span class="number">4</span>)).toEqual(<span class="number">2</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test2"</span>, () =&gt; &#123;</span><br><span class="line">  expect(mySqrt(<span class="number">8</span>)).toEqual(<span class="number">2</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test3"</span>, () =&gt; &#123;</span><br><span class="line">  expect(mySqrt(<span class="number">1</span>)).toEqual(<span class="number">1</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test4"</span>, () =&gt; &#123;</span><br><span class="line">  expect(mySqrt(<span class="number">5</span>)).toEqual(<span class="number">2</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/24/69-Sqrt-x/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-37-Sudoku-Solver" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/24/37-Sudoku-Solver/">37. Sudoku Solver</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/24/37-Sudoku-Solver/" class="archive-article-date">
-  	<time datetime="2020-05-24T08:38:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>原题：<a href="https://leetcode.com/problems/sudoku-solver/" target="_blank" rel="noopener">37. Sudoku Solver</a></p>
-</blockquote>
-<p>思路：backtrace + 适当剪枝，判断是否合法应用了<a href="https://leetcode.com/problems/valid-sudoku/" target="_blank" rel="noopener">36. Valid Sudoku</a>的解法</p>
-<p>时间复杂度：O(n^3)</p>
-<h2 id="source-code"><a href="#source-code" class="headerlink" title="source code"></a>source code</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 192 ms, faster than 16.58% of JavaScript online submissions for Sudoku Solver.</span></span><br><span class="line"><span class="comment">// Memory Usage: 43.7 MB, less than 14.29% of JavaScript online submissions for Sudoku Solver.</span></span><br><span class="line"><span class="keyword">var</span> solveSudoku = <span class="function"><span class="keyword">function</span> (<span class="params">board</span>) </span>&#123;</span><br><span class="line">  <span class="comment">//判断是否合法，可以把这个单独抽离，使得整个程序逻辑更加清晰</span></span><br><span class="line">  <span class="keyword">const</span> <span class="keyword">set</span> = new Set();</span><br><span class="line">  const getKey = function (row, col, num) &#123;</span><br><span class="line">    <span class="keyword">const</span> rowKey = <span class="string">`row_<span class="subst">$&#123;row&#125;</span>_<span class="subst">$&#123;num&#125;</span>`</span>;</span><br><span class="line">    <span class="keyword">const</span> colKey = <span class="string">`col_<span class="subst">$&#123;col&#125;</span>_<span class="subst">$&#123;num&#125;</span>`</span>;</span><br><span class="line">    <span class="keyword">const</span> boxKey = <span class="string">`box_<span class="subst">$&#123;~~(row <span class="regexp">/ 3)&#125;_$&#123;~~(col /</span> <span class="number">3</span>)&#125;</span>_<span class="subst">$&#123;num&#125;</span>`</span>;</span><br><span class="line">    <span class="keyword">return</span> [rowKey, colKey, boxKey];</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> add = <span class="function"><span class="keyword">function</span> (<span class="params">row, col, num</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> [rowKey, colKey, boxKey] = getKey(row, col, num);</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">set</span>.has(rowKey) || <span class="keyword">set</span>.has(colKey) || <span class="keyword">set</span>.has(boxKey)) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">set</span>.add(rowKey);</span><br><span class="line">    <span class="keyword">set</span>.add(colKey);</span><br><span class="line">    <span class="keyword">set</span>.add(boxKey);</span><br><span class="line">    board[row][col] = "" + num;</span><br><span class="line"></span><br><span class="line">    return true;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  const remove = function (row, col, num) &#123;</span><br><span class="line">    <span class="keyword">const</span> [rowKey, colKey, boxKey] = getKey(row, col, num);</span><br><span class="line">    <span class="keyword">set</span>.delete(rowKey);</span><br><span class="line">    <span class="keyword">set</span>.delete(colKey);</span><br><span class="line">    <span class="keyword">set</span>.delete(boxKey);</span><br><span class="line">    board[row][col] = ".";</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  //初始化</span><br><span class="line">  for (let i = 0; i &lt; 9; i++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; <span class="number">9</span>; j++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (board[i][j] === <span class="string">"."</span>) &#123;</span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      add(i, j, board[i][j]); <span class="comment">//假设初始面板是合法的</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> helper = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">9</span>; i++) &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; <span class="number">9</span>; j++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (board[i][j] !== <span class="string">"."</span>) &#123;</span><br><span class="line">          <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> num = <span class="number">1</span>; num &lt;= <span class="number">9</span>; num++) &#123;</span><br><span class="line">          <span class="keyword">if</span> (add(i, j, num)) &#123;</span><br><span class="line">            <span class="keyword">if</span> (helper()) &#123;</span><br><span class="line">              <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">              remove(i, j, num);</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (num &gt; <span class="number">9</span>) &#123;</span><br><span class="line">          <span class="comment">//如果某一个单元格所有数字都不可行，说明前面走错了</span></span><br><span class="line">          <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  helper();</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="test-cases"><a href="#test-cases" class="headerlink" title="test cases"></a>test cases</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> board = [</span><br><span class="line">  [<span class="string">"5"</span>, <span class="string">"3"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"7"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>],</span><br><span class="line">  [<span class="string">"6"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"1"</span>, <span class="string">"9"</span>, <span class="string">"5"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>],</span><br><span class="line">  [<span class="string">"."</span>, <span class="string">"9"</span>, <span class="string">"8"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"6"</span>, <span class="string">"."</span>],</span><br><span class="line">  [<span class="string">"8"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"6"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"3"</span>],</span><br><span class="line">  [<span class="string">"4"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"8"</span>, <span class="string">"."</span>, <span class="string">"3"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"1"</span>],</span><br><span class="line">  [<span class="string">"7"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"2"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"6"</span>],</span><br><span class="line">  [<span class="string">"."</span>, <span class="string">"6"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"2"</span>, <span class="string">"8"</span>, <span class="string">"."</span>],</span><br><span class="line">  [<span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"4"</span>, <span class="string">"1"</span>, <span class="string">"9"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"5"</span>],</span><br><span class="line">  [<span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"8"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"7"</span>, <span class="string">"9"</span>],</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line">solveSudoku(board);</span><br><span class="line"><span class="built_in">console</span>.log(board);</span><br><span class="line"></span><br><span class="line"><span class="comment">//output:</span></span><br><span class="line">[ </span><br><span class="line">  [ <span class="string">'5'</span>, <span class="string">'3'</span>, <span class="string">'4'</span>, <span class="string">'6'</span>, <span class="string">'7'</span>, <span class="string">'8'</span>, <span class="string">'9'</span>, <span class="string">'1'</span>, <span class="string">'2'</span> ],</span><br><span class="line">  [ <span class="string">'6'</span>, <span class="string">'7'</span>, <span class="string">'2'</span>, <span class="string">'1'</span>, <span class="string">'9'</span>, <span class="string">'5'</span>, <span class="string">'3'</span>, <span class="string">'4'</span>, <span class="string">'8'</span> ],</span><br><span class="line">  [ <span class="string">'1'</span>, <span class="string">'9'</span>, <span class="string">'8'</span>, <span class="string">'3'</span>, <span class="string">'4'</span>, <span class="string">'2'</span>, <span class="string">'5'</span>, <span class="string">'6'</span>, <span class="string">'7'</span> ],</span><br><span class="line">  [ <span class="string">'8'</span>, <span class="string">'5'</span>, <span class="string">'9'</span>, <span class="string">'7'</span>, <span class="string">'6'</span>, <span class="string">'1'</span>, <span class="string">'4'</span>, <span class="string">'2'</span>, <span class="string">'3'</span> ],</span><br><span class="line">  [ <span class="string">'4'</span>, <span class="string">'2'</span>, <span class="string">'6'</span>, <span class="string">'8'</span>, <span class="string">'5'</span>, <span class="string">'3'</span>, <span class="string">'7'</span>, <span class="string">'9'</span>, <span class="string">'1'</span> ],</span><br><span class="line">  [ <span class="string">'7'</span>, <span class="string">'1'</span>, <span class="string">'3'</span>, <span class="string">'9'</span>, <span class="string">'2'</span>, <span class="string">'4'</span>, <span class="string">'8'</span>, <span class="string">'5'</span>, <span class="string">'6'</span> ],</span><br><span class="line">  [ <span class="string">'9'</span>, <span class="string">'6'</span>, <span class="string">'1'</span>, <span class="string">'5'</span>, <span class="string">'3'</span>, <span class="string">'7'</span>, <span class="string">'2'</span>, <span class="string">'8'</span>, <span class="string">'4'</span> ],</span><br><span class="line">  [ <span class="string">'2'</span>, <span class="string">'8'</span>, <span class="string">'7'</span>, <span class="string">'4'</span>, <span class="string">'1'</span>, <span class="string">'9'</span>, <span class="string">'6'</span>, <span class="string">'3'</span>, <span class="string">'5'</span> ],</span><br><span class="line">  [ <span class="string">'3'</span>, <span class="string">'4'</span>, <span class="string">'5'</span>, <span class="string">'2'</span>, <span class="string">'8'</span>, <span class="string">'6'</span>, <span class="string">'1'</span>, <span class="string">'7'</span>, <span class="string">'9'</span> ] </span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/24/37-Sudoku-Solver/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-36-Valid-Sudoku" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/24/36-Valid-Sudoku/">36. Valid Sudoku</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/24/36-Valid-Sudoku/" class="archive-article-date">
-  	<time datetime="2020-05-24T06:59:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>原题：<a href="https://leetcode.com/problems/valid-sudoku/" target="_blank" rel="noopener">36. Valid Sudoku</a></p>
-</blockquote>
-<h2 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h2><p>思路：brute force</p>
-<p>时间复杂度：O(n^2)</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 96 ms, faster than 28.80% of JavaScript online submissions for Valid Sudoku.</span></span><br><span class="line"><span class="comment">// Memory Usage: 39.2 MB, less than 26.67% of JavaScript online submissions for Valid Sudoku.</span></span><br><span class="line"><span class="keyword">var</span> isValidSudoku = <span class="function"><span class="keyword">function</span> (<span class="params">board</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> checkRow = <span class="function"><span class="keyword">function</span> (<span class="params">row</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">set</span> = new Set();</span><br><span class="line">    for (let i = 0; i &lt; 9; i++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (board[row][i] === <span class="string">"."</span>) &#123;</span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">set</span>.has(board[row][i])) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">set</span>.add(board[row][i]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return true;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  const checkCol = function (col) &#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">set</span> = new Set();</span><br><span class="line">    for (let i = 0; i &lt; 9; i++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (board[i][col] === <span class="string">"."</span>) &#123;</span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">set</span>.has(board[i][col])) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">set</span>.add(board[i][col]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return true;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  const checkSquare = function (x, y) &#123;</span><br><span class="line">    <span class="comment">//左上角原点</span></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">set</span> = new Set();</span><br><span class="line">    for (let i = x; i &lt; x + 3; i++) &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">let</span> j = y; j &lt; y + <span class="number">3</span>; j++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (board[i][j] === <span class="string">"."</span>) &#123;</span><br><span class="line">          <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">set</span>.has(board[i][j])) &#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">set</span>.add(board[i][j]);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return true;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  for (let i = 0; i &lt; 9; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!checkRow(i) || !checkCol(i)) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; <span class="number">3</span>; j++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (!checkSquare(i * <span class="number">3</span>, j * <span class="number">3</span>)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="方法二（Recommend）"><a href="#方法二（Recommend）" class="headerlink" title="方法二（Recommend）"></a>方法二（Recommend）</h2><p>思路：利用set缓存每一步的结果</p>
-<p>时间复杂度：O(n^2)，实际上比方法一通用、高效很多</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 100 ms, faster than 25.57% of JavaScript online submissions for Valid Sudoku.</span></span><br><span class="line"><span class="comment">// Memory Usage: 39.4 MB, less than 26.67% of JavaScript online submissions for Valid Sudoku.</span></span><br><span class="line"><span class="keyword">var</span> isValidSudoku = <span class="function"><span class="keyword">function</span> (<span class="params">board</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> <span class="keyword">set</span> = new Set();</span><br><span class="line">  for (let i = 0; i &lt; 9; i++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; <span class="number">9</span>; j++) &#123;</span><br><span class="line">      <span class="keyword">const</span> grid = board[i][j];</span><br><span class="line">      <span class="keyword">if</span> (grid === <span class="string">"."</span>) &#123;</span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">const</span> rowKey = <span class="string">`row_<span class="subst">$&#123;i&#125;</span>_<span class="subst">$&#123;grid&#125;</span>`</span>;</span><br><span class="line">      <span class="keyword">const</span> colKey = <span class="string">`col_<span class="subst">$&#123;j&#125;</span>_<span class="subst">$&#123;grid&#125;</span>`</span>;</span><br><span class="line">      <span class="keyword">const</span> boxKey = <span class="string">`box_<span class="subst">$&#123;~~(i <span class="regexp">/ 3)&#125;_$&#123;~~(j /</span> <span class="number">3</span>)&#125;</span>_<span class="subst">$&#123;grid&#125;</span>`</span>;</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">set</span>.has(rowKey) || <span class="keyword">set</span>.has(colKey) || <span class="keyword">set</span>.has(boxKey)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">set</span>.add(rowKey);</span><br><span class="line">      <span class="keyword">set</span>.add(colKey);</span><br><span class="line">      <span class="keyword">set</span>.add(boxKey);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return true;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="test-cases"><a href="#test-cases" class="headerlink" title="test cases:"></a>test cases:</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">"test1"</span>, () =&gt; &#123;</span><br><span class="line">  expect(</span><br><span class="line">    isValidSudoku([</span><br><span class="line">      [<span class="string">"5"</span>, <span class="string">"3"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"7"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>],</span><br><span class="line">      [<span class="string">"6"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"1"</span>, <span class="string">"9"</span>, <span class="string">"5"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>],</span><br><span class="line">      [<span class="string">"."</span>, <span class="string">"9"</span>, <span class="string">"8"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"6"</span>, <span class="string">"."</span>],</span><br><span class="line">      [<span class="string">"8"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"6"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"3"</span>],</span><br><span class="line">      [<span class="string">"4"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"8"</span>, <span class="string">"."</span>, <span class="string">"3"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"1"</span>],</span><br><span class="line">      [<span class="string">"7"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"2"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"6"</span>],</span><br><span class="line">      [<span class="string">"."</span>, <span class="string">"6"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"2"</span>, <span class="string">"8"</span>, <span class="string">"."</span>],</span><br><span class="line">      [<span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"4"</span>, <span class="string">"1"</span>, <span class="string">"9"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"5"</span>],</span><br><span class="line">      [<span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"8"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"7"</span>, <span class="string">"9"</span>],</span><br><span class="line">    ])</span><br><span class="line">  ).toEqual(<span class="literal">true</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test2"</span>, () =&gt; &#123;</span><br><span class="line">  expect(</span><br><span class="line">    isValidSudoku([</span><br><span class="line">      [<span class="string">"8"</span>, <span class="string">"3"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"7"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>],</span><br><span class="line">      [<span class="string">"6"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"1"</span>, <span class="string">"9"</span>, <span class="string">"5"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>],</span><br><span class="line">      [<span class="string">"."</span>, <span class="string">"9"</span>, <span class="string">"8"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"6"</span>, <span class="string">"."</span>],</span><br><span class="line">      [<span class="string">"8"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"6"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"3"</span>],</span><br><span class="line">      [<span class="string">"4"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"8"</span>, <span class="string">"."</span>, <span class="string">"3"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"1"</span>],</span><br><span class="line">      [<span class="string">"7"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"2"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"6"</span>],</span><br><span class="line">      [<span class="string">"."</span>, <span class="string">"6"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"2"</span>, <span class="string">"8"</span>, <span class="string">"."</span>],</span><br><span class="line">      [<span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"4"</span>, <span class="string">"1"</span>, <span class="string">"9"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"5"</span>],</span><br><span class="line">      [<span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"8"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"7"</span>, <span class="string">"9"</span>],</span><br><span class="line">    ])</span><br><span class="line">  ).toEqual(<span class="literal">false</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test3"</span>, () =&gt; &#123;</span><br><span class="line">  expect(</span><br><span class="line">    isValidSudoku([</span><br><span class="line">      [<span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"5"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"1"</span>, <span class="string">"."</span>],</span><br><span class="line">      [<span class="string">"."</span>, <span class="string">"4"</span>, <span class="string">"."</span>, <span class="string">"3"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>],</span><br><span class="line">      [<span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"3"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"1"</span>],</span><br><span class="line">      [<span class="string">"8"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"2"</span>, <span class="string">"."</span>],</span><br><span class="line">      [<span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"2"</span>, <span class="string">"."</span>, <span class="string">"7"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>],</span><br><span class="line">      [<span class="string">"."</span>, <span class="string">"1"</span>, <span class="string">"5"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>],</span><br><span class="line">      [<span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"2"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>],</span><br><span class="line">      [<span class="string">"."</span>, <span class="string">"2"</span>, <span class="string">"."</span>, <span class="string">"9"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>],</span><br><span class="line">      [<span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"4"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>],</span><br><span class="line">    ])</span><br><span class="line">  ).toEqual(<span class="literal">false</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/24/36-Valid-Sudoku/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-51-N-Queens" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/23/51-N-Queens/">51. N-Queens</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/23/51-N-Queens/" class="archive-article-date">
-  	<time datetime="2020-05-23T08:34:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>原题：<a href="https://leetcode.com/problems/n-queens/" target="_blank" rel="noopener">51. N-Queens</a></p>
-</blockquote>
-<h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><p>这道题主要用到 <strong>回溯</strong> 的思想解题。<br><img src="/img/preloader.gif" data-original="/2020/05/23/51-N-Queens/n-queen.jpg" alt="n-queen"><br>假设第i行Q占据图中的位置，则她的四条攻击路径如图所示。</p>
-<p>容易得出：路径3（撇）经过的单元格都有<code>y+x=c1</code>，路径4（捺）经过的单元格都有<code>y-x=c2</code>，其中c1/c2是一个常数。</p>
-<ul>
-<li>由于我们逐行扫描，所以路径1必然不会冲突。</li>
-<li>对于路径2，使用<code>col</code>标记已经占用的列</li>
-<li>对于路径3，使用<code>xySum</code>标记已经被占用的撇</li>
-<li>对于路径4，使用<code>xyDiff</code>标记已经占用的捺</li>
-</ul>
-<p>最后回溯即可。</p>
-<h2 id="source-code"><a href="#source-code" class="headerlink" title="source code"></a>source code</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 88 ms, faster than 33.33% of JavaScript online submissions for N-Queens.</span></span><br><span class="line"><span class="comment">// Memory Usage: 39.3 MB, less than 100.00% of JavaScript online submissions for N-Queens.</span></span><br><span class="line"><span class="keyword">var</span> solveNQueens = <span class="function"><span class="keyword">function</span> (<span class="params">n</span>) </span>&#123;</span><br><span class="line">  <span class="comment">//左上角为原点，横向为x，纵向为y</span></span><br><span class="line">  <span class="keyword">const</span> col = &#123;&#125;; <span class="comment">//列</span></span><br><span class="line">  <span class="keyword">const</span> xySum = &#123;&#125;; <span class="comment">//撇，y+x=c</span></span><br><span class="line">  <span class="keyword">const</span> xyDiff = &#123;&#125;; <span class="comment">//捺，y-x=c</span></span><br><span class="line">  <span class="keyword">const</span> result = [];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> helper = <span class="function"><span class="keyword">function</span> (<span class="params">y, tmp</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//x为第几行</span></span><br><span class="line">    <span class="comment">//tmp为中间结果，值为第y行皇后的位置</span></span><br><span class="line">    <span class="keyword">if</span> (y &gt;= n) &#123;</span><br><span class="line">      <span class="comment">//到底</span></span><br><span class="line">      result.push(tmp);</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> x = <span class="number">0</span>; x &lt; n; x++) &#123;</span><br><span class="line">      <span class="comment">//对每一列假设求解</span></span><br><span class="line">      <span class="keyword">if</span> (!col[x] &amp;&amp; !xySum[x + y] &amp;&amp; !xyDiff[y - x]) &#123;</span><br><span class="line">        col[x] = <span class="number">1</span>;</span><br><span class="line">        xySum[x + y] = <span class="number">1</span>;</span><br><span class="line">        xyDiff[y - x] = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        helper(y + <span class="number">1</span>, [...tmp, x]);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//恢复现场</span></span><br><span class="line">        col[x] = <span class="number">0</span>;</span><br><span class="line">        xySum[x + y] = <span class="number">0</span>;</span><br><span class="line">        xyDiff[y - x] = <span class="number">0</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  helper(<span class="number">0</span>, []);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> result.map(<span class="function">(<span class="params">v</span>) =&gt;</span></span><br><span class="line">    v.map(<span class="function">(<span class="params">qi</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> arr = <span class="keyword">new</span> <span class="built_in">Array</span>(n).fill(<span class="string">"."</span>);</span><br><span class="line">      arr[qi] = <span class="string">"Q"</span>;</span><br><span class="line">      <span class="keyword">return</span> arr.join(<span class="string">""</span>);</span><br><span class="line">    &#125;)</span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="test-cases"><a href="#test-cases" class="headerlink" title="test cases"></a>test cases</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">"test1"</span>, () =&gt; &#123;</span><br><span class="line">  expect(solveNQueens(<span class="number">4</span>).sort()).toEqual(</span><br><span class="line">    [</span><br><span class="line">      [</span><br><span class="line">        <span class="string">".Q.."</span>, <span class="comment">// Solution 1</span></span><br><span class="line">        <span class="string">"...Q"</span>,</span><br><span class="line">        <span class="string">"Q..."</span>,</span><br><span class="line">        <span class="string">"..Q."</span>,</span><br><span class="line">      ],</span><br><span class="line"></span><br><span class="line">      [</span><br><span class="line">        <span class="string">"..Q."</span>, <span class="comment">// Solution 2</span></span><br><span class="line">        <span class="string">"Q..."</span>,</span><br><span class="line">        <span class="string">"...Q"</span>,</span><br><span class="line">        <span class="string">".Q.."</span>,</span><br><span class="line">      ],</span><br><span class="line">    ].sort()</span><br><span class="line">  );</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/23/51-N-Queens/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-22-Generate-Parentheses" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/23/22-Generate-Parentheses/">22. Generate Parentheses</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/23/22-Generate-Parentheses/" class="archive-article-date">
-  	<time datetime="2020-05-23T07:22:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>原题：<a href="https://leetcode.com/problems/generate-parentheses/" target="_blank" rel="noopener">22. Generate Parentheses</a></p>
-</blockquote>
-<h2 id="source-code"><a href="#source-code" class="headerlink" title="source code"></a>source code</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 68 ms, faster than 23.67% of JavaScript online submissions for Generate Parentheses.</span></span><br><span class="line"><span class="comment">// Memory Usage: 37.1 MB, less than 7.69% of JavaScript online submissions for Generate Parentheses.</span></span><br><span class="line"><span class="keyword">var</span> generateParenthesis = <span class="function"><span class="keyword">function</span> (<span class="params">n</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> result = [];</span><br><span class="line">  <span class="keyword">const</span> helper = <span class="function"><span class="keyword">function</span> (<span class="params">left, right, str</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//left:左括号还剩几个，right:右括号还剩几个，str:当前结果子串</span></span><br><span class="line">    <span class="keyword">if</span> (left === <span class="number">0</span> &amp;&amp; right === <span class="number">0</span>) &#123;</span><br><span class="line">      result.push(str);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (left &gt; <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="comment">//只要当前子串合法，左括号可以随意加</span></span><br><span class="line">      helper(left - <span class="number">1</span>, right, str + <span class="string">"("</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (right &gt; left) &#123;</span><br><span class="line">      <span class="comment">//如果当前子串合法，子串中的左括号一定比右括号多</span></span><br><span class="line">      helper(left, right - <span class="number">1</span>, str + <span class="string">")"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  helper(n, n, <span class="string">""</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="test-cases"><a href="#test-cases" class="headerlink" title="test cases"></a>test cases</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">"test1"</span>, () =&gt; &#123;</span><br><span class="line">  expect(generateParenthesis(<span class="number">1</span>).sort()).toEqual([<span class="string">"()"</span>].sort());</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test2"</span>, () =&gt; &#123;</span><br><span class="line">  expect(generateParenthesis(<span class="number">2</span>).sort()).toEqual([<span class="string">"()()"</span>, <span class="string">"(())"</span>].sort());</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test3"</span>, () =&gt; &#123;</span><br><span class="line">  expect(generateParenthesis(<span class="number">3</span>).sort()).toEqual(</span><br><span class="line">    [<span class="string">"((()))"</span>, <span class="string">"(()())"</span>, <span class="string">"(())()"</span>, <span class="string">"()(())"</span>, <span class="string">"()()()"</span>].sort()</span><br><span class="line">  );</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/23/22-Generate-Parentheses/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-111-Minimum-Depth-of-Binary-Tree" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/23/111-Minimum-Depth-of-Binary-Tree/">111. Minimum Depth of Binary Tree</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/23/111-Minimum-Depth-of-Binary-Tree/" class="archive-article-date">
-  	<time datetime="2020-05-23T06:50:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>原题：<a href="https://leetcode.com/problems/minimum-depth-of-binary-tree/" target="_blank" rel="noopener">111. Minimum Depth of Binary Tree</a></p>
-</blockquote>
-<h2 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h2><p>思路：DFS<br>时间复杂度：O(n)</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 80 ms, faster than 17.32% of JavaScript online submissions for Minimum Depth of Binary Tree.</span></span><br><span class="line"><span class="comment">// Memory Usage: 38.4 MB, less than 20.00% of JavaScript online submissions for Minimum Depth of Binary Tree.</span></span><br><span class="line"><span class="keyword">var</span> minDepth = <span class="function"><span class="keyword">function</span> (<span class="params">root</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!root) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (root.left &amp;&amp; root.right) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span> + <span class="built_in">Math</span>.min(minDepth(root.left), minDepth(root.right));</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (root.left) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span> + minDepth(root.left);</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (root.right) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span> + minDepth(root.right);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h2><p>思路：BFS<br>时间复杂度：O(n)</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 72 ms, faster than 21.72% of JavaScript online submissions for Minimum Depth of Binary Tree.</span></span><br><span class="line"><span class="comment">// Memory Usage: 40.6 MB, less than 20.00% of JavaScript online submissions for Minimum Depth of Binary Tree.</span></span><br><span class="line"><span class="keyword">var</span> minDepth = <span class="function"><span class="keyword">function</span> (<span class="params">root</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!root) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> queue = [[root, <span class="number">0</span>]];</span><br><span class="line">  <span class="keyword">let</span> minLevel = <span class="literal">Infinity</span>;</span><br><span class="line">  <span class="keyword">while</span> (queue.length) &#123;</span><br><span class="line">    <span class="keyword">const</span> [node, level] = queue.shift();</span><br><span class="line">    !node.left &amp;&amp; !node.right &amp;&amp; (minLevel = <span class="built_in">Math</span>.min(minLevel, level));</span><br><span class="line">    node.left &amp;&amp; queue.push([node.left, level + <span class="number">1</span>]);</span><br><span class="line">    node.right &amp;&amp; queue.push([node.right, level + <span class="number">1</span>]);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> minLevel + <span class="number">1</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="test-cases"><a href="#test-cases" class="headerlink" title="test cases"></a>test cases</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">"test1"</span>, () =&gt; &#123;</span><br><span class="line">  expect(minDepth(makeTree([<span class="number">3</span>, <span class="number">9</span>, <span class="number">20</span>, <span class="literal">null</span>, <span class="literal">null</span>, <span class="number">15</span>, <span class="number">7</span>]))).toEqual(<span class="number">2</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test2"</span>, () =&gt; &#123;</span><br><span class="line">  expect(minDepth(makeTree([]))).toEqual(<span class="number">0</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test3"</span>, () =&gt; &#123;</span><br><span class="line">  expect(minDepth(makeTree([<span class="number">1</span>]))).toEqual(<span class="number">1</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test4"</span>, () =&gt; &#123;</span><br><span class="line">  expect(minDepth(makeTree([<span class="number">1</span>, <span class="number">2</span>]))).toEqual(<span class="number">2</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/23/111-Minimum-Depth-of-Binary-Tree/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
-    </nav>
+  
+  <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script>
+  var cloudTieConfig = {
+    url: "http://dennisleung.github.io/2020/05/24/212-Word-Search-II/", 
+    sourceId: "212-Word-Search-II",
+    productKey: "7b8ed868ba8c43919aec18514f14a586",
+    target: "cloud-tie-wrapper"
+  };
+</script>
+<script src="//img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+  
+
   
 
 
@@ -943,8 +274,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
