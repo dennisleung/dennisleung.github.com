@@ -140,6 +140,174 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Best-Time-to-Buy-and-Sell-Stock" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/22/Best-Time-to-Buy-and-Sell-Stock/">Best Time to Buy and Sell Stock</a>
+    </h1>
+  
+
+        
+        <a href="/2020/05/22/Best-Time-to-Buy-and-Sell-Stock/" class="archive-article-date">
+  	<time datetime="2020-05-22T15:42:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="121-Best-Time-to-Buy-and-Sell-Stock"><a href="#121-Best-Time-to-Buy-and-Sell-Stock" class="headerlink" title="121. Best Time to Buy and Sell Stock"></a>121. Best Time to Buy and Sell Stock</h2><blockquote>
+<p>原题：<a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock/" target="_blank" rel="noopener">121. Best Time to Buy and Sell Stock</a></p>
+</blockquote>
+<h3 id="source-code"><a href="#source-code" class="headerlink" title="source code"></a>source code</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 80 ms, faster than 33.60% of JavaScript online submissions for Best Time to Buy and Sell Stock.</span></span><br><span class="line"><span class="comment">// Memory Usage: 38.6 MB, less than 7.41% of JavaScript online submissions for Best Time to Buy and Sell Stock.</span></span><br><span class="line"><span class="keyword">var</span> maxProfit = <span class="function"><span class="keyword">function</span> (<span class="params">prices</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> minBuy = prices.shift();</span><br><span class="line">  <span class="keyword">let</span> maxProfit = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> price <span class="keyword">of</span> prices) &#123;</span><br><span class="line">    maxProfit = <span class="built_in">Math</span>.max(maxProfit, price - minBuy);</span><br><span class="line">    minBuy = <span class="built_in">Math</span>.min(price, minBuy);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> maxProfit;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="test-cases"><a href="#test-cases" class="headerlink" title="test cases:"></a>test cases:</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">"test1"</span>, () =&gt; &#123;</span><br><span class="line">  expect(maxProfit([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])).toEqual(<span class="number">4</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test2"</span>, () =&gt; &#123;</span><br><span class="line">  expect(maxProfit([<span class="number">7</span>, <span class="number">6</span>, <span class="number">4</span>, <span class="number">3</span>, <span class="number">1</span>])).toEqual(<span class="number">0</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test3"</span>, () =&gt; &#123;</span><br><span class="line">  expect(maxProfit([<span class="number">7</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">6</span>, <span class="number">4</span>])).toEqual(<span class="number">5</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="122-Best-Time-to-Buy-and-Sell-Stock-II"><a href="#122-Best-Time-to-Buy-and-Sell-Stock-II" class="headerlink" title="122. Best Time to Buy and Sell Stock II"></a>122. Best Time to Buy and Sell Stock II</h2><blockquote>
+<p>原题：<a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/" target="_blank" rel="noopener">122. Best Time to Buy and Sell Stock II</a></p>
+</blockquote>
+<p>这道题的思路是：因为能买卖无数次，只要能赚钱（价格比前一天高），就尽快卖出。能同一天进行买卖。</p>
+<h3 id="source-code-1"><a href="#source-code-1" class="headerlink" title="source code"></a>source code</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 84 ms, faster than 27.73% of JavaScript online submissions for Best Time to Buy and Sell Stock II.</span></span><br><span class="line"><span class="comment">// Memory Usage: 37 MB, less than 23.81% of JavaScript online submissions for Best Time to Buy and Sell Stock II.</span></span><br><span class="line"><span class="keyword">var</span> maxProfit = <span class="function"><span class="keyword">function</span> (<span class="params">prices</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> sum = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>, j = <span class="number">1</span>; j &lt; prices.length; ) &#123;</span><br><span class="line">    <span class="keyword">if</span> (prices[j] &gt; prices[i]) &#123;</span><br><span class="line">      sum += prices[j] - prices[i];</span><br><span class="line">    &#125;</span><br><span class="line">    i = j;</span><br><span class="line">    j++;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> sum;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="test-cases-1"><a href="#test-cases-1" class="headerlink" title="test cases"></a>test cases</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">"test1"</span>, () =&gt; &#123;</span><br><span class="line">  expect(maxProfit([<span class="number">7</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">6</span>, <span class="number">4</span>])).toEqual(<span class="number">7</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test2"</span>, () =&gt; &#123;</span><br><span class="line">  expect(maxProfit([<span class="number">7</span>, <span class="number">6</span>, <span class="number">4</span>, <span class="number">3</span>, <span class="number">1</span>])).toEqual(<span class="number">0</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test3"</span>, () =&gt; &#123;</span><br><span class="line">  expect(maxProfit([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])).toEqual(<span class="number">4</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="123-Best-Time-to-Buy-and-Sell-Stock-III"><a href="#123-Best-Time-to-Buy-and-Sell-Stock-III" class="headerlink" title="123. Best Time to Buy and Sell Stock III"></a>123. Best Time to Buy and Sell Stock III</h2><blockquote>
+<p>原题：<a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/" target="_blank" rel="noopener">123. Best Time to Buy and Sell Stock III</a></p>
+</blockquote>
+<h3 id="source-code-2"><a href="#source-code-2" class="headerlink" title="source code"></a>source code</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 2064 ms, faster than 5.19% of JavaScript online submissions for Best Time to Buy and Sell Stock III.</span></span><br><span class="line"><span class="comment">// Memory Usage: 47.7 MB, less than 50.00% of JavaScript online submissions for Best Time to Buy and Sell Stock III.</span></span><br><span class="line"><span class="keyword">var</span> maxProfit = <span class="function"><span class="keyword">function</span> (<span class="params">prices</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> helper = <span class="function"><span class="keyword">function</span> (<span class="params">prices</span>) </span>&#123;<span class="comment">//helper实际上是121的代码</span></span><br><span class="line">    <span class="keyword">let</span> minBuy = prices.shift();</span><br><span class="line">    <span class="keyword">let</span> maxProfit = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> price <span class="keyword">of</span> prices) &#123;</span><br><span class="line">      maxProfit = <span class="built_in">Math</span>.max(maxProfit, price - minBuy);</span><br><span class="line">      minBuy = <span class="built_in">Math</span>.min(price, minBuy);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> maxProfit;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> maxProfit = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt;= prices.length; i++) &#123;</span><br><span class="line">    maxProfit = <span class="built_in">Math</span>.max(</span><br><span class="line">      maxProfit,</span><br><span class="line">      helper(prices.slice(<span class="number">0</span>, i)) + helper(prices.slice(i))</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> maxProfit;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="test-code"><a href="#test-code" class="headerlink" title="test code"></a>test code</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">"test1"</span>, () =&gt; &#123;</span><br><span class="line">  expect(maxProfit([<span class="number">3</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">4</span>])).toEqual(<span class="number">6</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test2"</span>, () =&gt; &#123;</span><br><span class="line">  expect(maxProfit([<span class="number">7</span>, <span class="number">6</span>, <span class="number">4</span>, <span class="number">3</span>, <span class="number">1</span>])).toEqual(<span class="number">0</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test3"</span>, () =&gt; &#123;</span><br><span class="line">  expect(maxProfit([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])).toEqual(<span class="number">4</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test4"</span>, () =&gt; &#123;</span><br><span class="line">  expect(maxProfit([<span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">1</span>])).toEqual(<span class="number">2</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/05/22/Best-Time-to-Buy-and-Sell-Stock/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-模拟es6-Class中的private-public" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/22/%E6%A8%A1%E6%8B%9Fes6-Class%E4%B8%AD%E7%9A%84private-public/">模拟es6 Class中的private/public</a>
+    </h1>
+  
+
+        
+        <a href="/2020/05/22/%E6%A8%A1%E6%8B%9Fes6-Class%E4%B8%AD%E7%9A%84private-public/" class="archive-article-date">
+  	<time datetime="2020-05-22T01:09:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>阿里笔试中的一道题，一眼看上去挺简单，但是仔细想想有挺多地方要注意的。。</p>
+</blockquote>
+<h2 id="原题"><a href="#原题" class="headerlink" title="原题"></a>原题</h2><p>请实现一个Person类，且拥有private的成员变量及函数，public的成员变量及函数</p>
+<p>提示：参考ts实现</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  private name = <span class="string">''</span>;</span><br><span class="line"></span><br><span class="line">  public address = <span class="string">''</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">constructor</span>(name: string, address: string) &#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    <span class="keyword">this</span>.address = address;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  private makeWords() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">`My name is: <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>`</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  public say() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.makeWords());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//结果预期</span></span><br><span class="line">me = <span class="keyword">new</span> Person(<span class="string">'alibaba'</span>, <span class="string">'hangzhou'</span>);</span><br><span class="line">me.say() <span class="comment">// My name is: alibaba</span></span><br><span class="line">me.makeWords() <span class="comment">// Error</span></span><br><span class="line">me.name <span class="comment">// undefined</span></span><br><span class="line">me.address <span class="comment">// hangzhou</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="解题过程"><a href="#解题过程" class="headerlink" title="解题过程"></a>解题过程</h2><p>第一眼看到这道题的时候马上想到的是最简单的实现，用<strong>约定俗成</strong>的方法，给私有变量/方法名前缀加下划线：</p>
+<h3 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Person = <span class="function"><span class="keyword">function</span>(<span class="params">name, address</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>._name = name;</span><br><span class="line">    <span class="keyword">this</span>.address = address;</span><br><span class="line">    <span class="comment">// 其他类似</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h3><p>法一只是一种约定，外部还是能通过<code>_name</code>取到私有属性。然后想到通过<code>Object.defineProperty</code>或者<code>Proxy</code>拦截私有属性的访问，于是写了一个版本：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Person = <span class="function"><span class="keyword">function</span> (<span class="params">name, address</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> obj = &#123;</span><br><span class="line">    name,</span><br><span class="line">    address,</span><br><span class="line">    makeWords() &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">`My name is: <span class="subst">$&#123;<span class="keyword">this</span>._safeGet(<span class="string">"name"</span>)&#125;</span>`</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    say() &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="keyword">this</span>._safeGet(<span class="string">"makeWords"</span>)());</span><br><span class="line">    &#125;,</span><br><span class="line">    _safeGet(propName) &#123;</span><br><span class="line">      <span class="keyword">const</span> propVal = <span class="built_in">Reflect</span>.get(obj, propName);</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">typeof</span> propVal === <span class="string">"function"</span> ? propVal.bind(<span class="keyword">this</span>) : propVal;</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Proxy</span>(obj, &#123;</span><br><span class="line">    <span class="keyword">get</span>(target, propName) &#123;</span><br><span class="line">      <span class="keyword">const</span> privateProps = [<span class="string">"name"</span>, <span class="string">"makeWords"</span>];</span><br><span class="line">      <span class="keyword">if</span> (privateProps.includes(propName)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">undefined</span>;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">typeof</span> target[propName] === <span class="string">"function"</span></span><br><span class="line">          ? target[propName].bind(target)</span><br><span class="line">          : target[propName]; <span class="comment">//proxy拦截方法里面的this指向Proxy</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>这个方法能屏蔽外部对私有属性的访问，但是内部调用必须经过<code>_safeGet</code>，和题目要求有微妙的区别。。而且某些浏览器不支持Proxy。</p>
+<h3 id="方法三"><a href="#方法三" class="headerlink" title="方法三"></a>方法三</h3><p>相当于方法二的简单实现，用闭包屏蔽外部访问，还是没解决内部调用的问题：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Person = <span class="function"><span class="keyword">function</span> (<span class="params">name, address</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> makeWords = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">`My name is: <span class="subst">$&#123;name&#125;</span>`</span>;<span class="comment">//怎么改造可以使用this.name？</span></span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> say = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(makeWords());<span class="comment">//怎么改造可以使用this.makeWords？</span></span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123; address, say &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="方法四"><a href="#方法四" class="headerlink" title="方法四"></a>方法四</h3><p>通过原型链屏蔽私有属性的访问，这个解法是符合题目要求的，但是是否是最优解不得而知：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Person = <span class="function"><span class="keyword">function</span> (<span class="params">name, address</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> privateObj = &#123;&#125;;</span><br><span class="line">  <span class="keyword">const</span> publicObj = &#123;&#125;;</span><br><span class="line">  privateObj.__proto__ = publicObj;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> makeWords = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">`My name is: <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>`</span>;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> say = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.makeWords());</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> props = [<span class="comment">//属性配置元组</span></span><br><span class="line">    [<span class="string">"name"</span>, name, <span class="literal">true</span>], <span class="comment">//propName, propValue, isPrivate</span></span><br><span class="line">    [<span class="string">"address"</span>, address, <span class="literal">false</span>],</span><br><span class="line">    [<span class="string">"makeWords"</span>, makeWords, <span class="literal">true</span>],</span><br><span class="line">    [<span class="string">"say"</span>, say, <span class="literal">false</span>],</span><br><span class="line">  ];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> [propName, propValue, isPrivate] <span class="keyword">of</span> props) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> propValue === <span class="string">"function"</span>) &#123;</span><br><span class="line">      propValue = propValue.bind(privateObj);</span><br><span class="line">    &#125;</span><br><span class="line">    (isPrivate ? privateObj : publicObj)[propName] = propValue;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> publicObj;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/05/22/%E6%A8%A1%E6%8B%9Fes6-Class%E4%B8%AD%E7%9A%84private-public/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-19-Remove-Nth-Node-From-End-of-List" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -736,157 +904,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2020/05/20/1-Two-Sum/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-239-Sliding-Window-Maximum" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/19/239-Sliding-Window-Maximum/">239. Sliding Window Maximum</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/19/239-Sliding-Window-Maximum/" class="archive-article-date">
-  	<time datetime="2020-05-19T15:18:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>原题：<a href="https://leetcode.com/problems/sliding-window-maximum/" target="_blank" rel="noopener">239. Sliding Window Maximum</a></p>
-</blockquote>
-<h2 id="解法一"><a href="#解法一" class="headerlink" title="解法一"></a>解法一</h2><p>思路：滑动窗口，维护一个size为k的大堆。滑动过程中把最老的元素poll，offer最新的元素后调整堆。</p>
-<p>时间复杂度：O(n * logk)</p>
-<h2 id="解法二（Recommend）"><a href="#解法二（Recommend）" class="headerlink" title="解法二（Recommend）"></a>解法二（Recommend）</h2><p>由于窗口大小固定，我们并不需要去维持大堆，只要记录窗口内的最大值即可。这里采用 <strong>双关队列（Dequeue）</strong> 的思路。</p>
-<p>时间复杂度：O(n)</p>
-<h3 id="source-code"><a href="#source-code" class="headerlink" title="source code"></a>source code</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 192 ms, faster than 18.08% of JavaScript online submissions for Sliding Window Maximum.</span></span><br><span class="line"><span class="comment">// Memory Usage: 48 MB, less than 33.33% of JavaScript online submissions for Sliding Window Maximum.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> maxSlidingWindow = <span class="function"><span class="keyword">function</span>(<span class="params">nums, k</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="built_in">window</span> = [];<span class="comment">//存储的是nums的索引，这是时间复杂度为O(n)的关键</span></span><br><span class="line">    <span class="keyword">const</span> result = [];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i&lt;nums.length; i++) &#123;</span><br><span class="line">        <span class="keyword">const</span> num = nums[i];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> j = <span class="number">0</span>; j&lt;<span class="built_in">window</span>.length &amp;&amp; <span class="built_in">window</span>[j]&lt;=i-k; j++) &#123;<span class="comment">//把超出窗口容量的最老的索引出列</span></span><br><span class="line">            <span class="built_in">window</span>.shift();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(<span class="literal">true</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">window</span>.length &amp;&amp; nums[<span class="built_in">window</span>[<span class="built_in">window</span>.length<span class="number">-1</span>]]&lt;=num) &#123;<span class="comment">//每个新增的元素后续只会被比较一次就出列了，所以内层循环的时间复杂度为O(1)</span></span><br><span class="line">                <span class="built_in">window</span>.pop();</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">window</span>.push(i);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(i&gt;=k<span class="number">-1</span>) &#123;</span><br><span class="line">            result.push(nums[<span class="built_in">window</span>[<span class="number">0</span>]]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h3 id="test-cases"><a href="#test-cases" class="headerlink" title="test cases"></a>test cases</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">"test1"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(maxSlidingWindow([<span class="number">1</span>,<span class="number">3</span>,<span class="number">-1</span>,<span class="number">-3</span>,<span class="number">5</span>,<span class="number">3</span>,<span class="number">6</span>,<span class="number">7</span>], <span class="number">3</span>)).toEqual([<span class="number">3</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>]);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test2"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(maxSlidingWindow([<span class="number">1</span>,<span class="number">3</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">0</span>,<span class="number">5</span>], <span class="number">3</span>)).toEqual([<span class="number">3</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">5</span>]);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/19/239-Sliding-Window-Maximum/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-703-Kth-Largest-Element-in-a-Stream" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/19/703-Kth-Largest-Element-in-a-Stream/">703. Kth Largest Element in a Stream</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/19/703-Kth-Largest-Element-in-a-Stream/" class="archive-article-date">
-  	<time datetime="2020-05-19T14:01:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>原题：<a href="https://leetcode.com/problems/kth-largest-element-in-a-stream/" target="_blank" rel="noopener">703. Kth Largest Element in a Stream</a></p>
-</blockquote>
-<p>这道题主要考察优先队列（小堆）的用法，但是js里面没有优先队列，只能自己实现。具体可以参考leetcode上一个大神的实现：<br><a href="https://github.com/jeantimex/javascript-problems-and-solutions/blob/master/src/common/priority-queue.js" target="_blank" rel="noopener">priority-queue.js</a></p>
-<h2 id="Source-Code"><a href="#Source-Code" class="headerlink" title="Source Code"></a>Source Code</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 196 ms, faster than 78.06% of JavaScript online submissions for Kth Largest Element in a Stream.</span></span><br><span class="line"><span class="comment">// Memory Usage: 45 MB, less than 75.00% of JavaScript online submissions for Kth Largest Element in a Stream.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> KthLargest = <span class="function"><span class="keyword">function</span>(<span class="params">k, nums</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.pq = <span class="keyword">new</span> PriorityQueue(<span class="literal">true</span>);</span><br><span class="line">    <span class="keyword">this</span>.k = k;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> num <span class="keyword">of</span> nums) &#123;</span><br><span class="line">        <span class="keyword">this</span>.add(num);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/** </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number&#125;</span> <span class="variable">val</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">KthLargest.prototype.add = <span class="function"><span class="keyword">function</span>(<span class="params">val</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(<span class="keyword">this</span>.pq.size()&lt;<span class="keyword">this</span>.k) &#123;</span><br><span class="line">      <span class="keyword">this</span>.pq.offer(val, val);</span><br><span class="line">  &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> peek = <span class="keyword">this</span>.pq.peek();</span><br><span class="line">      <span class="keyword">if</span>(peek&lt;val) &#123;</span><br><span class="line">          <span class="keyword">this</span>.pq.poll();</span><br><span class="line">          <span class="keyword">this</span>.pq.offer(val, val);</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">this</span>.pq.peek();<span class="comment">//nums' length ≥ k-1, 所以不需要考虑队列长度小于k需要返回什么</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Test-Cases"><a href="#Test-Cases" class="headerlink" title="Test Cases"></a>Test Cases</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">"test1"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(kthLargest.add(<span class="number">3</span>)).toEqual(<span class="number">4</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test2"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(kthLargest.add(<span class="number">5</span>)).toEqual(<span class="number">5</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test3"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(kthLargest.add(<span class="number">10</span>)).toEqual(<span class="number">5</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test4"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(kthLargest.add(<span class="number">9</span>)).toEqual(<span class="number">8</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test5"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(kthLargest.add(<span class="number">4</span>)).toEqual(<span class="number">8</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/19/703-Kth-Largest-Element-in-a-Stream/">展开全文 >></a>
         </p>
       
 
