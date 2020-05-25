@@ -140,6 +140,94 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-linked-list-cycle-ii" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/18/linked-list-cycle-ii/">Linked List Cycle ii</a>
+    </h1>
+  
+
+        
+        <a href="/2020/05/18/linked-list-cycle-ii/" class="archive-article-date">
+  	<time datetime="2020-05-17T23:36:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>原题地址：<a href="https://leetcode.com/problems/linked-list-cycle-ii/" target="_blank" rel="noopener">Linked List Cycle II</a></p>
+</blockquote>
+<h2 id="解法一"><a href="#解法一" class="headerlink" title="解法一"></a>解法一</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//brute force，很容易想到</span></span><br><span class="line"><span class="keyword">var</span> detectCycle = <span class="function"><span class="keyword">function</span>(<span class="params">head</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">set</span> = new Set();</span><br><span class="line">    while(head) &#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">set</span>.has(head)) &#123;</span><br><span class="line">            <span class="keyword">return</span> head;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">set</span>.add(head);</span><br><span class="line">        head = head.next;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return null;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="解法二"><a href="#解法二" class="headerlink" title="解法二"></a>解法二</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> detectCycle = <span class="function"><span class="keyword">function</span>(<span class="params">head</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> slow = head;</span><br><span class="line">    <span class="keyword">let</span> fast = head;</span><br><span class="line">    <span class="keyword">while</span> (slow &amp;&amp; fast &amp;&amp; fast.next) &#123;</span><br><span class="line">        slow = slow.next;</span><br><span class="line">        fast = fast.next.next;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (slow === fast) &#123; <span class="comment">//这里有些难理解</span></span><br><span class="line">            <span class="keyword">while</span> (head !== fast) &#123;</span><br><span class="line">                head = head.next;</span><br><span class="line">                fast = fast.next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> head;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>这个解法用的还是 <a href="https://leetcode.com/problems/linked-list-cycle/" target="_blank" rel="noopener">Linked List Cycle</a>里面的<strong>快慢双指针</strong>的思路。</p>
+<p>外层循环通过快慢指针<strong>判断是否有环</strong>，内层循环<strong>找出环的起始点</strong>。</p>
+<p>下面用一幅图解释下为什么内层循环这样做可以找到环的起始点：<br><img src="/img/preloader.gif" data-original="/2020/05/18/linked-list-cycle-ii/pic.jpg" alt="pic"><br>假设链表起点到环起点距离为x1，环起点到快慢指针相遇节点距离为x3，环的长度为2*x2。</p>
+<p>快慢指针相遇时慢指针走的距离是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">slowDistance &#x3D; x1 + x2</span><br></pre></td></tr></table></figure>
+<p>快指针有的距离是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fastDistance &#x3D; x1 + x3 + 2 * x2</span><br></pre></td></tr></table></figure>
+<p>由于快指针移动速度是慢指针两倍：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fastDistance &#x3D; 2 * slowDistance</span><br></pre></td></tr></table></figure>
+<p>由上可得：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x1 &#x3D; 2 * x2 - x3</span><br></pre></td></tr></table></figure>
+<p><code>x1</code>是链表起点到环起点的距离，<code>2 * x2 - x3</code>是快指针<strong>绕回</strong>环起点的距离。<strong>因此只要以相同速度移动链表起点和快指针，它们第一次一定会在环起点相遇。</strong></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/05/18/linked-list-cycle-ii/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-找出旧数组变成新数组的操作" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -889,75 +977,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2020/05/11/flex%E5%B8%83%E5%B1%80/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-xss防范" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/11/xss%E9%98%B2%E8%8C%83/">xss防范</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/11/xss%E9%98%B2%E8%8C%83/" class="archive-article-date">
-  	<time datetime="2020-05-11T15:42:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="预防xss的方法"><a href="#预防xss的方法" class="headerlink" title="预防xss的方法"></a>预防xss的方法</h2><ul>
-<li>innerText</li>
-<li>对输出内容进行转义或者过滤html标签  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//最简单的正则过滤</span></span><br><span class="line">str = <span class="string">'&lt;a href="aa"&gt;aaa&lt;/a&gt;ccc&lt;b&gt;bbb&lt;/bbb&gt;'</span></span><br><span class="line">str.replace(<span class="regexp">/&lt;[^&gt;]+/g</span>, <span class="string">''</span>) <span class="comment">//aaacccbbb</span></span><br><span class="line">str.replace(<span class="regexp">/&lt;[^(&lt;\/)]+&lt;\/[^&gt;]+&gt;/g</span>, <span class="string">''</span>) <span class="comment">//ccc</span></span><br></pre></td></tr></table></figure></li>
-<li>CSP<br> <a href="https://developers.google.cn/web/fundamentals/security/csp/?hl=zh-cn" target="_blank" rel="noopener">内容安全策略 Content Security Policy</a></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">网络安全</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/11/xss%E9%98%B2%E8%8C%83/">展开全文 >></a>
         </p>
       
 
