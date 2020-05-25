@@ -140,6 +140,163 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-50-Pow-x-n" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/21/50-Pow-x-n/">50. Pow(x, n)</a>
+    </h1>
+  
+
+        
+        <a href="/2020/05/21/50-Pow-x-n/" class="archive-article-date">
+  	<time datetime="2020-05-21T02:02:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>原题：<a href="https://leetcode.com/problems/powx-n/" target="_blank" rel="noopener">50. Pow(x, n)</a></p>
+</blockquote>
+<p>这道题用的是分治的思路。js实现可能会出现由于精度原因无法通过本地的单元测试，但是leetcode上面提交是能AC的。</p>
+<h3 id="Source-Code"><a href="#Source-Code" class="headerlink" title="Source Code"></a>Source Code</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myPow = <span class="function"><span class="keyword">function</span> (<span class="params">x, n</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">switch</span> (n) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">      <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">      <span class="keyword">return</span> x;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">-1</span>:</span><br><span class="line">      <span class="keyword">return</span> <span class="number">1</span> / x;</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> y = myPow(x, ~~(n / <span class="number">2</span>));</span><br><span class="line">  <span class="keyword">return</span> y * y * (n % <span class="number">2</span> === <span class="number">0</span> ? <span class="number">1</span> : n &gt; <span class="number">0</span> ? x : <span class="number">1</span> / x);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Test-Cases"><a href="#Test-Cases" class="headerlink" title="Test Cases:"></a>Test Cases:</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">"test1"</span>, () =&gt; &#123;<span class="comment">//本地精度问题无法通过单元测试</span></span><br><span class="line">  expect(myPow(<span class="number">2.1</span>, <span class="number">3</span>)).toEqual(<span class="number">9.261</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test2"</span>, () =&gt; &#123;</span><br><span class="line">  expect(myPow(<span class="number">2.0</span>, <span class="number">-2</span>)).toEqual(<span class="number">0.25</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test3"</span>, () =&gt; &#123;</span><br><span class="line">  expect(myPow(<span class="number">2.0</span>, <span class="number">1</span>)).toEqual(<span class="number">2.0</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test4"</span>, () =&gt; &#123;</span><br><span class="line">  expect(myPow(<span class="number">2.0</span>, <span class="number">-1</span>)).toEqual(<span class="number">0.5</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test5"</span>, () =&gt; &#123;</span><br><span class="line">  expect(myPow(<span class="number">2.0</span>, <span class="number">0</span>)).toEqual(<span class="number">1.0</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test6"</span>, () =&gt; &#123;<span class="comment">//本地精度问题无法通过单元测试</span></span><br><span class="line">  expect(myPow(<span class="number">34.00515</span>, <span class="number">-3</span>)).toEqual(<span class="number">0.00003</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/05/21/50-Pow-x-n/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-235-Lowest-Common-Ancestor-of-a-Binary-Search-Tree" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/20/235-Lowest-Common-Ancestor-of-a-Binary-Search-Tree/">235. Lowest Common Ancestor of a Binary Search Tree</a>
+    </h1>
+  
+
+        
+        <a href="/2020/05/20/235-Lowest-Common-Ancestor-of-a-Binary-Search-Tree/" class="archive-article-date">
+  	<time datetime="2020-05-20T14:46:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="235-Lowest-Common-Ancestor-of-a-Binary-Search-Tree"><a href="#235-Lowest-Common-Ancestor-of-a-Binary-Search-Tree" class="headerlink" title="235. Lowest Common Ancestor of a Binary Search Tree"></a>235. Lowest Common Ancestor of a Binary Search Tree</h2><blockquote>
+<p>原题：<a href="https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/" target="_blank" rel="noopener">235. Lowest Common Ancestor of a Binary Search Tree</a></p>
+</blockquote>
+<p>时间复杂度：O(n)</p>
+<h3 id="Source-Code"><a href="#Source-Code" class="headerlink" title="Source Code"></a>Source Code</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 168 ms, faster than 5.31% of JavaScript online submissions for Lowest Common Ancestor of a Binary Search Tree.</span></span><br><span class="line"><span class="comment">// Memory Usage: 43.9 MB, less than 20.00% of JavaScript online submissions for Lowest Common Ancestor of a Binary Search Tree.</span></span><br><span class="line"><span class="keyword">var</span> lowestCommonAncestor = <span class="function"><span class="keyword">function</span>(<span class="params">root, p, q</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> helper = <span class="function"><span class="keyword">function</span>(<span class="params">root, p, q</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(q.val&lt;root.val) &#123;</span><br><span class="line">            <span class="keyword">return</span> helper(root.left, p, q);</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(p.val&gt;root.val) &#123;</span><br><span class="line">            <span class="keyword">return</span> helper(root.right, p, q);</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> root;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(p.val&gt;q.val) &#123;</span><br><span class="line">        [p, q] = [q, p];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> helper(root, p, q);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Test-Cases"><a href="#Test-Cases" class="headerlink" title="Test Cases"></a>Test Cases</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">"test1"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(lowestCommonAncestor(makeTree([<span class="number">6</span>,<span class="number">2</span>,<span class="number">8</span>,<span class="number">0</span>,<span class="number">4</span>,<span class="number">7</span>,<span class="number">9</span>,<span class="literal">null</span>,<span class="literal">null</span>,<span class="number">3</span>,<span class="number">5</span>]), <span class="keyword">new</span> TreeNode(<span class="number">2</span>), <span class="keyword">new</span> TreeNode(<span class="number">8</span>)).val).toEqual(<span class="number">6</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test2"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(lowestCommonAncestor(makeTree([<span class="number">6</span>,<span class="number">2</span>,<span class="number">8</span>,<span class="number">0</span>,<span class="number">4</span>,<span class="number">7</span>,<span class="number">9</span>,<span class="literal">null</span>,<span class="literal">null</span>,<span class="number">3</span>,<span class="number">5</span>]), <span class="keyword">new</span> TreeNode(<span class="number">2</span>), <span class="keyword">new</span> TreeNode(<span class="number">4</span>)).val).toEqual(<span class="number">2</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="236-Lowest-Common-Ancestor-of-a-Binary-Tree"><a href="#236-Lowest-Common-Ancestor-of-a-Binary-Tree" class="headerlink" title="236. Lowest Common Ancestor of a Binary Tree"></a>236. Lowest Common Ancestor of a Binary Tree</h2><blockquote>
+<p>原题：<a href="https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/submissions/" target="_blank" rel="noopener">236. Lowest Common Ancestor of a Binary Tree</a></p>
+</blockquote>
+<p>时间复杂度：O(n)</p>
+<h3 id="Source-Code-1"><a href="#Source-Code-1" class="headerlink" title="Source Code"></a>Source Code</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 84 ms, faster than 22.42% of JavaScript online submissions for Lowest Common Ancestor of a Binary Tree.</span></span><br><span class="line"><span class="comment">// Memory Usage: 41.3 MB, less than 100.00% of JavaScript online submissions for Lowest Common Ancestor of a Binary Tree.</span></span><br><span class="line"><span class="keyword">var</span> lowestCommonAncestor = <span class="function"><span class="keyword">function</span>(<span class="params">root, p, q</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> helper = <span class="function"><span class="keyword">function</span>(<span class="params">root, p, q</span>) </span>&#123;<span class="comment">//find p or q</span></span><br><span class="line">        <span class="keyword">if</span>(!root || root.val==p.val || root.val==q.val) &#123;</span><br><span class="line">            <span class="keyword">return</span> root;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">const</span> left = helper(root.left, p, q);</span><br><span class="line">        <span class="keyword">const</span> right = helper(root.right, p, q);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> left ? (right ? root : left) : right;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> helper(root, p, q);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Test-Cases-1"><a href="#Test-Cases-1" class="headerlink" title="Test Cases"></a>Test Cases</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">"test1"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(lowestCommonAncestor(makeTree([<span class="number">3</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">6</span>,<span class="number">2</span>,<span class="number">0</span>,<span class="number">8</span>,<span class="literal">null</span>,<span class="literal">null</span>,<span class="number">7</span>,<span class="number">4</span>]), <span class="keyword">new</span> TreeNode(<span class="number">5</span>), <span class="keyword">new</span> TreeNode(<span class="number">1</span>)).val).toEqual(<span class="number">3</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test2"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(lowestCommonAncestor(makeTree([<span class="number">3</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">6</span>,<span class="number">2</span>,<span class="number">0</span>,<span class="number">8</span>,<span class="literal">null</span>,<span class="literal">null</span>,<span class="number">7</span>,<span class="number">4</span>]), <span class="keyword">new</span> TreeNode(<span class="number">5</span>), <span class="keyword">new</span> TreeNode(<span class="number">4</span>)).val).toEqual(<span class="number">5</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">html</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/05/20/235-Lowest-Common-Ancestor-of-a-Binary-Search-Tree/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-98-Validate-Binary-Search-Tree" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -756,160 +913,9 @@
 
 
   
-    <article id="post-找出旧数组变成新数组的操作" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/16/%E6%89%BE%E5%87%BA%E6%97%A7%E6%95%B0%E7%BB%84%E5%8F%98%E6%88%90%E6%96%B0%E6%95%B0%E7%BB%84%E7%9A%84%E6%93%8D%E4%BD%9C/">找出旧数组变成新数组的操作</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/16/%E6%89%BE%E5%87%BA%E6%97%A7%E6%95%B0%E7%BB%84%E5%8F%98%E6%88%90%E6%96%B0%E6%95%B0%E7%BB%84%E7%9A%84%E6%93%8D%E4%BD%9C/" class="archive-article-date">
-  	<time datetime="2020-05-16T07:46:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>面试时候的一道算法题。<br>给出新旧两个数组，找出旧数组演变成新数组的一个可行的operations。operations可能包含的操作有remove/insert/swap三种。</p>
-<p>思路：先通过remove/insert使得旧数组和新数组有一样的元素，然后再通过swap演变成和新数组一样。</p>
-<p>给出brute force的解法：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> findOperations = <span class="function"><span class="keyword">function</span>(<span class="params">oldArr, newArr</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> makeMap = <span class="function"><span class="params">arr</span>=&gt;</span>arr.reduce(<span class="function">(<span class="params">prev, v, i</span>)=&gt;</span>&#123;</span><br><span class="line">        prev.set(v, (prev.get(v) || <span class="number">0</span>) + <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span> prev;</span><br><span class="line">    &#125;, <span class="keyword">new</span> <span class="built_in">Map</span>());</span><br><span class="line">    <span class="keyword">const</span> oldMap = makeMap(oldArr);</span><br><span class="line">    <span class="keyword">const</span> newMap = makeMap(newArr);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> inserts = <span class="keyword">new</span> <span class="built_in">Map</span>();</span><br><span class="line">    <span class="keyword">const</span> removes = <span class="keyword">new</span> <span class="built_in">Map</span>();</span><br><span class="line">    <span class="keyword">const</span> swap = <span class="keyword">new</span> <span class="built_in">Map</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> findInsert = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> [v, count] <span class="keyword">of</span> newMap) &#123;</span><br><span class="line">            <span class="keyword">if</span>(!oldMap.get(v)) &#123;</span><br><span class="line">                inserts.set(v, count)</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(oldMap.get(v)&lt;count) &#123;</span><br><span class="line">                inserts.set(v, count - oldMap.get(v));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> findRemove = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> [v, count] <span class="keyword">of</span> oldMap) &#123;</span><br><span class="line">            <span class="keyword">if</span>(!newMap.get(v)) &#123;</span><br><span class="line">                removes.set(v, count)</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(oldMap.get(v)&gt;newMap.get(v)) &#123;</span><br><span class="line">                removes.set(v, count - newMap.get(v));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    findInsert();</span><br><span class="line">    findRemove();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> operations = [];</span><br><span class="line">    <span class="keyword">const</span> removeOld = <span class="function"><span class="keyword">function</span>(<span class="params">v, count</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i&lt;count; i++) &#123;</span><br><span class="line">            <span class="keyword">const</span> index = oldArr.indexOf(v);<span class="comment">//这里无需再判断-1了</span></span><br><span class="line">            operations.push([<span class="string">"remove"</span>, index]);</span><br><span class="line">            oldArr = oldArr.slice(<span class="number">0</span>, index).concat(oldArr.slice(index+<span class="number">1</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> insertOld = <span class="function"><span class="keyword">function</span>(<span class="params">v, count</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i&lt;count; i++) &#123;</span><br><span class="line">            operations.push([<span class="string">"insert"</span>, oldArr.length, v]);</span><br><span class="line">            oldArr.push(v);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> [v, count] <span class="keyword">of</span> removes) &#123;</span><br><span class="line">        removeOld(v, count);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> [v, count] <span class="keyword">of</span> inserts) &#123;</span><br><span class="line">        insertOld(v, count);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(i&lt;newArr.length) &#123;</span><br><span class="line">        <span class="keyword">if</span>(oldArr[i]==newArr[i]) &#123;</span><br><span class="line">            i++;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">const</span> swapIndex = oldArr.indexOf(newArr[i], i+<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">const</span> tmp = oldArr[i];</span><br><span class="line">        oldArr[i] = oldArr[swapIndex];</span><br><span class="line">        oldArr[swapIndex] = tmp;</span><br><span class="line">        swap.set(i, swapIndex);</span><br><span class="line">        i++;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> [v, swapIndex] <span class="keyword">of</span> swap) &#123;</span><br><span class="line">        operations.push([<span class="string">"swap"</span>, v, swapIndex]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> operations;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//test code:</span></span><br><span class="line"><span class="keyword">const</span> oldArr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"><span class="keyword">const</span> newArr = [<span class="number">4</span>, <span class="number">3</span>];</span><br><span class="line"><span class="built_in">console</span>.log(findOperations(oldArr, newArr));</span><br><span class="line"></span><br><span class="line"><span class="comment">//output</span></span><br><span class="line">[ </span><br><span class="line">  [ <span class="string">'remove'</span>, <span class="number">0</span> ],<span class="comment">//移除第0个元素</span></span><br><span class="line">  [ <span class="string">'remove'</span>, <span class="number">0</span> ],</span><br><span class="line">  [ <span class="string">'insert'</span>, <span class="number">1</span>, <span class="number">4</span> ],<span class="comment">//在索引1的位置插入4</span></span><br><span class="line">  [ <span class="string">'swap'</span>, <span class="number">0</span>, <span class="number">1</span> ] <span class="comment">//交换索引0和索引1的元素</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/16/%E6%89%BE%E5%87%BA%E6%97%A7%E6%95%B0%E7%BB%84%E5%8F%98%E6%88%90%E6%96%B0%E6%95%B0%E7%BB%84%E7%9A%84%E6%93%8D%E4%BD%9C/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-浏览器为什么要限制同源策略-为什么script标签不受同源策略限制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/16/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E9%99%90%E5%88%B6%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5-%E4%B8%BA%E4%BB%80%E4%B9%88script%E6%A0%87%E7%AD%BE%E4%B8%8D%E5%8F%97%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5%E9%99%90%E5%88%B6/">浏览器为什么要限制同源策略?为什么script标签不受同源策略限制?</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/16/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E9%99%90%E5%88%B6%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5-%E4%B8%BA%E4%BB%80%E4%B9%88script%E6%A0%87%E7%AD%BE%E4%B8%8D%E5%8F%97%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5%E9%99%90%E5%88%B6/" class="archive-article-date">
-  	<time datetime="2020-05-16T01:49:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>面试的时候遇到的一道题，写一下自己的理解，不一定正确。</p>
-</blockquote>
-<p>浏览器实现了同源策略，目的肯定是为了网络安全。如果没有SOP，恶意站点可以随意获取、请求别的站点的内容，真“裸奔”在互联网上。</p>
-<p>那为什么浏览器不实现彻底的SOP，而允许了像<code>script</code>、<code>img</code>这类标签可以请求其他站点的资源呢？</p>
-<p>这个问题google了一圈没有一个明确的说法，stackoverflow上有类似的问题，但是没有给出明确的答案。把各种观点总结下，先说结论：</p>
-<p><strong>浏览器没有实现彻底的SOP，是一个多方协商、折中、相对稳妥的方案：</strong></p>
-<ul>
-<li>首先明确一个观点，SOP是必须的；</li>
-<li>但是彻底的SOP是不现实的，一个站点很难完全不依赖任何第三方资源；</li>
-<li>在不彻底SOP背景下产生的安全问题，如XSS、XSCF，都有对应的解决方案；</li>
-<li>可能存在的一些历史因素（需要向下兼容）</li>
-</ul>
-<p>这道题没搞懂面试官是想考察什么，当时的回答是一个站点很难完全不依赖跨域资源，如果完全SOP，像现在很常见的CDN就用不了了。但是面试官貌似对这个答案不是很满意= =。。。说SOP的出现比CDN早很多。。</p>
-<p>先暂且记录下现有的理解，后面有新的体会再补充。。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">网络安全</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">html</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/16/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E9%99%90%E5%88%B6%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5-%E4%B8%BA%E4%BB%80%E4%B9%88script%E6%A0%87%E7%AD%BE%E4%B8%8D%E5%8F%97%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5%E9%99%90%E5%88%B6/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/2/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">Next &amp;raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/2/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/4/">Next &amp;raquo;</a>
     </nav>
   
 
