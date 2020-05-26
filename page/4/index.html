@@ -140,6 +140,81 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-20-Valid-Parentheses" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/18/20-Valid-Parentheses/">20. Valid Parentheses</a>
+    </h1>
+  
+
+        
+        <a href="/2020/05/18/20-Valid-Parentheses/" class="archive-article-date">
+  	<time datetime="2020-05-18T15:56:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>原题：<a href="https://leetcode.com/problems/valid-parentheses/" target="_blank" rel="noopener">20. Valid Parentheses</a></p>
+</blockquote>
+<h2 id="解法一（Recommended）"><a href="#解法一（Recommended）" class="headerlink" title="解法一（Recommended）"></a>解法一（Recommended）</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 52 ms, faster than 83.97% of JavaScript online submissions for Valid Parentheses.</span></span><br><span class="line"><span class="comment">// Memory Usage: 33.7 MB, less than 95.00% of JavaScript online submissions for Valid Parentheses.</span></span><br><span class="line"><span class="comment">//时间复杂度：O(n)</span></span><br><span class="line"><span class="keyword">var</span> isValid = <span class="function"><span class="keyword">function</span>(<span class="params">s</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> queue = [];</span><br><span class="line">    <span class="keyword">const</span> match = &#123;<span class="string">'('</span>:<span class="string">')'</span>, <span class="string">'['</span>:<span class="string">']'</span>, <span class="string">'&#123;'</span>:<span class="string">'&#125;'</span>&#125;;</span><br><span class="line">    <span class="keyword">let</span> cur = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(cur&lt;s.length) &#123;</span><br><span class="line">        <span class="keyword">const</span> ch = s[cur];</span><br><span class="line">        <span class="keyword">if</span>(match[ch]) &#123;</span><br><span class="line">            queue.push(ch);</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">const</span> pre = queue.pop();</span><br><span class="line">            <span class="keyword">if</span>(!pre || !match[pre] || match[pre]!=ch) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        cur++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> !queue.length;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="解法二"><a href="#解法二" class="headerlink" title="解法二"></a>解法二</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 76 ms, faster than 18.01% of JavaScript online submissions for Valid Parentheses.</span></span><br><span class="line"><span class="comment">// Memory Usage: 35.9 MB, less than 8.33% of JavaScript online submissions for Valid Parentheses.</span></span><br><span class="line"><span class="comment">//时间复杂度：O(n^2)</span></span><br><span class="line"><span class="keyword">var</span> isValid = <span class="function"><span class="keyword">function</span>(<span class="params">s</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> length;</span><br><span class="line">    <span class="keyword">while</span>(length != s.length) &#123;</span><br><span class="line">        length = s.length;</span><br><span class="line">        s = s.replace(<span class="string">'&#123;&#125;'</span>, <span class="string">''</span>).replace(<span class="string">'[]'</span>, <span class="string">''</span>).replace(<span class="string">'()'</span>, <span class="string">''</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> !s.length;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Test-Cases"><a href="#Test-Cases" class="headerlink" title="Test Cases"></a>Test Cases</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">"test1"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(isValid(<span class="string">""</span>)).toEqual(<span class="literal">true</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test2"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(isValid(<span class="string">"&#123;"</span>)).toEqual(<span class="literal">false</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test3"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(isValid(<span class="string">"&#123;&#125;&#125;"</span>)).toEqual(<span class="literal">false</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test4"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(isValid(<span class="string">"&#123;&#125;"</span>)).toEqual(<span class="literal">true</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test5"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(isValid(<span class="string">"[]&#123;&#125;()"</span>)).toEqual(<span class="literal">true</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test6"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(isValid(<span class="string">"[[[[]"</span>)).toEqual(<span class="literal">false</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test7"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(isValid(<span class="string">"[&#123;&#125;]"</span>)).toEqual(<span class="literal">true</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test8"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(isValid(<span class="string">"[&#123;]&#125;"</span>)).toEqual(<span class="literal">false</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test8"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(isValid(<span class="string">"]][["</span>)).toEqual(<span class="literal">false</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/05/18/20-Valid-Parentheses/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Reverse-Nodes-in-k-Group" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -807,81 +882,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2020/05/12/%E8%AE%A9fetch%E6%94%AF%E6%8C%81timeout/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-插入body的script标签不执行" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/12/%E6%8F%92%E5%85%A5body%E7%9A%84script%E6%A0%87%E7%AD%BE%E4%B8%8D%E6%89%A7%E8%A1%8C/">&#34;为什么我插入body的script标签不执行?&#34;</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/12/%E6%8F%92%E5%85%A5body%E7%9A%84script%E6%A0%87%E7%AD%BE%E4%B8%8D%E6%89%A7%E8%A1%8C/" class="archive-article-date">
-  	<time datetime="2020-05-12T15:15:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>今天发现某些情况下append进body的script标签不一定执行，记录一下。<br>下面的例子在FF和Chrome上均表现一致</p>
-</blockquote>
-<h2 id="demo1"><a href="#demo1" class="headerlink" title="demo1"></a>demo1</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> container = <span class="built_in">document</span>.createElement(<span class="string">"div"</span>)</span><br><span class="line">container.innerHTML = <span class="string">'&lt;script type="text/javascript"&gt;alert("aaa")&lt;/script&gt;'</span></span><br><span class="line"><span class="built_in">document</span>.body.appendChild(container)</span><br><span class="line"><span class="comment">//不弹出任何东西</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="demo2"><a href="#demo2" class="headerlink" title="demo2"></a>demo2</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> script = <span class="built_in">document</span>.createElement(<span class="string">"script"</span>)</span><br><span class="line">script.innerHTML = <span class="string">"alert('aaa')"</span></span><br><span class="line"><span class="built_in">document</span>.body.appendChild(script)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> container = <span class="built_in">document</span>.createElement(<span class="string">"div"</span>)</span><br><span class="line">container.appendChild(script)</span><br><span class="line">script.innerHTML = <span class="string">"alert('bbb')"</span></span><br><span class="line"><span class="built_in">document</span>.body.appendChild(container)</span><br><span class="line"><span class="comment">//只弹出aaa</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
-<li>只有直接往body里面插入<code>script</code>标签，标签内容才会被执行</li>
-<li>同一个<code>script</code>标签内容最多只会被执行一次，即使内容发生了变化或被重新插入dom</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/12/%E6%8F%92%E5%85%A5body%E7%9A%84script%E6%A0%87%E7%AD%BE%E4%B8%8D%E6%89%A7%E8%A1%8C/">展开全文 >></a>
         </p>
       
 
