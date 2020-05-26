@@ -140,6 +140,81 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-70-Climbing-Stairs" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/26/70-Climbing-Stairs/">70. Climbing Stairs</a>
+    </h1>
+  
+
+        
+        <a href="/2020/05/26/70-Climbing-Stairs/" class="archive-article-date">
+  	<time datetime="2020-05-26T01:05:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p><a href="https://leetcode.com/problems/climbing-stairs/" target="_blank" rel="noopener">70. Climbing Stairs</a></p>
+</blockquote>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>DP。走到第n级的走法f(n)有<code>f(n) = f(n-1) + f(n-2)</code>。</p>
+<h3 id="source-code"><a href="#source-code" class="headerlink" title="source code"></a>source code</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 56 ms, faster than 46.66% of JavaScript online submissions for Climbing Stairs.</span></span><br><span class="line"><span class="comment">// Memory Usage: 32.8 MB, less than 100.00% of JavaScript online submissions for Climbing Stairs.</span></span><br><span class="line"><span class="keyword">var</span> climbStairs = <span class="function"><span class="keyword">function</span> (<span class="params">n</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> arr = [<span class="number">1</span>, <span class="number">1</span>];</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">2</span>; i &lt;= n; i++) &#123;</span><br><span class="line">    arr[i] = arr[i - <span class="number">1</span>] + arr[i - <span class="number">2</span>];</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> arr[n];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="test-cases"><a href="#test-cases" class="headerlink" title="test cases"></a>test cases</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">"test1"</span>, () =&gt; &#123;</span><br><span class="line">  expect(climbStairs(<span class="number">2</span>)).toEqual(<span class="number">2</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test2"</span>, () =&gt; &#123;</span><br><span class="line">  expect(climbStairs(<span class="number">0</span>)).toEqual(<span class="number">1</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test3"</span>, () =&gt; &#123;</span><br><span class="line">  expect(climbStairs(<span class="number">3</span>)).toEqual(<span class="number">3</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/05/26/70-Climbing-Stairs/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-52-N-Queens-II" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -813,85 +888,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2020/05/24/37-Sudoku-Solver/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-36-Valid-Sudoku" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/24/36-Valid-Sudoku/">36. Valid Sudoku</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/24/36-Valid-Sudoku/" class="archive-article-date">
-  	<time datetime="2020-05-24T06:59:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>原题：<a href="https://leetcode.com/problems/valid-sudoku/" target="_blank" rel="noopener">36. Valid Sudoku</a></p>
-</blockquote>
-<h2 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h2><p>思路：brute force</p>
-<p>时间复杂度：O(n^2)</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 96 ms, faster than 28.80% of JavaScript online submissions for Valid Sudoku.</span></span><br><span class="line"><span class="comment">// Memory Usage: 39.2 MB, less than 26.67% of JavaScript online submissions for Valid Sudoku.</span></span><br><span class="line"><span class="keyword">var</span> isValidSudoku = <span class="function"><span class="keyword">function</span> (<span class="params">board</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> checkRow = <span class="function"><span class="keyword">function</span> (<span class="params">row</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">set</span> = new Set();</span><br><span class="line">    for (let i = 0; i &lt; 9; i++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (board[row][i] === <span class="string">"."</span>) &#123;</span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">set</span>.has(board[row][i])) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">set</span>.add(board[row][i]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return true;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  const checkCol = function (col) &#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">set</span> = new Set();</span><br><span class="line">    for (let i = 0; i &lt; 9; i++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (board[i][col] === <span class="string">"."</span>) &#123;</span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">set</span>.has(board[i][col])) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">set</span>.add(board[i][col]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return true;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  const checkSquare = function (x, y) &#123;</span><br><span class="line">    <span class="comment">//左上角原点</span></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">set</span> = new Set();</span><br><span class="line">    for (let i = x; i &lt; x + 3; i++) &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">let</span> j = y; j &lt; y + <span class="number">3</span>; j++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (board[i][j] === <span class="string">"."</span>) &#123;</span><br><span class="line">          <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">set</span>.has(board[i][j])) &#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">set</span>.add(board[i][j]);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return true;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  for (let i = 0; i &lt; 9; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!checkRow(i) || !checkCol(i)) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; <span class="number">3</span>; j++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (!checkSquare(i * <span class="number">3</span>, j * <span class="number">3</span>)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="方法二（Recommend）"><a href="#方法二（Recommend）" class="headerlink" title="方法二（Recommend）"></a>方法二（Recommend）</h2><p>思路：利用set缓存每一步的结果</p>
-<p>时间复杂度：O(n^2)，实际上比方法一通用、高效很多</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 100 ms, faster than 25.57% of JavaScript online submissions for Valid Sudoku.</span></span><br><span class="line"><span class="comment">// Memory Usage: 39.4 MB, less than 26.67% of JavaScript online submissions for Valid Sudoku.</span></span><br><span class="line"><span class="keyword">var</span> isValidSudoku = <span class="function"><span class="keyword">function</span> (<span class="params">board</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> <span class="keyword">set</span> = new Set();</span><br><span class="line">  for (let i = 0; i &lt; 9; i++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; <span class="number">9</span>; j++) &#123;</span><br><span class="line">      <span class="keyword">const</span> grid = board[i][j];</span><br><span class="line">      <span class="keyword">if</span> (grid === <span class="string">"."</span>) &#123;</span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">const</span> rowKey = <span class="string">`row_<span class="subst">$&#123;i&#125;</span>_<span class="subst">$&#123;grid&#125;</span>`</span>;</span><br><span class="line">      <span class="keyword">const</span> colKey = <span class="string">`col_<span class="subst">$&#123;j&#125;</span>_<span class="subst">$&#123;grid&#125;</span>`</span>;</span><br><span class="line">      <span class="keyword">const</span> boxKey = <span class="string">`box_<span class="subst">$&#123;~~(i <span class="regexp">/ 3)&#125;_$&#123;~~(j /</span> <span class="number">3</span>)&#125;</span>_<span class="subst">$&#123;grid&#125;</span>`</span>;</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">set</span>.has(rowKey) || <span class="keyword">set</span>.has(colKey) || <span class="keyword">set</span>.has(boxKey)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">set</span>.add(rowKey);</span><br><span class="line">      <span class="keyword">set</span>.add(colKey);</span><br><span class="line">      <span class="keyword">set</span>.add(boxKey);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return true;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="test-cases"><a href="#test-cases" class="headerlink" title="test cases:"></a>test cases:</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">"test1"</span>, () =&gt; &#123;</span><br><span class="line">  expect(</span><br><span class="line">    isValidSudoku([</span><br><span class="line">      [<span class="string">"5"</span>, <span class="string">"3"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"7"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>],</span><br><span class="line">      [<span class="string">"6"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"1"</span>, <span class="string">"9"</span>, <span class="string">"5"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>],</span><br><span class="line">      [<span class="string">"."</span>, <span class="string">"9"</span>, <span class="string">"8"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"6"</span>, <span class="string">"."</span>],</span><br><span class="line">      [<span class="string">"8"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"6"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"3"</span>],</span><br><span class="line">      [<span class="string">"4"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"8"</span>, <span class="string">"."</span>, <span class="string">"3"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"1"</span>],</span><br><span class="line">      [<span class="string">"7"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"2"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"6"</span>],</span><br><span class="line">      [<span class="string">"."</span>, <span class="string">"6"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"2"</span>, <span class="string">"8"</span>, <span class="string">"."</span>],</span><br><span class="line">      [<span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"4"</span>, <span class="string">"1"</span>, <span class="string">"9"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"5"</span>],</span><br><span class="line">      [<span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"8"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"7"</span>, <span class="string">"9"</span>],</span><br><span class="line">    ])</span><br><span class="line">  ).toEqual(<span class="literal">true</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test2"</span>, () =&gt; &#123;</span><br><span class="line">  expect(</span><br><span class="line">    isValidSudoku([</span><br><span class="line">      [<span class="string">"8"</span>, <span class="string">"3"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"7"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>],</span><br><span class="line">      [<span class="string">"6"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"1"</span>, <span class="string">"9"</span>, <span class="string">"5"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>],</span><br><span class="line">      [<span class="string">"."</span>, <span class="string">"9"</span>, <span class="string">"8"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"6"</span>, <span class="string">"."</span>],</span><br><span class="line">      [<span class="string">"8"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"6"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"3"</span>],</span><br><span class="line">      [<span class="string">"4"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"8"</span>, <span class="string">"."</span>, <span class="string">"3"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"1"</span>],</span><br><span class="line">      [<span class="string">"7"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"2"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"6"</span>],</span><br><span class="line">      [<span class="string">"."</span>, <span class="string">"6"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"2"</span>, <span class="string">"8"</span>, <span class="string">"."</span>],</span><br><span class="line">      [<span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"4"</span>, <span class="string">"1"</span>, <span class="string">"9"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"5"</span>],</span><br><span class="line">      [<span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"8"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"7"</span>, <span class="string">"9"</span>],</span><br><span class="line">    ])</span><br><span class="line">  ).toEqual(<span class="literal">false</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test3"</span>, () =&gt; &#123;</span><br><span class="line">  expect(</span><br><span class="line">    isValidSudoku([</span><br><span class="line">      [<span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"5"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"1"</span>, <span class="string">"."</span>],</span><br><span class="line">      [<span class="string">"."</span>, <span class="string">"4"</span>, <span class="string">"."</span>, <span class="string">"3"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>],</span><br><span class="line">      [<span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"3"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"1"</span>],</span><br><span class="line">      [<span class="string">"8"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"2"</span>, <span class="string">"."</span>],</span><br><span class="line">      [<span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"2"</span>, <span class="string">"."</span>, <span class="string">"7"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>],</span><br><span class="line">      [<span class="string">"."</span>, <span class="string">"1"</span>, <span class="string">"5"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>],</span><br><span class="line">      [<span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"2"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>],</span><br><span class="line">      [<span class="string">"."</span>, <span class="string">"2"</span>, <span class="string">"."</span>, <span class="string">"9"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>],</span><br><span class="line">      [<span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"4"</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>, <span class="string">"."</span>],</span><br><span class="line">    ])</span><br><span class="line">  ).toEqual(<span class="literal">false</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/24/36-Valid-Sudoku/">展开全文 >></a>
         </p>
       
 
