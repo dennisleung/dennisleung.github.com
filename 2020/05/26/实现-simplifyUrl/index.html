@@ -6,16 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://dennisleung.github.io">
-  <title>Archives: 2020 | 挖坑小能手的填坑日记</title>
+  <title>实现 simplifyUrl | 挖坑小能手的填坑日记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前端开发攻城狮">
-<meta property="og:type" content="website">
-<meta property="og:title" content="挖坑小能手的填坑日记">
-<meta property="og:url" content="http://dennisleung.github.io/archives/2020/page/4/index.html">
+  <meta name="description" content="面试时候的一道题，当时用的是a.pathname.split(&#39;&#x2F;&#39;) + 队列来实现，后来觉得createElement(&#39;a&#39;)有环境依赖而且需要加入很多协议、端口的判断，于是重新写了一版  原题JS、CSS等静态资源路径，允许出现 “..”、”.” 、 “&#x2F;&#x2F;“，请简化这些资源路径，把它们变成最短字符串。注：一个点（.）表示当前目录本身；此外，两个点 （..">
+<meta property="og:type" content="article">
+<meta property="og:title" content="实现 simplifyUrl">
+<meta property="og:url" content="http://dennisleung.github.io/2020/05/26/%E5%AE%9E%E7%8E%B0-simplifyUrl/index.html">
 <meta property="og:site_name" content="挖坑小能手的填坑日记">
-<meta property="og:description" content="前端开发攻城狮">
+<meta property="og:description" content="面试时候的一道题，当时用的是a.pathname.split(&#39;&#x2F;&#39;) + 队列来实现，后来觉得createElement(&#39;a&#39;)有环境依赖而且需要加入很多协议、端口的判断，于是重新写了一版  原题JS、CSS等静态资源路径，允许出现 “..”、”.” 、 “&#x2F;&#x2F;“，请简化这些资源路径，把它们变成最短字符串。注：一个点（.）表示当前目录本身；此外，两个点 （..">
 <meta property="og:locale" content="zh">
+<meta property="article:published_time" content="2020-05-26T15:57:14.000Z">
+<meta property="article:modified_time" content="2020-05-26T16:02:33.589Z">
 <meta property="article:author" content="Dennis Leung">
+<meta property="article:tag" content="javascript">
 <meta name="twitter:card" content="summary">
   
   
@@ -138,368 +141,61 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-实现-simplifyUrl" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      实现 simplifyUrl
+    </h1>
+  
+
+        
+        <a href="/2020/05/26/%E5%AE%9E%E7%8E%B0-simplifyUrl/" class="archive-article-date">
+  	<time datetime="2020-05-26T15:57:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-26</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>面试时候的一道题，当时用的是<code>a.pathname.split(&#39;/&#39;) + 队列</code>来实现，后来觉得<code>createElement(&#39;a&#39;)</code>有环境依赖而且需要加入很多协议、端口的判断，于是重新写了一版</p>
+</blockquote>
+<h3 id="原题"><a href="#原题" class="headerlink" title="原题"></a>原题</h3><p>JS、CSS等静态资源路径，允许出现 “..”、”.” 、 “//“，请简化这些资源路径，把它们变成最短字符串。<br>注：一个点（.）表示当前目录本身；此外，两个点 （..） 表示将目录切换到上一级（指向父目录）；两者都可以是复杂相对路径的组成部分。</p>
+<p>&lt;script src=”//s3.pstatp.com/eesz/.././resource/./bear/js//app.0fa757caa42b59caf8f0.js”&gt;&lt;/script&gt;</p>
+<ul>
+<li>示例1：//s3.pstatp.com/eesz/.././resource/./bear/js//app.0fa757caa42b59caf8f0.js</li>
+<li>结果：//s3.pstatp.com/resource/bear/js/app.0fa757caa42b59caf8f0.js</li>
+</ul>
+<hr>
+<ul>
+<li>示例2：<a href="http://s3.pstatp.com/eesz/.././resource/./bear/js//app.0fa757caa42b59caf8f0.js" target="_blank" rel="noopener">http://s3.pstatp.com/eesz/.././resource/./bear/js//app.0fa757caa42b59caf8f0.js</a></li>
+<li>结果：<a href="http://s3.pstatp.com/resource/bear/js/app.0fa757caa42b59caf8f0.js" target="_blank" rel="noopener">http://s3.pstatp.com/resource/bear/js/app.0fa757caa42b59caf8f0.js</a></li>
+</ul>
+<hr>
+<ul>
+<li>示例3：/eesz/.././resource/./bear/js//app.0fa757caa42b59caf8f0.js</li>
+<li>结果：/resource/bear/js/app.0fa757caa42b59caf8f0.js</li>
+</ul>
+<hr>
+<ul>
+<li>示例4：../eesz/aaa../b.b..b../dsds/../app.0fa757caa42b59caf8f0.js</li>
+<li>结果：../eesz/aaa../b.b..b../app.0fa757caa42b59caf8f0.js</li>
+</ul>
+<h3 id="source-code"><a href="#source-code" class="headerlink" title="source code"></a>source code</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> simplifyUrl = <span class="function"><span class="keyword">function</span> (<span class="params">url</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="regexp">/[\d\w\.]\/\.\.\//</span>.test(url)) &#123;</span><br><span class="line">      url = url.replace(<span class="regexp">/[^\/]+\/\.\.\//</span>, <span class="string">""</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="regexp">/\/\.\//</span>.test(url)) &#123;</span><br><span class="line">      url = url.replace(<span class="regexp">/\/\.\//</span>, <span class="string">"/"</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="regexp">/[^^:]\/\//</span>.test(url)) &#123;</span><br><span class="line">      <span class="comment">//这里用断言不知道为啥不能匹配</span></span><br><span class="line">      url = url.replace(<span class="regexp">/([^^:])\/\//</span>, <span class="string">"$1/"</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> url;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="test-cases"><a href="#test-cases" class="headerlink" title="test cases"></a>test cases</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">"test1"</span>, () =&gt; &#123;</span><br><span class="line">  expect(</span><br><span class="line">    simplifyUrl(</span><br><span class="line">      <span class="string">"//s3.pstatp.com/eesz/.././resource/./bear/js//app.0fa757caa42b59caf8f0.js"</span></span><br><span class="line">    )</span><br><span class="line">  ).toEqual(<span class="string">"//s3.pstatp.com/resource/bear/js/app.0fa757caa42b59caf8f0.js"</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test2"</span>, () =&gt; &#123;</span><br><span class="line">  expect(</span><br><span class="line">    simplifyUrl(</span><br><span class="line">      <span class="string">"http://s3.pstatp.com/eesz/.././resource/./bear/js//app.0fa757caa42b59caf8f0.js"</span></span><br><span class="line">    )</span><br><span class="line">  ).toEqual(</span><br><span class="line">    <span class="string">"http://s3.pstatp.com/resource/bear/js/app.0fa757caa42b59caf8f0.js"</span></span><br><span class="line">  );</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test3"</span>, () =&gt; &#123;</span><br><span class="line">  expect(</span><br><span class="line">    simplifyUrl(<span class="string">"/eesz/.././resource/./bear/js//app.0fa757caa42b59caf8f0.js"</span>)</span><br><span class="line">  ).toEqual(<span class="string">"/resource/bear/js/app.0fa757caa42b59caf8f0.js"</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test4"</span>, () =&gt; &#123;</span><br><span class="line">  expect(</span><br><span class="line">    simplifyUrl(<span class="string">"../eesz/aaa../b.b..b../dsds/../app.0fa757caa42b59caf8f0.js"</span>)</span><br><span class="line">  ).toEqual(<span class="string">"../eesz/aaa../b.b..b../app.0fa757caa42b59caf8f0.js"</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/19/703-Kth-Largest-Element-in-a-Stream/" class="archive-article-date">
-  	<time datetime="2020-05-19T14:01:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/19/703-Kth-Largest-Element-in-a-Stream/">703. Kth Largest Element in a Stream</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/19/232-implement-queue-using-stacks/" class="archive-article-date">
-  	<time datetime="2020-05-18T16:26:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/19/232-implement-queue-using-stacks/">232. Implement Queue using Stacks</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/18/20-Valid-Parentheses/" class="archive-article-date">
-  	<time datetime="2020-05-18T15:56:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/18/20-Valid-Parentheses/">20. Valid Parentheses</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/18/Reverse-Nodes-in-k-Group/" class="archive-article-date">
-  	<time datetime="2020-05-18T03:20:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/18/Reverse-Nodes-in-k-Group/">Reverse Nodes in k-Group</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/18/linked-list-cycle-ii/" class="archive-article-date">
-  	<time datetime="2020-05-17T23:36:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/18/linked-list-cycle-ii/">Linked List Cycle ii</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/16/%E6%89%BE%E5%87%BA%E6%97%A7%E6%95%B0%E7%BB%84%E5%8F%98%E6%88%90%E6%96%B0%E6%95%B0%E7%BB%84%E7%9A%84%E6%93%8D%E4%BD%9C/" class="archive-article-date">
-  	<time datetime="2020-05-16T07:46:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/16/%E6%89%BE%E5%87%BA%E6%97%A7%E6%95%B0%E7%BB%84%E5%8F%98%E6%88%90%E6%96%B0%E6%95%B0%E7%BB%84%E7%9A%84%E6%93%8D%E4%BD%9C/">找出旧数组变成新数组的操作</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/16/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E9%99%90%E5%88%B6%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5-%E4%B8%BA%E4%BB%80%E4%B9%88script%E6%A0%87%E7%AD%BE%E4%B8%8D%E5%8F%97%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5%E9%99%90%E5%88%B6/" class="archive-article-date">
-  	<time datetime="2020-05-16T01:49:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/16/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E9%99%90%E5%88%B6%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5-%E4%B8%BA%E4%BB%80%E4%B9%88script%E6%A0%87%E7%AD%BE%E4%B8%8D%E5%8F%97%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5%E9%99%90%E5%88%B6/">浏览器为什么要限制同源策略?为什么script标签不受同源策略限制?</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">网络安全</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">html</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/15/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E8%A7%A6%E6%91%B8-%E7%82%B9%E5%87%BB%E4%BA%8B%E4%BB%B6%E5%8F%91%E7%94%9F%E9%A1%BA%E5%BA%8F/" class="archive-article-date">
-  	<time datetime="2020-05-15T13:57:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/15/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E8%A7%A6%E6%91%B8-%E7%82%B9%E5%87%BB%E4%BA%8B%E4%BB%B6%E5%8F%91%E7%94%9F%E9%A1%BA%E5%BA%8F/">移动端触摸/点击事件发生顺序</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">html</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">移动开发</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/14/this%E6%8C%87%E5%90%91%E7%9A%84%E6%94%B9%E5%8F%98/" class="archive-article-date">
-  	<time datetime="2020-05-14T03:06:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/14/this%E6%8C%87%E5%90%91%E7%9A%84%E6%94%B9%E5%8F%98/">this指向的改变</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -511,60 +207,54 @@
 		</ul>
 	</div>
 
-          
+      
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/13/hexo-lazyload-image%E4%B8%8D%E7%94%9F%E6%95%88/" class="archive-article-date">
-  	<time datetime="2020-05-12T17:09:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-13</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/13/hexo-lazyload-image%E4%B8%8D%E7%94%9F%E6%95%88/">hexo-lazyload-image不生效</a>
-    </h1>
+  
+    <a href="/2020/05/26/microTask-macroTask%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">microTask/macroTask执行顺序</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
+  
+  <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script>
+  var cloudTieConfig = {
+    url: "http://dennisleung.github.io/2020/05/26/%E5%AE%9E%E7%8E%B0-simplifyUrl/", 
+    sourceId: "实现-simplifyUrl",
+    productKey: "7b8ed868ba8c43919aec18514f14a586",
+    target: "cloud-tie-wrapper"
+  };
+</script>
+<script src="//img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2020/page/3/">&amp;laquo; Prev</a><a class="page-number" href="/archives/2020/">1</a><a class="page-number" href="/archives/2020/page/2/">2</a><a class="page-number" href="/archives/2020/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/archives/2020/page/5/">5</a><a class="extend next" rel="next" href="/archives/2020/page/5/">Next &amp;raquo;</a>
-    </nav>
   
 
 
@@ -588,8 +278,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
