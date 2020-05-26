@@ -6,16 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://dennisleung.github.io">
-  <title>Archives | 挖坑小能手的填坑日记</title>
+  <title>microTask/macroTask执行顺序 | 挖坑小能手的填坑日记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前端开发攻城狮">
-<meta property="og:type" content="website">
-<meta property="og:title" content="挖坑小能手的填坑日记">
-<meta property="og:url" content="http://dennisleung.github.io/archives/page/3/index.html">
+  <meta name="description" content="原题123456789101112131415161718192021222324252627282930313233&#x2F;&#x2F;写出下面的输出顺序var startTime &#x3D; Date.now();async function async1() &amp;#123;  console.log(&quot;async1 start&quot;); &#x2F;&#x2F;1，主线程  await async2();  console.log(&quot;asy">
+<meta property="og:type" content="article">
+<meta property="og:title" content="microTask&#x2F;macroTask执行顺序">
+<meta property="og:url" content="http://dennisleung.github.io/2020/05/26/microTask-macroTask%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/index.html">
 <meta property="og:site_name" content="挖坑小能手的填坑日记">
-<meta property="og:description" content="前端开发攻城狮">
+<meta property="og:description" content="原题123456789101112131415161718192021222324252627282930313233&#x2F;&#x2F;写出下面的输出顺序var startTime &#x3D; Date.now();async function async1() &amp;#123;  console.log(&quot;async1 start&quot;); &#x2F;&#x2F;1，主线程  await async2();  console.log(&quot;asy">
 <meta property="og:locale" content="zh">
+<meta property="article:published_time" content="2020-05-26T15:08:19.000Z">
+<meta property="article:modified_time" content="2020-05-26T15:23:17.281Z">
 <meta property="article:author" content="Dennis Leung">
+<meta property="article:tag" content="javascript">
 <meta name="twitter:card" content="summary">
   
   
@@ -138,441 +141,163 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-microTask-macroTask执行顺序" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      microTask/macroTask执行顺序
+    </h1>
+  
+
+        
+        <a href="/2020/05/26/microTask-macroTask%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/" class="archive-article-date">
+  	<time datetime="2020-05-26T15:08:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-26</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="原题"><a href="#原题" class="headerlink" title="原题"></a>原题</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//写出下面的输出顺序</span></span><br><span class="line"><span class="keyword">var</span> startTime = <span class="built_in">Date</span>.now();</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">async1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"async1 start"</span>); <span class="comment">//1，主线程</span></span><br><span class="line">  <span class="keyword">await</span> async2();</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"async1 end"</span>); <span class="comment">//2，micro task</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">async2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"async2"</span>); <span class="comment">//3，主线程</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"script start"</span>); <span class="comment">//4，主线程</span></span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"setTimeout"</span>); <span class="comment">//5，macro task</span></span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">requestAnimationFrame(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"requestAnimationFrame"</span>, <span class="built_in">Date</span>.now() - startTime); <span class="comment">//6，macro task</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">async1();</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"promise1"</span>); <span class="comment">//7，主线程</span></span><br><span class="line">  resolve();</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"promise2"</span>); <span class="comment">//8，micro task</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"script end"</span>); <span class="comment">//9，主线程</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Chrome"><a href="#Chrome" class="headerlink" title="Chrome"></a>Chrome</h3><p>先说chrome的输出顺序：<code>4 -&gt; 1 -&gt; 3 -&gt; 7 -&gt; 9 -&gt; 8 -&gt; 2 -&gt; 6/5</code>。<br>解释：</p>
+<ul>
+<li>event loop的执行机制：主线程 -&gt; 清空微任务队列 -&gt; 宏任务 -&gt; 循环2、3…</li>
+<li><code>async</code>返回一个Promise，如果return非Promise的内容<code>c</code>，则会自动包装成<code>Promise.resolve(c)</code></li>
+<li><code>await</code>后面挂起的内容可以理解成一个微任务（个人理解，不一定正确）</li>
+<li><code>setTimeout 0</code>和<code>requestAnimationFrame</code>的执行顺序不一定，和浏览器的执行速度、帧率有关。因为requestAnimationFrame总是尽可能快地在合适的时间执行</li>
+</ul>
+<h3 id="Firefox"><a href="#Firefox" class="headerlink" title="Firefox"></a>Firefox</h3><p>输出顺序：<code>4 -&gt; 1 -&gt; 3 -&gt; 7 -&gt; 9 -&gt; (2 -&gt; 8) -&gt; 6/5</code></p>
+<p>注意和chrome不一样的地方，先输出了<code>Promise.then</code>的内容，再输出<code>await</code>后面的内容。感觉ff的处理比chrome更符合直觉，因为await是比Promise.then更早加入微任务队列的。</p>
+<h3 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h3><p>这篇文章里面对macro task和micro task的分类挺好：<a href="https://www.cnblogs.com/jiasm/p/9482443.html" target="_blank" rel="noopener">微任务、宏任务与Event-Loop</a></p>
+<h4 id="宏任务："><a href="#宏任务：" class="headerlink" title="宏任务："></a>宏任务：</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>浏览器</th>
+<th>Node</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>I/O</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>setTimeout</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>setInterval</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>setImmediate</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>requestAnimationFrame</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+</tbody></table>
+<h4 id="微任务："><a href="#微任务：" class="headerlink" title="微任务："></a>微任务：</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>浏览器</th>
+<th>Node</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>process.nextTick</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>MutationObserver</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Promise.then catch finally</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+</tbody></table>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/22/19-Remove-Nth-Node-From-End-of-List/" class="archive-article-date">
-  	<time datetime="2020-05-21T16:50:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/22/19-Remove-Nth-Node-From-End-of-List/">19. Remove Nth Node From End of List</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/22/%E4%B8%BAcontenteditable%E5%A2%9E%E5%8A%A0placeholder/" class="archive-article-date">
-  	<time datetime="2020-05-21T16:39:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-22</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/22/%E4%B8%BAcontenteditable%E5%A2%9E%E5%8A%A0placeholder/">为contenteditable增加placeholder</a>
-    </h1>
+  
+    <a href="/2020/05/26/120-Triangle/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">120. Triangle</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
+  
+  <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script>
+  var cloudTieConfig = {
+    url: "http://dennisleung.github.io/2020/05/26/microTask-macroTask%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/", 
+    sourceId: "microTask-macroTask执行顺序",
+    productKey: "7b8ed868ba8c43919aec18514f14a586",
+    target: "cloud-tie-wrapper"
+  };
+</script>
+<script src="//img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">css</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">html</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/21/%E7%94%A8%E7%BA%AFcss%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAiOS%E7%9A%84switch%E5%BC%80%E5%85%B3/" class="archive-article-date">
-  	<time datetime="2020-05-21T15:58:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-21</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/21/%E7%94%A8%E7%BA%AFcss%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAiOS%E7%9A%84switch%E5%BC%80%E5%85%B3/">用纯css实现一个iOS的switch开关</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">css</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/21/169-Majority-Element/" class="archive-article-date">
-  	<time datetime="2020-05-21T02:11:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-21</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/21/169-Majority-Element/">169. Majority Element</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/21/50-Pow-x-n/" class="archive-article-date">
-  	<time datetime="2020-05-21T02:02:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-21</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/21/50-Pow-x-n/">50. Pow(x, n)</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/20/235-Lowest-Common-Ancestor-of-a-Binary-Search-Tree/" class="archive-article-date">
-  	<time datetime="2020-05-20T14:46:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/20/235-Lowest-Common-Ancestor-of-a-Binary-Search-Tree/">235. Lowest Common Ancestor of a Binary Search Tree</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">html</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/20/98-Validate-Binary-Search-Tree/" class="archive-article-date">
-  	<time datetime="2020-05-20T12:09:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/20/98-Validate-Binary-Search-Tree/">98. Validate Binary Search Tree</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/20/1-Two-Sum/" class="archive-article-date">
-  	<time datetime="2020-05-19T16:11:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/20/1-Two-Sum/">1. Two Sum</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/19/239-Sliding-Window-Maximum/" class="archive-article-date">
-  	<time datetime="2020-05-19T15:18:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/19/239-Sliding-Window-Maximum/">239. Sliding Window Maximum</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/19/703-Kth-Largest-Element-in-a-Stream/" class="archive-article-date">
-  	<time datetime="2020-05-19T14:01:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/19/703-Kth-Largest-Element-in-a-Stream/">703. Kth Largest Element in a Stream</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/page/2/">&amp;laquo; Prev</a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/archives/page/4/">4</a><a class="page-number" href="/archives/page/5/">5</a><a class="page-number" href="/archives/page/6/">6</a><a class="extend next" rel="next" href="/archives/page/4/">Next &amp;raquo;</a>
-    </nav>
   
 
 
@@ -596,8 +321,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
