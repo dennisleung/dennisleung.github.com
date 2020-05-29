@@ -140,6 +140,154 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-this指向的改变" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/14/this%E6%8C%87%E5%90%91%E7%9A%84%E6%94%B9%E5%8F%98/">this指向的改变</a>
+    </h1>
+  
+
+        
+        <a href="/2020/05/14/this%E6%8C%87%E5%90%91%E7%9A%84%E6%94%B9%E5%8F%98/" class="archive-article-date">
+  	<time datetime="2020-05-14T03:06:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>今天研究了下this的指向会不会被改变<br>用例均在node下执行</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>() &#123;</span><br><span class="line">        <span class="keyword">this</span>.name = <span class="string">"a"</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    say() &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    sayFn() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> a = <span class="keyword">new</span> A();</span><br><span class="line">a.say()<span class="comment">//输出a</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> fn1 = a.say;</span><br><span class="line">fn1();<span class="comment">//报错，TypeError: Cannot read property 'name' of undefined</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> fn2 = a.say.bind(a);</span><br><span class="line">fn2();<span class="comment">//输出a</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> fn3 = a.say.bind(&#123;<span class="attr">name</span>:<span class="string">'b'</span>&#125;);</span><br><span class="line">fn3();<span class="comment">//输出b</span></span><br><span class="line"></span><br><span class="line">a.say.call(&#123;<span class="attr">name</span>:<span class="string">'b'</span>&#125;);<span class="comment">//输出b</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> fn4 = (a.sayFn()).bind(&#123;<span class="attr">name</span>:<span class="string">'b'</span>&#125;)</span><br><span class="line">fn4()<span class="comment">//输出a</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> fn5 = (a.sayFn.bind(&#123;<span class="attr">name</span>:<span class="string">'b'</span>&#125;))()</span><br><span class="line">fn5()<span class="comment">//输出b</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>除了特殊情况（2，3点）外，this的指向取决于它是作为“函数”还是“成员方法”调用；</li>
+<li><code>bind</code>/<code>call</code>/<code>apply</code>可以改变成员方法this的指向；</li>
+<li>箭头函数的this取决于第一次执行的作用域链，一但绑定不再改变</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/05/14/this%E6%8C%87%E5%90%91%E7%9A%84%E6%94%B9%E5%8F%98/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-hexo-lazyload-image不生效" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/13/hexo-lazyload-image%E4%B8%8D%E7%94%9F%E6%95%88/">hexo-lazyload-image不生效</a>
+    </h1>
+  
+
+        
+        <a href="/2020/05/13/hexo-lazyload-image%E4%B8%8D%E7%94%9F%E6%95%88/" class="archive-article-date">
+  	<time datetime="2020-05-12T17:09:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>hexo的yilla模板没有整合lazyload，导致首屏加载了一堆图片，又慢又卡。。</p>
+<p>引入 <code>hexo-lazyload-image</code>，发现除了首屏图片外，其他图片都没有加载。</p>
+<p>往<code>hexo-lazy-image/lib/simple-lazyload.js</code>的监听window scoll句柄中增加log，发现句柄完全没执行。</p>
+<p>随后在console里面调试：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'scroll'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;<span class="built_in">console</span>.log(<span class="string">'scroll'</span>)&#125;)</span><br><span class="line"><span class="built_in">document</span>.addEventListener(<span class="string">'scroll'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;<span class="built_in">console</span>.log(<span class="string">'scroll'</span>)&#125;)</span><br><span class="line"><span class="built_in">document</span>.body.addEventListener(<span class="string">'scroll'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;<span class="built_in">console</span>.log(<span class="string">'scroll'</span>)&#125;)</span><br><span class="line"><span class="comment">//滑动页面，上面都没输出scroll</span></span><br></pre></td></tr></table></figure>
+
+<p>怀疑是框架在文章dom上阻止了scroll的冒泡，先简单处理：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// node_modules/hexo-lazy-image/lib/simple-lazyload.js</span></span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'scroll'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    throttle(processImages, <span class="built_in">window</span>);</span><br><span class="line">&#125;, <span class="literal">true</span>);<span class="comment">//useCapture，捕获scroll事件</span></span><br></pre></td></tr></table></figure>
+<p>成功解决。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/05/13/hexo-lazyload-image%E4%B8%8D%E7%94%9F%E6%95%88/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-promise-prototype-finally的shim不生效解决办法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -824,154 +972,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2020/05/06/%E5%9B%BE%E7%89%87%E5%8A%A0%E8%BD%BD%E5%A4%B1%E8%B4%A5%E8%87%AA%E5%8A%A8%E4%BD%BF%E7%94%A8%E9%BB%98%E8%AE%A4%E5%8D%A0%E4%BD%8D%E5%9B%BE%E7%9A%84%E6%96%B9%E6%B3%95/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-hexo-asset-image-link-fail" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/06/hexo-asset-image-link-fail/">hexo插入本地图片失败问题</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/06/hexo-asset-image-link-fail/" class="archive-article-date">
-  	<time datetime="2020-05-06T01:54:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在hexo插入本地图片的方法网上很多，不再赘述，可以看这个：<br><a href="https://www.jianshu.com/p/f72aaad7b852" target="_blank" rel="noopener">HEXO插入图片（详细版）</a></p>
-<p>但是昨天尝试往markdown里面插入一张名称<code>http-server.png</code>的图片时一直失败，查看控制台的log发现没有这张图片的process log（正常应该会出现<code>update link as xxx</code>），生成html里面img src也是原来的，没有替换。<br><img src="/img/preloader.gif" data-original="/2020/05/06/hexo-asset-image-link-fail/console.jpg" alt="console里面没有对应的process log"></p>
-<p>于是查看了<code>node_modules/hexo-assets-image/index.js</code>，发现里面判断src的正则有问题。这里原意应该是不替换http链接，但是错误把名称里面带有<code>http</code>的本地链接也过滤了。<br><img src="/img/preloader.gif" data-original="/2020/05/06/hexo-asset-image-link-fail/wrong-reg.jpg" alt="hexo-assets-image原代码"></p>
-<p>简单修改成：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(!<span class="regexp">/^http(s?)\/\/.*/</span>.test(src) &amp;&amp; !<span class="regexp">/^\s*\//</span>.test(src)) &#123;</span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>重新<code>hexo generate</code>生成后解决。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/06/hexo-asset-image-link-fail/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-2020-05-06-python-simple-http-server" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/06/2020-05-06-python-simple-http-server/">利用python在本地快速搭建一个http server</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/06/2020-05-06-python-simple-http-server/" class="archive-article-date">
-  	<time datetime="2020-05-05T16:51:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>假设需要在本地搭建一个http server，根目录为/home/web/site</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /home/web/site</span><br><span class="line">python -m SimpleHTTPServer [port] <span class="comment">#默认是8000端口</span></span><br></pre></td></tr></table></figure>
-
-<p>执行后在本地创建了一个简易的http server：<br><img src="/img/preloader.gif" data-original="/2020/05/06/2020-05-06-python-simple-http-server/http-server.png" alt="http-server"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">干货储物柜</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">http</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/06/2020-05-06-python-simple-http-server/">展开全文 >></a>
         </p>
       
 

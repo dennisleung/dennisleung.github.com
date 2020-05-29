@@ -140,6 +140,154 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-hexo-asset-image-link-fail" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/06/hexo-asset-image-link-fail/">hexo插入本地图片失败问题</a>
+    </h1>
+  
+
+        
+        <a href="/2020/05/06/hexo-asset-image-link-fail/" class="archive-article-date">
+  	<time datetime="2020-05-06T01:54:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在hexo插入本地图片的方法网上很多，不再赘述，可以看这个：<br><a href="https://www.jianshu.com/p/f72aaad7b852" target="_blank" rel="noopener">HEXO插入图片（详细版）</a></p>
+<p>但是昨天尝试往markdown里面插入一张名称<code>http-server.png</code>的图片时一直失败，查看控制台的log发现没有这张图片的process log（正常应该会出现<code>update link as xxx</code>），生成html里面img src也是原来的，没有替换。<br><img src="/img/preloader.gif" data-original="/2020/05/06/hexo-asset-image-link-fail/console.jpg" alt="console里面没有对应的process log"></p>
+<p>于是查看了<code>node_modules/hexo-assets-image/index.js</code>，发现里面判断src的正则有问题。这里原意应该是不替换http链接，但是错误把名称里面带有<code>http</code>的本地链接也过滤了。<br><img src="/img/preloader.gif" data-original="/2020/05/06/hexo-asset-image-link-fail/wrong-reg.jpg" alt="hexo-assets-image原代码"></p>
+<p>简单修改成：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(!<span class="regexp">/^http(s?)\/\/.*/</span>.test(src) &amp;&amp; !<span class="regexp">/^\s*\//</span>.test(src)) &#123;</span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>重新<code>hexo generate</code>生成后解决。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/05/06/hexo-asset-image-link-fail/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-2020-05-06-python-simple-http-server" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/06/2020-05-06-python-simple-http-server/">利用python在本地快速搭建一个http server</a>
+    </h1>
+  
+
+        
+        <a href="/2020/05/06/2020-05-06-python-simple-http-server/" class="archive-article-date">
+  	<time datetime="2020-05-05T16:51:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>假设需要在本地搭建一个http server，根目录为/home/web/site</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /home/web/site</span><br><span class="line">python -m SimpleHTTPServer [port] <span class="comment">#默认是8000端口</span></span><br></pre></td></tr></table></figure>
+
+<p>执行后在本地创建了一个简易的http server：<br><img src="/img/preloader.gif" data-original="/2020/05/06/2020-05-06-python-simple-http-server/http-server.png" alt="http-server"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">干货储物柜</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">http</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/05/06/2020-05-06-python-simple-http-server/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-2017-08-19-ajax-with-same-parent-domain" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
