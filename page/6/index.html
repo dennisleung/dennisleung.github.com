@@ -140,6 +140,162 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-String-raw处理模板字符串" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/11/String-raw%E5%A4%84%E7%90%86%E6%A8%A1%E6%9D%BF%E5%AD%97%E7%AC%A6%E4%B8%B2/">String.raw处理模板字符串</a>
+    </h1>
+  
+
+        
+        <a href="/2020/05/11/String-raw%E5%A4%84%E7%90%86%E6%A8%A1%E6%9D%BF%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="archive-article-date">
+  	<time datetime="2020-05-11T02:52:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>假设现在有这样一个需求，将需要将<code>´${a}\n${b}´</code> （a=1，b=2）处理成 <code>1\n2</code>。</p>
+<p>如果不做任何处理，模板字符串将输出：<br><img src="/img/preloader.gif" data-original="/2020/05/11/String-raw%E5%A4%84%E7%90%86%E6%A8%A1%E6%9D%BF%E5%AD%97%E7%AC%A6%E4%B8%B2/output.jpg" alt="output"></p>
+<p>解决这个问题有两个办法：</p>
+<ul>
+<li><p>模板字符串中增加转义符：</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">´$&#123;a&#125;\\n$&#123;b&#125;´</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用String.raw</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">String</span>.raw´$&#123;a&#125;\n$&#123;b&#125;´</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h3><ul>
+<li><a href="https://www.cnblogs.com/lxxhome/p/7656231.html" target="_blank" rel="noopener">ES6:string.raw浅析</a></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/05/11/String-raw%E5%A4%84%E7%90%86%E6%A8%A1%E6%9D%BF%E5%AD%97%E7%AC%A6%E4%B8%B2/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-图片加载失败自动使用默认占位图的方法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/06/%E5%9B%BE%E7%89%87%E5%8A%A0%E8%BD%BD%E5%A4%B1%E8%B4%A5%E8%87%AA%E5%8A%A8%E4%BD%BF%E7%94%A8%E9%BB%98%E8%AE%A4%E5%8D%A0%E4%BD%8D%E5%9B%BE%E7%9A%84%E6%96%B9%E6%B3%95/">图片加载失败自动使用默认占位图的方法</a>
+    </h1>
+  
+
+        
+        <a href="/2020/05/06/%E5%9B%BE%E7%89%87%E5%8A%A0%E8%BD%BD%E5%A4%B1%E8%B4%A5%E8%87%AA%E5%8A%A8%E4%BD%BF%E7%94%A8%E9%BB%98%E8%AE%A4%E5%8D%A0%E4%BD%8D%E5%9B%BE%E7%9A%84%E6%96%B9%E6%B3%95/" class="archive-article-date">
+  	<time datetime="2020-05-06T04:53:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>加载图片 <code>imgs/qrcode1.png</code> 失败的时候，自动展示默认占位图 <code>imgs/hot.png</code> 。</p>
+</blockquote>
+<h3 id="方法1：使用伪元素"><a href="#方法1：使用伪元素" class="headerlink" title="方法1：使用伪元素"></a>方法1：使用伪元素</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="css">    <span class="selector-class">.broken-img</span><span class="selector-pseudo">:before</span> &#123;</span></span><br><span class="line">        content: "";</span><br><span class="line">        display: inline-block;</span><br><span class="line">        width: 75px;</span><br><span class="line">        height: 42px;</span><br><span class="line">        background: url('imgs/hot.png');</span><br><span class="line">        background-position: center;</span><br><span class="line">        background-size: cover;</span><br><span class="line">        background-repeat: no-repeat;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--注意图片的alt要设置为空--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"imgs/qrcode1.png"</span> <span class="attr">class</span>=<span class="string">"broken-img"</span> <span class="attr">alt</span>=<span class="string">""</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="方法2：使用onerror替换src"><a href="#方法2：使用onerror替换src" class="headerlink" title="方法2：使用onerror替换src"></a>方法2：使用onerror替换src</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--注意onerror里面要清空onerror的句柄（this.onerror=null）--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"imgs/qrcode1.png"</span> <span class="attr">alt</span>=<span class="string">"qrcode"</span> <span class="attr">onerror</span>=<span class="string">"this.onerror=null;this.src='imgs/hot.png'"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">干货储物柜</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">css</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">html</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/05/06/%E5%9B%BE%E7%89%87%E5%8A%A0%E8%BD%BD%E5%A4%B1%E8%B4%A5%E8%87%AA%E5%8A%A8%E4%BD%BF%E7%94%A8%E9%BB%98%E8%AE%A4%E5%8D%A0%E4%BD%8D%E5%9B%BE%E7%9A%84%E6%96%B9%E6%B3%95/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-hexo-asset-image-link-fail" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -794,130 +950,9 @@
 
 
   
-    <article id="post-2016-11-06-plus_in_JavaScript" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/06/2016-11-06-plus_in_JavaScript/">JavaScript 中的“+”运算</a>
-    </h1>
-  
-
-        
-        <a href="/2016/11/06/2016-11-06-plus_in_JavaScript/" class="archive-article-date">
-  	<time datetime="2016-11-06T14:22:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-11-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>前几天在朋友圈看到看到一个JavaScript中对象和数组“+”运算的问题，发现自己不能完全理解里面的答案，来查漏补缺一下。</p>
-</blockquote>
-<ul>
-<li>TOC<br>{:toc}</li>
-</ul>
-<h4 id="Question"><a href="#Question" class="headerlink" title="Question:"></a>Question:</h4><p>问题包含四个：</p>
-<ul>
-<li>[] + [] = ?</li>
-<li>[] + {} = ?</li>
-<li>{} + [] = ?</li>
-<li>{} + {} = ?</li>
-</ul>
-<h4 id="chrome下表现"><a href="#chrome下表现" class="headerlink" title="chrome下表现"></a>chrome下表现</h4><ul>
-<li>[] + [] = “”</li>
-<li>[] + {} = “{object Object}”</li>
-<li>{} + [] = 0</li>
-<li>{} + {} = “{object Object}{object Object}”</li>
-</ul>
-<h4 id="FF-下表现"><a href="#FF-下表现" class="headerlink" title="FF 下表现"></a>FF 下表现</h4><ul>
-<li>[] + [] = “”</li>
-<li>[] + {} = “{object Object}”</li>
-<li>{} + [] = 0</li>
-<li>{} + {} = NaN</li>
-</ul>
-<h4 id="Node-下表现"><a href="#Node-下表现" class="headerlink" title="Node 下表现"></a>Node 下表现</h4><p>与 chrome表现一致</p>
-<h4 id="ECMA中对“-”的描述："><a href="#ECMA中对“-”的描述：" class="headerlink" title="ECMA中对“+”的描述："></a>ECMA中对“+”的描述：</h4><p><img src="/img/preloader.gif" data-original="/2016/11/06/2016-11-06-plus_in_JavaScript/getValue_definition_in_ecma.png" alt="ECMA对+运算符的描述"></p>
-<p>参考了 ecma 中对 <code>getValue</code> 的描述，里面有一句 <code>then let get be the [[Get]] internal method of base</code> 看得不太懂，找不到<code>get</code>这个函数变量是哪来的，不过在这个场景下，我们可以判断[]和{}调用 getValue 返回的结果分别是 []和{}。<br>接下来到 <code>getPrimitive</code> 方法， ECMA中的描述：<br><img src="/img/preloader.gif" data-original="/2016/11/06/2016-11-06-plus_in_JavaScript/getPrimitive_definition_in_ecma.png" alt="ECMA对getPrimitive的描述"></p>
-<p>另外在网上找到了一个小诀窍：<strong>当+作用在一个是数字一个是字符串的情况下，+作为连接运算符</strong>。</p>
-<h4 id="分析："><a href="#分析：" class="headerlink" title="分析："></a>分析：</h4><p><strong>使用+运算符进行运算时，是没有指定转换方式的，JavaScript 内部会默认进行 toNumber 转换。</strong>（划重点）</p>
-<ul>
-<li><p>[] + []</p>
-<p>  []调用 valueOf 返回 []，不是原始值，调用 toString，返回””，为原始值。因此结果是”” + “” = “”。</p>
-</li>
-<li><p>[] + {}</p>
-<p>  {}调用 valueOf 返回 {}，不是原始值，调用 toString，返回”{object Object}”。因此结果是”” + “{object Object}” = “{object Object}”。</p>
-</li>
-</ul>
-<p>第三和第四个是以 <code>{</code>开始的，情况比较特殊，在 Chrome 和 FF 下的表现也不一致。</p>
-<ul>
-<li><p>{} + []</p>
-<p>  <em>当一个语句以 <code>{</code> 开始时，浏览器会认为它是一个语句块，知道匹配到一个 <code>}</code>。</em> 因此这个返回值实际上是后面 <code>+[]</code> 的结果，这是一个单值运算，隐式转化调用toNumber。toNumber 会先调用 getPrimitive 取到[]的原始值为””，然后将””转换为数字————0。</p>
-<p>  如果不想{}被默认为代码块，可以通过添加<code>()</code>。({} + [] = “{object Object}”)</p>
-</li>
-<li><p>{} + {}<br>  这个运算个人感觉Chrome 的实现是有问题的，它的逻辑和第三点矛盾了，而 FF 的结果才是正确的。</p>
-<p>  这个实际上是 +{} 的运算结果。toNumber 把 {}的原始值 “{object Object}” 转换成数值时是 NaN，很正确，没毛病~</p>
-</li>
-</ul>
-<h4 id="后话"><a href="#后话" class="headerlink" title="后话"></a>后话</h4><p>感觉自己的前端基础还是很一般，js有很多内部的逻辑都没弄清楚，上班后更是懒了很少学习新东西，真的很怀念以前在学校做项目，菜鸟一只每次学习到新东西很兴奋的时光。<br>ECMA的官方文档是个好东西，最权威，最透彻，虽然英文看起来有点痛苦。<br>给自己打下气，知道现在学习前端还是使我很愉♂悦的~望能坚持下去。</p>
-<h4 id="Reference"><a href="#Reference" class="headerlink" title="Reference:"></a>Reference:</h4><ul>
-<li><a href="http://http://ecma-international.org/ecma-262/" target="_blank" rel="noopener">ECMA 官网文档</a></li>
-<li><a href="http://www.cnblogs.com/ziyunfei/archive/2012/09/15/2685885.html" target="_blank" rel="noopener">[译]JavaScript中,{}+{}等于多少?</a></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">干货储物柜</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/11/06/2016-11-06-plus_in_JavaScript/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/5/">« Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span>
+      <a class="extend prev" rel="prev" href="/page/5/">« Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/7/">Next »</a>
     </nav>
   
 
