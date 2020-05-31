@@ -140,6 +140,81 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-338-Counting-Bits" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/25/338-Counting-Bits/">338. Counting Bits</a>
+    </h1>
+  
+
+        
+        <a href="/2020/05/25/338-Counting-Bits/" class="archive-article-date">
+  	<time datetime="2020-05-25T06:18:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-25</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>原题：<a href="https://leetcode.com/problems/counting-bits/" target="_blank" rel="noopener">338. Counting Bits</a></p>
+</blockquote>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>DP + Bit Manupulation。主用运用 ** <code>x &amp; (x-1)</code> 移除x最低位1的思想。**。</p>
+<h2 id="source-code"><a href="#source-code" class="headerlink" title="source code"></a>source code</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 96 ms, faster than 72.42% of JavaScript online submissions for Counting Bits.</span></span><br><span class="line"><span class="comment">// Memory Usage: 42.1 MB, less than 100.00% of JavaScript online submissions for Counting Bits.</span></span><br><span class="line"><span class="keyword">var</span> countBits = <span class="function"><span class="keyword">function</span> (<span class="params">num</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> result = [<span class="number">0</span>];</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt;= num; i++) &#123;</span><br><span class="line">    result[i] = result[i &amp; (i - <span class="number">1</span>)] + <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="test-cases"><a href="#test-cases" class="headerlink" title="test cases"></a>test cases</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">"test1"</span>, () =&gt; &#123;</span><br><span class="line">  expect(countBits(<span class="number">0</span>)).toEqual([<span class="number">0</span>]);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test2"</span>, () =&gt; &#123;</span><br><span class="line">  expect(countBits(<span class="number">1</span>)).toEqual([<span class="number">0</span>, <span class="number">1</span>]);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test3"</span>, () =&gt; &#123;</span><br><span class="line">  expect(countBits(<span class="number">2</span>)).toEqual([<span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>]);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test4"</span>, () =&gt; &#123;</span><br><span class="line">  expect(countBits(<span class="number">5</span>)).toEqual([<span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>]);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/05/25/338-Counting-Bits/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-231-Power-of-Two" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -825,79 +900,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2020/05/23/51-N-Queens/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-22-Generate-Parentheses" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/23/22-Generate-Parentheses/">22. Generate Parentheses</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/23/22-Generate-Parentheses/" class="archive-article-date">
-  	<time datetime="2020-05-23T07:22:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>原题：<a href="https://leetcode.com/problems/generate-parentheses/" target="_blank" rel="noopener">22. Generate Parentheses</a></p>
-</blockquote>
-<h2 id="source-code"><a href="#source-code" class="headerlink" title="source code"></a>source code</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 68 ms, faster than 23.67% of JavaScript online submissions for Generate Parentheses.</span></span><br><span class="line"><span class="comment">// Memory Usage: 37.1 MB, less than 7.69% of JavaScript online submissions for Generate Parentheses.</span></span><br><span class="line"><span class="keyword">var</span> generateParenthesis = <span class="function"><span class="keyword">function</span> (<span class="params">n</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> result = [];</span><br><span class="line">  <span class="keyword">const</span> helper = <span class="function"><span class="keyword">function</span> (<span class="params">left, right, str</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//left:左括号还剩几个，right:右括号还剩几个，str:当前结果子串</span></span><br><span class="line">    <span class="keyword">if</span> (left === <span class="number">0</span> &amp;&amp; right === <span class="number">0</span>) &#123;</span><br><span class="line">      result.push(str);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (left &gt; <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="comment">//只要当前子串合法，左括号可以随意加</span></span><br><span class="line">      helper(left - <span class="number">1</span>, right, str + <span class="string">"("</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (right &gt; left) &#123;</span><br><span class="line">      <span class="comment">//如果当前子串合法，子串中的左括号一定比右括号多</span></span><br><span class="line">      helper(left, right - <span class="number">1</span>, str + <span class="string">")"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  helper(n, n, <span class="string">""</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="test-cases"><a href="#test-cases" class="headerlink" title="test cases"></a>test cases</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">"test1"</span>, () =&gt; &#123;</span><br><span class="line">  expect(generateParenthesis(<span class="number">1</span>).sort()).toEqual([<span class="string">"()"</span>].sort());</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test2"</span>, () =&gt; &#123;</span><br><span class="line">  expect(generateParenthesis(<span class="number">2</span>).sort()).toEqual([<span class="string">"()()"</span>, <span class="string">"(())"</span>].sort());</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test3"</span>, () =&gt; &#123;</span><br><span class="line">  expect(generateParenthesis(<span class="number">3</span>).sort()).toEqual(</span><br><span class="line">    [<span class="string">"((()))"</span>, <span class="string">"(()())"</span>, <span class="string">"(())()"</span>, <span class="string">"()(())"</span>, <span class="string">"()()()"</span>].sort()</span><br><span class="line">  );</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/23/22-Generate-Parentheses/">展开全文 >></a>
         </p>
       
 
