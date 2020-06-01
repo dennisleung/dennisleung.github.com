@@ -6,16 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://dennisleung.github.io">
-  <title>Tag: 算法 | 挖坑小能手的填坑日记</title>
+  <title>形如if(0&lt;100&lt;0)怎么执行 | 挖坑小能手的填坑日记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前端开发攻城狮">
-<meta property="og:type" content="website">
-<meta property="og:title" content="挖坑小能手的填坑日记">
-<meta property="og:url" content="http://dennisleung.github.io/tags/%E7%AE%97%E6%B3%95/page/4/index.html">
+  <meta name="description" content="面试时候遇到的一道题，因为不熟悉编译原理，被虐的体无完肤。。。  12345678910111213141516&#x2F;&#x2F;写出下面的打印结果if (0 &lt; 100 &lt; 0) &amp;#123;  console.log(&quot;a&quot;);&amp;#125; else &amp;#123;  console.log(&quot;b&quot;);&amp;#125;if (0 &lt; 100 &lt; 0 + 4) &amp;#123;  consol">
+<meta property="og:type" content="article">
+<meta property="og:title" content="形如if(0&lt;100&lt;0)怎么执行">
+<meta property="og:url" content="http://dennisleung.github.io/2020/06/01/%E5%BD%A2%E5%A6%82if-0-100-0-%E6%80%8E%E4%B9%88%E6%89%A7%E8%A1%8C/index.html">
 <meta property="og:site_name" content="挖坑小能手的填坑日记">
-<meta property="og:description" content="前端开发攻城狮">
+<meta property="og:description" content="面试时候遇到的一道题，因为不熟悉编译原理，被虐的体无完肤。。。  12345678910111213141516&#x2F;&#x2F;写出下面的打印结果if (0 &lt; 100 &lt; 0) &amp;#123;  console.log(&quot;a&quot;);&amp;#125; else &amp;#123;  console.log(&quot;b&quot;);&amp;#125;if (0 &lt; 100 &lt; 0 + 4) &amp;#123;  consol">
 <meta property="og:locale" content="zh">
+<meta property="article:published_time" content="2020-06-01T15:25:59.000Z">
+<meta property="article:modified_time" content="2020-06-01T15:33:28.872Z">
 <meta property="article:author" content="Dennis Leung">
+<meta property="article:tag" content="javascript">
+<meta property="article:tag" content="编译原理">
 <meta name="twitter:card" content="summary">
   
   
@@ -138,231 +142,172 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-形如if-0-100-0-怎么执行" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      形如if(0&lt;100&lt;0)怎么执行
+    </h1>
+  
+
+        
+        <a href="/2020/06/01/%E5%BD%A2%E5%A6%82if-0-100-0-%E6%80%8E%E4%B9%88%E6%89%A7%E8%A1%8C/" class="archive-article-date">
+  	<time datetime="2020-06-01T15:25:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-01</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>面试时候遇到的一道题，因为不熟悉编译原理，被虐的体无完肤。。。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//写出下面的打印结果</span></span><br><span class="line"><span class="keyword">if</span> (<span class="number">0</span> &lt; <span class="number">100</span> &lt; <span class="number">0</span>) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"a"</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"b"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="number">0</span> &lt; <span class="number">100</span> &lt; <span class="number">0</span> + <span class="number">4</span>) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"c"</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"d"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// output:</span></span><br><span class="line"><span class="comment">// a</span></span><br><span class="line"><span class="comment">// c</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h3><p>第一个if语句中从左往右执行，<code>0&lt;100</code> 为 <code>true</code>，<code>true&lt;0</code> getPrimitive后变成 <code>1&lt;0</code>，因此第一个结果为 <code>false</code>。</p>
+<p>第二if语句中，<code>+</code>优先级大于<code>&lt;</code>，因为变成 <code>0&lt;100&lt;4</code>， <code>0&lt;100</code> 为 <code>true</code>，<code>true&lt;4</code> getPrimitive后变成 <code>1&lt;4</code>，因此第一个结果为 <code>true</code>。</p>
+<h3 id="javascript运算符笔记"><a href="#javascript运算符笔记" class="headerlink" title="javascript运算符笔记"></a>javascript运算符笔记</h3><table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>. [] ()</td>
+<td>字段访问、数组下标、函数调用以及表达式分组</td>
+</tr>
+<tr>
+<td>++ – - ~ ! delete new typeof void</td>
+<td>一元运算符、返回数据类型、对象创建、未定义值</td>
+</tr>
+<tr>
+<td>* / %</td>
+<td>乘法、除法、取模</td>
+</tr>
+<tr>
+<td>+ - +</td>
+<td>加法、减法、字符串连接</td>
+</tr>
+<tr>
+<td>&lt;&lt; &gt;&gt; &gt;&gt;&gt;</td>
+<td>移位</td>
+</tr>
+<tr>
+<td>&lt; &lt;= &gt; &gt;= instanceof</td>
+<td>小于、小于等于、大于、大于等于、instanceof</td>
+</tr>
+<tr>
+<td>== != === !==</td>
+<td>等于、不等于、严格相等、非严格相等</td>
+</tr>
+<tr>
+<td>&amp;</td>
+<td>按位与</td>
+</tr>
+<tr>
+<td>^</td>
+<td>按位异或</td>
+</tr>
+<tr>
+<td>|</td>
+<td>按位或</td>
+</tr>
+<tr>
+<td>&amp;&amp;</td>
+<td>逻辑与</td>
+</tr>
+<tr>
+<td>||</td>
+<td>逻辑或</td>
+</tr>
+<tr>
+<td>?:</td>
+<td>条件</td>
+</tr>
+<tr>
+<td>= oP=</td>
+<td>赋值、运算赋值</td>
+</tr>
+<tr>
+<td>,</td>
+<td>多重求值</td>
+</tr>
+</tbody></table>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/19/232-implement-queue-using-stacks/" class="archive-article-date">
-  	<time datetime="2020-05-18T16:26:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/19/232-implement-queue-using-stacks/">232. Implement Queue using Stacks</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">编译原理</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/18/20-Valid-Parentheses/" class="archive-article-date">
-  	<time datetime="2020-05-18T15:56:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-18</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/18/20-Valid-Parentheses/">20. Valid Parentheses</a>
-    </h1>
+  
+    <a href="/2020/06/01/322-Coin-Change/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">322. Coin Change</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
+  
+  <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script>
+  var cloudTieConfig = {
+    url: "http://dennisleung.github.io/2020/06/01/%E5%BD%A2%E5%A6%82if-0-100-0-%E6%80%8E%E4%B9%88%E6%89%A7%E8%A1%8C/", 
+    sourceId: "形如if-0-100-0-怎么执行",
+    productKey: "7b8ed868ba8c43919aec18514f14a586",
+    target: "cloud-tie-wrapper"
+  };
+</script>
+<script src="//img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/18/Reverse-Nodes-in-k-Group/" class="archive-article-date">
-  	<time datetime="2020-05-18T03:20:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/18/Reverse-Nodes-in-k-Group/">Reverse Nodes in k-Group</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/18/linked-list-cycle-ii/" class="archive-article-date">
-  	<time datetime="2020-05-17T23:36:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/18/linked-list-cycle-ii/">Linked List Cycle ii</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/16/%E6%89%BE%E5%87%BA%E6%97%A7%E6%95%B0%E7%BB%84%E5%8F%98%E6%88%90%E6%96%B0%E6%95%B0%E7%BB%84%E7%9A%84%E6%93%8D%E4%BD%9C/" class="archive-article-date">
-  	<time datetime="2020-05-16T07:46:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/16/%E6%89%BE%E5%87%BA%E6%97%A7%E6%95%B0%E7%BB%84%E5%8F%98%E6%88%90%E6%96%B0%E6%95%B0%E7%BB%84%E7%9A%84%E6%93%8D%E4%BD%9C/">找出旧数组变成新数组的操作</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/tags/%E7%AE%97%E6%B3%95/page/3/">« Prev</a><a class="page-number" href="/tags/%E7%AE%97%E6%B3%95/">1</a><a class="page-number" href="/tags/%E7%AE%97%E6%B3%95/page/2/">2</a><a class="page-number" href="/tags/%E7%AE%97%E6%B3%95/page/3/">3</a><span class="page-number current">4</span>
-    </nav>
   
 
 
@@ -386,9 +331,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
