@@ -140,6 +140,149 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-hexo-lazyload-image不生效" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/13/hexo-lazyload-image%E4%B8%8D%E7%94%9F%E6%95%88/">hexo-lazyload-image不生效</a>
+    </h1>
+  
+
+        
+        <a href="/2020/05/13/hexo-lazyload-image%E4%B8%8D%E7%94%9F%E6%95%88/" class="archive-article-date">
+  	<time datetime="2020-05-12T17:09:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>hexo的yilla模板没有整合lazyload，导致首屏加载了一堆图片，又慢又卡。。</p>
+<p>引入 <code>hexo-lazyload-image</code>，发现除了首屏图片外，其他图片都没有加载。</p>
+<p>往<code>hexo-lazy-image/lib/simple-lazyload.js</code>的监听window scoll句柄中增加log，发现句柄完全没执行。</p>
+<p>随后在console里面调试：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'scroll'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;<span class="built_in">console</span>.log(<span class="string">'scroll'</span>)&#125;)</span><br><span class="line"><span class="built_in">document</span>.addEventListener(<span class="string">'scroll'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;<span class="built_in">console</span>.log(<span class="string">'scroll'</span>)&#125;)</span><br><span class="line"><span class="built_in">document</span>.body.addEventListener(<span class="string">'scroll'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;<span class="built_in">console</span>.log(<span class="string">'scroll'</span>)&#125;)</span><br><span class="line"><span class="comment">//滑动页面，上面都没输出scroll</span></span><br></pre></td></tr></table></figure>
+
+<p>怀疑是框架在文章dom上阻止了scroll的冒泡，先简单处理：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// node_modules/hexo-lazy-image/lib/simple-lazyload.js</span></span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'scroll'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    throttle(processImages, <span class="built_in">window</span>);</span><br><span class="line">&#125;, <span class="literal">true</span>);<span class="comment">//useCapture，捕获scroll事件</span></span><br></pre></td></tr></table></figure>
+<p>成功解决。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/05/13/hexo-lazyload-image%E4%B8%8D%E7%94%9F%E6%95%88/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-promise-prototype-finally的shim不生效解决办法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/12/promise-prototype-finally%E7%9A%84shim%E4%B8%8D%E7%94%9F%E6%95%88%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/">promise.prototype.finally的shim不生效解决办法</a>
+    </h1>
+  
+
+        
+        <a href="/2020/05/12/promise-prototype-finally%E7%9A%84shim%E4%B8%8D%E7%94%9F%E6%95%88%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" class="archive-article-date">
+  	<time datetime="2020-05-12T15:45:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>今天被Promise.finanlly的兼容性坑了一波，记录一下。。</p>
+</blockquote>
+<p>先看<code>Promise.finally</code>的兼容性，其实和<code>Promise.all</code>、<code>Promise.race</code>不是同期的东西。。<br><img src="/img/preloader.gif" data-original="/2020/05/12/promise-prototype-finally%E7%9A%84shim%E4%B8%8D%E7%94%9F%E6%95%88%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/promise_finanlly.jpg" alt="Promise.finanlly兼容性"></p>
+<p>用户反馈在微信公众号上无法输入，自己用iOS10的设备试了一下确实能复现，查看控制台发现提示<code>undefined is not a function</code>，看了下log最新的改动是增加了Promise.finanlly，再结合caniuse的兼容性报告，引入<code>promise.prototype.finally</code>。<br>然而，还是报一样的错。。。= =</p>
+<p>翻了下这个polyfill包的issue，唯三的issue都是开着的，里面还真找到了一样的反馈，创建与2017年8月。。。<br><a href="https://github.com/es-shims/Promise.prototype.finally/issues/6" target="_blank" rel="noopener">shim() not shimming on karma/phantomJS</a><br>参照里面的解决方法新建了一个模块：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//@webSrc/utils/promiseFinallyShim.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; shim &#125; <span class="keyword">from</span> <span class="string">'promise.prototype.finally'</span></span><br><span class="line"><span class="keyword">const</span> promiseFinallyShim = shim()</span><br><span class="line"><span class="keyword">if</span> (!<span class="built_in">Promise</span>.prototype.finanlly) &#123;</span><br><span class="line">  <span class="built_in">Promise</span>.prototype.finally = promiseFinallyShim</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//index.js</span></span><br><span class="line"><span class="keyword">import</span> promiseFinallyShim <span class="keyword">from</span> <span class="string">'@webSrc/utils/promiseFinallyShim'</span></span><br><span class="line"><span class="comment">//引入后能正常使用</span></span><br><span class="line">(<span class="keyword">new</span> <span class="built_in">Promise</span>()).finally</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/05/12/promise-prototype-finally%E7%9A%84shim%E4%B8%8D%E7%94%9F%E6%95%88%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-让fetch支持timeout" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -844,176 +987,6 @@
 
 
   
-    <article id="post-2020-05-06-python-simple-http-server" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/06/2020-05-06-python-simple-http-server/">利用python在本地快速搭建一个http server</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/06/2020-05-06-python-simple-http-server/" class="archive-article-date">
-  	<time datetime="2020-05-05T16:51:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>假设需要在本地搭建一个http server，根目录为/home/web/site</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /home/web/site</span><br><span class="line">python -m SimpleHTTPServer [port] <span class="comment">#默认是8000端口</span></span><br></pre></td></tr></table></figure>
-
-<p>执行后在本地创建了一个简易的http server：<br><img src="/img/preloader.gif" data-original="/2020/05/06/2020-05-06-python-simple-http-server/http-server.png" alt="http-server"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">干货储物柜</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">http</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/06/2020-05-06-python-simple-http-server/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-2017-08-19-ajax-with-same-parent-domain" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/19/2017-08-19-ajax-with-same-parent-domain/">相同父域ajax请求cookie无法携带/写入</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/19/2017-08-19-ajax-with-same-parent-domain/" class="archive-article-date">
-  	<time datetime="2017-08-19T04:22:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>为了应对活动的巨大流量，最近我们把活动相关的代码切到了一个新站点（act.xiaoying.com），和主站（<a href="http://www.xiaoying.com）相同父域。" target="_blank" rel="noopener">www.xiaoying.com）相同父域。</a></p>
-</blockquote>
-<blockquote>
-<p>下面的代码示例都是在测试环境写的调试代码 :)</p>
-</blockquote>
-<h1 id="Ajax-请求相同父域无法带上cookie"><a href="#Ajax-请求相同父域无法带上cookie" class="headerlink" title="Ajax 请求相同父域无法带上cookie"></a>Ajax 请求相同父域无法带上cookie</h1><p>对 Ajax 的用法了解不够全面，一直只用jQuery 里面常用的几个属性。act.xiaoying.com下面有一个 <code>domain=.xiaoying.com</code>的 cookie，请求<a href="http://www.xiaoying.com" target="_blank" rel="noopener">www.xiaoying.com</a> 不属于跨域，在我以前的想法里在发起请求的时候这个 cookie 是会被带上的，然而实测并没有。<br><img src="/img/preloader.gif" data-original="/2017/08/19/2017-08-19-ajax-with-same-parent-domain/cookie-a.png" alt="cookie-a"></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//ajax 请求代码</span></span><br><span class="line"><span class="keyword">var</span> options = &#123;</span><br><span class="line">	url : <span class="string">"https://www.xiaoying.com"</span>,</span><br><span class="line">	type : <span class="string">"POST"</span>,</span><br><span class="line">	data : &#123;&#125;,</span><br><span class="line">	dataType : <span class="string">"json"</span>,</span><br><span class="line">	success : <span class="function"><span class="keyword">function</span>(<span class="params">result</span>) </span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(result);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line">$.ajax(options);</span><br></pre></td></tr></table></figure>
-
-<p>查看请求：<br><img src="/img/preloader.gif" data-original="/2017/08/19/2017-08-19-ajax-with-same-parent-domain/request-shoot.png" alt="request-shoot"><br>很显然cookie里面的 a 没有被带上。到StackOverflow上面找了一下，最后在 MDN 上面找到了<a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/withCredentials" target="_blank" rel="noopener">withCrentials</a>属性。<br>里面提到 ajax 的这个参数会影响 cookie 的传输，无论CORS 配的是什么。<br>在options 配置里面将这个参数加上：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">options.xhrFields = &#123;</span><br><span class="line">	withCredentials : <span class="literal">true</span>;	</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//native xhr:</span></span><br><span class="line"><span class="comment">//xhr.withCredentials = true;</span></span><br></pre></td></tr></table></figure>
-<p>再请求的时候查看请求cookie 是带上了，却报错（<code>The value of the &#39;Access-Control-Allow-Origin&#39; header in the response must not be the wildcard &#39;*&#39; when the request&#39;s credentials mode is &#39;include&#39;</code>）<br><img src="/img/preloader.gif" data-original="/2017/08/19/2017-08-19-ajax-with-same-parent-domain/cookie-a-2.png" alt="cookie-a-2"><br><img src="/img/preloader.gif" data-original="/2017/08/19/2017-08-19-ajax-with-same-parent-domain/request-shoot-2.png" alt="request-shoot-2"></p>
-<p>万能的<code>*</code>居然不行（笑容逐渐消失）。。。见招拆招，修改 nginx 配置：</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 生产环境的 CORS 配置会复杂很多，测试环境简单设置成$http_origin</span></span><br><span class="line"><span class="attribute">add_header</span> Access-Control-Allow-Origin <span class="variable">$http_origin</span>;</span><br></pre></td></tr></table></figure>
-
-<p>再请求，继续报错 <code>The value of the &#39;Access-Control-Allow-Credentials&#39; header in the response is &#39;&#39; which must be &#39;true&#39; when the request&#39;s credentials mode is &#39;include&#39;</code>：<br><img src="/img/preloader.gif" data-original="/2017/08/19/2017-08-19-ajax-with-same-parent-domain/request-shoot-3.png" alt="request-shoot-3"></p>
-<p>心累，在cgi加上 <code>Access-Control-Allow-Credentials</code>：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">header(<span class="string">"Access-Control-Allow-Credentials:true"</span>);</span><br></pre></td></tr></table></figure>
-<p>再次请求，done。</p>
-<h1 id="太长不看"><a href="#太长不看" class="headerlink" title="太长不看"></a>太长不看</h1><h2 id="nginx"><a href="#nginx" class="headerlink" title="nginx"></a>nginx</h2><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">add_header</span> Access-Control-Allow-Origin <span class="variable">$http_origin</span>; <span class="comment">#生产环境请自行添加 CORS策略</span></span><br><span class="line"><span class="attribute">add_header</span> Access-Control-Allow-Credentials <span class="literal">true</span>;</span><br></pre></td></tr></table></figure>
-
-<h2 id="javascript"><a href="#javascript" class="headerlink" title="javascript"></a>javascript</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">options.xhrFields = &#123;</span><br><span class="line">	withCredentials : <span class="literal">true</span>;	</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>上面两段可以解决相同父域 cookie携带和写入的问题。不同父域的试了是不行的，还是另寻他法吧~</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">干货储物柜</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/19/2017-08-19-ajax-with-same-parent-domain/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/5/">« Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/7/">Next »</a>
@@ -1176,6 +1149,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">干活储物柜</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">并查集</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
               </li>
             
             <div class="clearfix"></div>

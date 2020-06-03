@@ -140,6 +140,166 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-并查集的实现" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/03/%E5%B9%B6%E6%9F%A5%E9%9B%86%E7%9A%84%E5%AE%9E%E7%8E%B0/">并查集的实现</a>
+    </h1>
+  
+
+        
+        <a href="/2020/06/03/%E5%B9%B6%E6%9F%A5%E9%9B%86%E7%9A%84%E5%AE%9E%E7%8E%B0/" class="archive-article-date">
+  	<time datetime="2020-06-03T08:48:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>用js实现一个并查集</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UFS</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>() &#123;</span><br><span class="line">    <span class="keyword">this</span>.set = [];</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//初始化节点</span></span><br><span class="line">  makeSet(x) &#123;</span><br><span class="line">    <span class="keyword">this</span>.set[x] = &#123;</span><br><span class="line">      parent: x,</span><br><span class="line">      rank: <span class="number">0</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//找出x的根节点</span></span><br><span class="line">  find(x) &#123;</span><br><span class="line">    <span class="keyword">const</span> node = <span class="keyword">this</span>.set[x];</span><br><span class="line">    <span class="keyword">if</span> (!node) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="number">-1</span>; <span class="comment">//error</span></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (node.parent == x) &#123;</span><br><span class="line">      <span class="keyword">return</span> x;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.find(node.parent);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//判断x和y是否在同一个集合中</span></span><br><span class="line">  connected(x, y) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.find(x) === <span class="keyword">this</span>.find(y);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//合并两个集合</span></span><br><span class="line">  union(x, y) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.connected(x, y)) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> xRoot = <span class="keyword">this</span>.set[<span class="keyword">this</span>.find(x)];</span><br><span class="line">    <span class="keyword">const</span> yRoot = <span class="keyword">this</span>.set[<span class="keyword">this</span>.find(y)];</span><br><span class="line">    <span class="keyword">if</span> (!xRoot || !yRoot) &#123;</span><br><span class="line">      <span class="comment">//error</span></span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (xRoot.rank &lt; yRoot.rank) &#123;</span><br><span class="line">      <span class="comment">//往rank大的元素挂载，这样不增加rank</span></span><br><span class="line">      xRoot.parent = y;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (xRoot.rank &gt; yRoot.rank) &#123;</span><br><span class="line">      yRoot.parent = x;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      xRoot.parent = y;</span><br><span class="line">      yRoot.rank += <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">数据结构</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/06/03/%E5%B9%B6%E6%9F%A5%E9%9B%86%E7%9A%84%E5%AE%9E%E7%8E%B0/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-200-Number-of-Islands" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/03/200-Number-of-Islands/">200. Number of Islands</a>
+    </h1>
+  
+
+        
+        <a href="/2020/06/03/200-Number-of-Islands/" class="archive-article-date">
+  	<time datetime="2020-06-03T08:47:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>原题：<a href="https://leetcode.com/problems/number-of-islands/" target="_blank" rel="noopener">200. Number of Islands</a></p>
+</blockquote>
+<h3 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h3><p>思路：路径染色</p>
+<p>时间复杂度：O(n^2)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 80 ms, faster than 29.80% of JavaScript online submissions for Number of Islands.</span></span><br><span class="line"><span class="comment">// Memory Usage: 37.2 MB, less than 100.00% of JavaScript online submissions for Number of Islands.</span></span><br><span class="line"><span class="keyword">var</span> numIslands = <span class="function"><span class="keyword">function</span> (<span class="params">grid</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!grid || !grid.length) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">const</span> dx = [<span class="number">-1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>]; <span class="comment">//四连通图，注意这里不能把上、左方向省略，原因请看test case3</span></span><br><span class="line">  <span class="keyword">const</span> dy = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">-1</span>];</span><br><span class="line">  <span class="keyword">const</span> m = grid.length;</span><br><span class="line">  <span class="keyword">const</span> n = grid[<span class="number">0</span>].length;</span><br><span class="line">  <span class="keyword">let</span> count = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">const</span> helper = <span class="function"><span class="keyword">function</span> (<span class="params">i, j</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//这里用BFS（队列）或者DFS（递归）做都可以</span></span><br><span class="line">    <span class="keyword">if</span> (i &lt; <span class="number">0</span> || j &lt; <span class="number">0</span> || i &gt;= m || j &gt;= n || grid[i][j] != <span class="string">"1"</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    grid[i][j] = <span class="number">0</span>; <span class="comment">//染色</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> k = <span class="number">0</span>; k &lt; <span class="number">4</span>; k++) &#123;</span><br><span class="line">      helper(i + dx[k], j + dy[k]);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; n; j++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (grid[i][j] === <span class="string">"1"</span>) &#123;</span><br><span class="line">        helper(i, j);</span><br><span class="line">        count++;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> count;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h3><p>思路：并查集</p>
+<p>时间复杂度：O(n^2)</p>
+<p>UFS的代码可参考 <a href="/2020/06/03/并查集的实现/index.html">并查集的实现</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 180 ms, faster than 5.23% of JavaScript online submissions for Number of Islands.</span></span><br><span class="line"><span class="comment">// Memory Usage: 40.1 MB, less than 32.26% of JavaScript online submissions for Number of Islands.</span></span><br><span class="line"><span class="keyword">var</span> numIslands = <span class="function"><span class="keyword">function</span> (<span class="params">grid</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!grid || !grid.length) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">const</span> ufs = <span class="keyword">new</span> UFS();</span><br><span class="line">  <span class="keyword">const</span> m = grid.length;</span><br><span class="line">  <span class="keyword">const</span> n = grid[<span class="number">0</span>].length;</span><br><span class="line">  <span class="keyword">const</span> transform = <span class="function"><span class="keyword">function</span> (<span class="params">i, j</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//展平二维数组</span></span><br><span class="line">    <span class="keyword">return</span> i * m + j;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; n; j++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (grid[i][j] === <span class="string">"1"</span>) &#123;</span><br><span class="line">        ufs.makeSet(transform(i, j));</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> dx = [<span class="number">-1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>]; <span class="comment">//四连通图，注意这里不能把上、左方向省略，原因请看test case3</span></span><br><span class="line">  <span class="keyword">const</span> dy = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">-1</span>];</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; n; j++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (grid[i][j] === <span class="string">"1"</span>) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> k = <span class="number">0</span>; k &lt; <span class="number">4</span>; k++) &#123;</span><br><span class="line">          <span class="keyword">const</span> di = i + dx[k];</span><br><span class="line">          <span class="keyword">const</span> dj = j + dy[k];</span><br><span class="line">          <span class="keyword">if</span> (di &gt;= <span class="number">0</span> &amp;&amp; dj &gt;= <span class="number">0</span> &amp;&amp; di &lt; m &amp;&amp; dj &lt; n &amp;&amp; grid[di][dj] === <span class="string">"1"</span>) &#123;</span><br><span class="line">            ufs.union(transform(i, j), transform(di, dj));</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> <span class="keyword">set</span> = new Set();</span><br><span class="line">  for (let i = 0; i &lt; m; i++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; n; j++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (grid[i][j] === <span class="string">"1"</span>) &#123;</span><br><span class="line">        <span class="keyword">set</span>.add(ufs.find(transform(i, j)));</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return <span class="keyword">set</span>.size;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">test("test1", () =&gt; &#123;</span><br><span class="line">  expect(</span><br><span class="line">    numIslands([</span><br><span class="line">      [<span class="string">"1"</span>, <span class="string">"1"</span>, <span class="string">"1"</span>, <span class="string">"1"</span>, <span class="string">"0"</span>],</span><br><span class="line">      [<span class="string">"1"</span>, <span class="string">"1"</span>, <span class="string">"0"</span>, <span class="string">"1"</span>, <span class="string">"0"</span>],</span><br><span class="line">      [<span class="string">"1"</span>, <span class="string">"1"</span>, <span class="string">"0"</span>, <span class="string">"0"</span>, <span class="string">"0"</span>],</span><br><span class="line">      [<span class="string">"0"</span>, <span class="string">"0"</span>, <span class="string">"0"</span>, <span class="string">"0"</span>, <span class="string">"0"</span>],</span><br><span class="line">    ])</span><br><span class="line">  ).toEqual(<span class="number">1</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test2"</span>, () =&gt; &#123;</span><br><span class="line">  expect(</span><br><span class="line">    numIslands([</span><br><span class="line">      [<span class="string">"1"</span>, <span class="string">"1"</span>, <span class="string">"0"</span>, <span class="string">"0"</span>, <span class="string">"0"</span>],</span><br><span class="line">      [<span class="string">"1"</span>, <span class="string">"1"</span>, <span class="string">"0"</span>, <span class="string">"0"</span>, <span class="string">"0"</span>],</span><br><span class="line">      [<span class="string">"0"</span>, <span class="string">"0"</span>, <span class="string">"1"</span>, <span class="string">"0"</span>, <span class="string">"0"</span>],</span><br><span class="line">      [<span class="string">"0"</span>, <span class="string">"0"</span>, <span class="string">"0"</span>, <span class="string">"1"</span>, <span class="string">"1"</span>],</span><br><span class="line">    ])</span><br><span class="line">  ).toEqual(<span class="number">3</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test2"</span>, () =&gt; &#123;</span><br><span class="line">  expect(</span><br><span class="line">    numIslands([</span><br><span class="line">      [<span class="string">"1"</span>, <span class="string">"1"</span>, <span class="string">"1"</span>],</span><br><span class="line">      [<span class="string">"0"</span>, <span class="string">"1"</span>, <span class="string">"0"</span>],</span><br><span class="line">      [<span class="string">"1"</span>, <span class="string">"1"</span>, <span class="string">"1"</span>],</span><br><span class="line">    ])</span><br><span class="line">  ).toEqual(<span class="number">1</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="test-cases"><a href="#test-cases" class="headerlink" title="test cases"></a>test cases</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">"test1"</span>, () =&gt; &#123;</span><br><span class="line">  expect(</span><br><span class="line">    numIslands([</span><br><span class="line">      [<span class="string">"1"</span>, <span class="string">"1"</span>, <span class="string">"1"</span>, <span class="string">"1"</span>, <span class="string">"0"</span>],</span><br><span class="line">      [<span class="string">"1"</span>, <span class="string">"1"</span>, <span class="string">"0"</span>, <span class="string">"1"</span>, <span class="string">"0"</span>],</span><br><span class="line">      [<span class="string">"1"</span>, <span class="string">"1"</span>, <span class="string">"0"</span>, <span class="string">"0"</span>, <span class="string">"0"</span>],</span><br><span class="line">      [<span class="string">"0"</span>, <span class="string">"0"</span>, <span class="string">"0"</span>, <span class="string">"0"</span>, <span class="string">"0"</span>],</span><br><span class="line">    ])</span><br><span class="line">  ).toEqual(<span class="number">1</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test2"</span>, () =&gt; &#123;</span><br><span class="line">  expect(</span><br><span class="line">    numIslands([</span><br><span class="line">      [<span class="string">"1"</span>, <span class="string">"1"</span>, <span class="string">"0"</span>, <span class="string">"0"</span>, <span class="string">"0"</span>],</span><br><span class="line">      [<span class="string">"1"</span>, <span class="string">"1"</span>, <span class="string">"0"</span>, <span class="string">"0"</span>, <span class="string">"0"</span>],</span><br><span class="line">      [<span class="string">"0"</span>, <span class="string">"0"</span>, <span class="string">"1"</span>, <span class="string">"0"</span>, <span class="string">"0"</span>],</span><br><span class="line">      [<span class="string">"0"</span>, <span class="string">"0"</span>, <span class="string">"0"</span>, <span class="string">"1"</span>, <span class="string">"1"</span>],</span><br><span class="line">    ])</span><br><span class="line">  ).toEqual(<span class="number">3</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test2"</span>, () =&gt; &#123;</span><br><span class="line">  expect(</span><br><span class="line">    numIslands([</span><br><span class="line">      [<span class="string">"1"</span>, <span class="string">"1"</span>, <span class="string">"1"</span>],</span><br><span class="line">      [<span class="string">"0"</span>, <span class="string">"1"</span>, <span class="string">"0"</span>],</span><br><span class="line">      [<span class="string">"1"</span>, <span class="string">"1"</span>, <span class="string">"1"</span>],</span><br><span class="line">    ])</span><br><span class="line">  ).toEqual(<span class="number">1</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>路径染色更高效，并查集更符合直觉。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">并查集</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/06/03/200-Number-of-Islands/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-常用位运算" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -809,171 +969,6 @@
 
 
   
-    <article id="post-152-Maximum-Product-Subarray" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/27/152-Maximum-Product-Subarray/">152. Maximum Product Subarray</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/27/152-Maximum-Product-Subarray/" class="archive-article-date">
-  	<time datetime="2020-05-26T17:00:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>原题：<a href="https://leetcode.com/problems/maximum-product-subarray/" target="_blank" rel="noopener">152. Maximum Product Subarray</a></p>
-</blockquote>
-<h3 id="source-code"><a href="#source-code" class="headerlink" title="source code"></a>source code</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 92 ms, faster than 22.07% of JavaScript online submissions for Maximum Product Subarray.</span></span><br><span class="line"><span class="comment">// Memory Usage: 44 MB, less than 14.29% of JavaScript online submissions for Maximum Product Subarray.</span></span><br><span class="line"><span class="keyword">var</span> maxProduct = <span class="function"><span class="keyword">function</span> (<span class="params">nums</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!nums.length) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">const</span> min = [nums[<span class="number">0</span>]]; <span class="comment">//表示已nums[i]为结尾的最小乘积</span></span><br><span class="line">  <span class="keyword">const</span> max = [nums[<span class="number">0</span>]]; <span class="comment">//表示已nums[i]为结尾的最大乘积</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">    [min[i], , max[i]] = [</span><br><span class="line">      nums[i],</span><br><span class="line">      min[i - <span class="number">1</span>] * nums[i],</span><br><span class="line">      max[i - <span class="number">1</span>] * nums[i],</span><br><span class="line">    ].sort(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a - b);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Math</span>.max(...max);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h3 id="test-cases"><a href="#test-cases" class="headerlink" title="test cases"></a>test cases</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">"test1"</span>, () =&gt; &#123;</span><br><span class="line">  expect(maxProduct([])).toEqual(<span class="number">0</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test2"</span>, () =&gt; &#123;</span><br><span class="line">  expect(maxProduct([<span class="number">1</span>])).toEqual(<span class="number">1</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test3"</span>, () =&gt; &#123;</span><br><span class="line">  expect(maxProduct([<span class="number">-1</span>])).toEqual(<span class="number">-1</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test4"</span>, () =&gt; &#123;</span><br><span class="line">  expect(maxProduct([<span class="number">2</span>, <span class="number">3</span>, <span class="number">-2</span>, <span class="number">4</span>])).toEqual(<span class="number">6</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test5"</span>, () =&gt; &#123;</span><br><span class="line">  expect(maxProduct([<span class="number">-2</span>, <span class="number">0</span>, <span class="number">-1</span>]) == <span class="number">0</span>).toEqual(<span class="literal">true</span>); <span class="comment">//注意jest中expect(-0).toBe(0)返回的是false</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test6"</span>, () =&gt; &#123;</span><br><span class="line">  expect(maxProduct([<span class="number">0</span>, <span class="number">2</span>])).toEqual(<span class="number">2</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test6"</span>, () =&gt; &#123;</span><br><span class="line">  expect(maxProduct([<span class="number">0</span>, <span class="number">-2</span>, <span class="number">-3</span>])).toEqual(<span class="number">6</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test7"</span>, () =&gt; &#123;</span><br><span class="line">  expect(maxProduct([<span class="number">-2</span>, <span class="number">-3</span>, <span class="number">7</span>])).toEqual(<span class="number">42</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/27/152-Maximum-Product-Subarray/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-实现-simplifyUrl" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/26/%E5%AE%9E%E7%8E%B0-simplifyUrl/">实现 simplifyUrl</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/26/%E5%AE%9E%E7%8E%B0-simplifyUrl/" class="archive-article-date">
-  	<time datetime="2020-05-26T15:57:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-26</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>面试时候的一道题，当时用的是<code>a.pathname.split(&#39;/&#39;) + 队列</code>来实现，后来觉得<code>createElement(&#39;a&#39;)</code>有环境依赖而且需要加入很多协议、端口的判断，于是重新写了一版</p>
-</blockquote>
-<h3 id="原题"><a href="#原题" class="headerlink" title="原题"></a>原题</h3><p>JS、CSS等静态资源路径，允许出现 “..”、”.” 、 “//“，请简化这些资源路径，把它们变成最短字符串。<br>注：一个点（.）表示当前目录本身；此外，两个点 （..） 表示将目录切换到上一级（指向父目录）；两者都可以是复杂相对路径的组成部分。</p>
-<p>&lt;script src=”//s3.pstatp.com/eesz/.././resource/./bear/js//app.0fa757caa42b59caf8f0.js”&gt;&lt;/script&gt;</p>
-<ul>
-<li>示例1：//s3.pstatp.com/eesz/.././resource/./bear/js//app.0fa757caa42b59caf8f0.js</li>
-<li>结果：//s3.pstatp.com/resource/bear/js/app.0fa757caa42b59caf8f0.js</li>
-</ul>
-<hr>
-<ul>
-<li>示例2：<a href="http://s3.pstatp.com/eesz/.././resource/./bear/js//app.0fa757caa42b59caf8f0.js" target="_blank" rel="noopener">http://s3.pstatp.com/eesz/.././resource/./bear/js//app.0fa757caa42b59caf8f0.js</a></li>
-<li>结果：<a href="http://s3.pstatp.com/resource/bear/js/app.0fa757caa42b59caf8f0.js" target="_blank" rel="noopener">http://s3.pstatp.com/resource/bear/js/app.0fa757caa42b59caf8f0.js</a></li>
-</ul>
-<hr>
-<ul>
-<li>示例3：/eesz/.././resource/./bear/js//app.0fa757caa42b59caf8f0.js</li>
-<li>结果：/resource/bear/js/app.0fa757caa42b59caf8f0.js</li>
-</ul>
-<hr>
-<ul>
-<li>示例4：../eesz/aaa../b.b..b../dsds/../app.0fa757caa42b59caf8f0.js</li>
-<li>结果：../eesz/aaa../b.b..b../app.0fa757caa42b59caf8f0.js</li>
-</ul>
-<h3 id="source-code"><a href="#source-code" class="headerlink" title="source code"></a>source code</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> simplifyUrl = <span class="function"><span class="keyword">function</span> (<span class="params">url</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="regexp">/[\d\w\.]\/\.\.\//</span>.test(url)) &#123;</span><br><span class="line">      url = url.replace(<span class="regexp">/[^\/]+\/\.\.\//</span>, <span class="string">""</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="regexp">/\/\.\//</span>.test(url)) &#123;</span><br><span class="line">      url = url.replace(<span class="regexp">/\/\.\//</span>, <span class="string">"/"</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="regexp">/[^^:]\/\//</span>.test(url)) &#123;</span><br><span class="line">      <span class="comment">//这里用断言不知道为啥不能匹配</span></span><br><span class="line">      url = url.replace(<span class="regexp">/([^^:])\/\//</span>, <span class="string">"$1/"</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> url;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h3 id="test-cases"><a href="#test-cases" class="headerlink" title="test cases"></a>test cases</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">"test1"</span>, () =&gt; &#123;</span><br><span class="line">  expect(</span><br><span class="line">    simplifyUrl(</span><br><span class="line">      <span class="string">"//s3.pstatp.com/eesz/.././resource/./bear/js//app.0fa757caa42b59caf8f0.js"</span></span><br><span class="line">    )</span><br><span class="line">  ).toEqual(<span class="string">"//s3.pstatp.com/resource/bear/js/app.0fa757caa42b59caf8f0.js"</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test2"</span>, () =&gt; &#123;</span><br><span class="line">  expect(</span><br><span class="line">    simplifyUrl(</span><br><span class="line">      <span class="string">"http://s3.pstatp.com/eesz/.././resource/./bear/js//app.0fa757caa42b59caf8f0.js"</span></span><br><span class="line">    )</span><br><span class="line">  ).toEqual(</span><br><span class="line">    <span class="string">"http://s3.pstatp.com/resource/bear/js/app.0fa757caa42b59caf8f0.js"</span></span><br><span class="line">  );</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test3"</span>, () =&gt; &#123;</span><br><span class="line">  expect(</span><br><span class="line">    simplifyUrl(<span class="string">"/eesz/.././resource/./bear/js//app.0fa757caa42b59caf8f0.js"</span>)</span><br><span class="line">  ).toEqual(<span class="string">"/resource/bear/js/app.0fa757caa42b59caf8f0.js"</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test4"</span>, () =&gt; &#123;</span><br><span class="line">  expect(</span><br><span class="line">    simplifyUrl(<span class="string">"../eesz/aaa../b.b..b../dsds/../app.0fa757caa42b59caf8f0.js"</span>)</span><br><span class="line">  ).toEqual(<span class="string">"../eesz/aaa../b.b..b../app.0fa757caa42b59caf8f0.js"</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/26/%E5%AE%9E%E7%8E%B0-simplifyUrl/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/">Next »</a>
@@ -1136,6 +1131,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">干活储物柜</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">并查集</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
               </li>
             
             <div class="clearfix"></div>
