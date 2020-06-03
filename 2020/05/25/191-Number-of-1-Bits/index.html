@@ -8,15 +8,15 @@
   <link rel="dns-prefetch" href="http://dennisleung.github.io">
   <title>191. Number of 1 Bits | 挖坑小能手的填坑日记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="原题：191. Number of 1 Bits  思路位运算。 常用位运算操作 x&amp;1&#x3D;&#x3D;1 or &#x3D;&#x3D;0 判断奇偶 x &#x3D; x &amp; (x-1) 清零最低位的 1 x &amp; -x 得到最低位的 1  source code12345678910&#x2F;&#x2F; Runtime: 72 ms, faster than 26.58% of JavaScript online submis">
+  <meta name="description" content="原题：191. Number of 1 Bits  思路位运算。 source code12345678910&#x2F;&#x2F; Runtime: 72 ms, faster than 26.58% of JavaScript online submissions for Number of 1 Bits.&#x2F;&#x2F; Memory Usage: 36.1 MB, less than 10.00% of JavaSc">
 <meta property="og:type" content="article">
 <meta property="og:title" content="191. Number of 1 Bits">
 <meta property="og:url" content="http://dennisleung.github.io/2020/05/25/191-Number-of-1-Bits/index.html">
 <meta property="og:site_name" content="挖坑小能手的填坑日记">
-<meta property="og:description" content="原题：191. Number of 1 Bits  思路位运算。 常用位运算操作 x&amp;1&#x3D;&#x3D;1 or &#x3D;&#x3D;0 判断奇偶 x &#x3D; x &amp; (x-1) 清零最低位的 1 x &amp; -x 得到最低位的 1  source code12345678910&#x2F;&#x2F; Runtime: 72 ms, faster than 26.58% of JavaScript online submis">
+<meta property="og:description" content="原题：191. Number of 1 Bits  思路位运算。 source code12345678910&#x2F;&#x2F; Runtime: 72 ms, faster than 26.58% of JavaScript online submissions for Number of 1 Bits.&#x2F;&#x2F; Memory Usage: 36.1 MB, less than 10.00% of JavaSc">
 <meta property="og:locale" content="zh">
 <meta property="article:published_time" content="2020-05-24T16:59:24.000Z">
-<meta property="article:modified_time" content="2020-05-24T17:01:13.760Z">
+<meta property="article:modified_time" content="2020-06-03T02:14:09.916Z">
 <meta property="article:author" content="Dennis Leung">
 <meta property="article:tag" content="算法">
 <meta property="article:tag" content="leetcode">
@@ -166,11 +166,6 @@
 <p>原题：<a href="https://leetcode.com/problems/number-of-1-bits/" target="_blank" rel="noopener">191. Number of 1 Bits</a></p>
 </blockquote>
 <h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>位运算。</p>
-<h3 id="常用位运算操作"><a href="#常用位运算操作" class="headerlink" title="常用位运算操作"></a>常用位运算操作</h3><ul>
-<li>x&amp;1==1 or ==0 判断奇偶</li>
-<li>x = x &amp; (x-1) 清零最低位的 1</li>
-<li>x &amp; -x 得到最低位的 1</li>
-</ul>
 <h2 id="source-code"><a href="#source-code" class="headerlink" title="source code"></a>source code</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 72 ms, faster than 26.58% of JavaScript online submissions for Number of 1 Bits.</span></span><br><span class="line"><span class="comment">// Memory Usage: 36.1 MB, less than 10.00% of JavaScript online submissions for Number of 1 Bits.</span></span><br><span class="line"><span class="keyword">var</span> hammingWeight = <span class="function"><span class="keyword">function</span> (<span class="params">n</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> count = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span> (n != <span class="number">0</span>) &#123;</span><br><span class="line">    count++;</span><br><span class="line">    n = n &amp; (n - <span class="number">1</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> count;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <h2 id="test-case"><a href="#test-case" class="headerlink" title="test case"></a>test case</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">"test1"</span>, () =&gt; &#123;</span><br><span class="line">  expect(hammingWeight(<span class="number">11</span>)).toEqual(<span class="number">3</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
@@ -403,6 +398,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">编译原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">位运算</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">干活储物柜</a>
               </li>
             
             <div class="clearfix"></div>
