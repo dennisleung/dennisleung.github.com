@@ -140,6 +140,84 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-1-Two-Sum" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/20/1-Two-Sum/">1. Two Sum</a>
+    </h1>
+  
+
+        
+        <a href="/2020/05/20/1-Two-Sum/" class="archive-article-date">
+  	<time datetime="2020-05-19T16:11:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Two-Sum"><a href="#Two-Sum" class="headerlink" title="Two Sum"></a>Two Sum</h2><blockquote>
+<p>原题：<a href="https://leetcode.com/problems/two-sum/" target="_blank" rel="noopener">1. Two Sum</a></p>
+</blockquote>
+<h3 id="source-code"><a href="#source-code" class="headerlink" title="source code"></a>source code</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 76 ms, faster than 52.22% of JavaScript online submissions for Two Sum.</span></span><br><span class="line"><span class="comment">// Memory Usage: 35.5 MB, less than 21.90% of JavaScript online submissions for Two Sum.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> twoSum = <span class="function"><span class="keyword">function</span>(<span class="params">nums, target</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> map = &#123;&#125;;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i&lt;nums.length; i++) &#123;</span><br><span class="line">        <span class="keyword">const</span> targetIndex = map[target-nums[i]];</span><br><span class="line">        <span class="keyword">if</span>(targetIndex!==<span class="keyword">void</span> <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> [targetIndex, i];</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            map[nums[i]] = i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//题干保证只有一个解</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="test-cases"><a href="#test-cases" class="headerlink" title="test cases:"></a>test cases:</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">"test1"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(twoSum([<span class="number">2</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">15</span>], <span class="number">9</span>)).toEqual([<span class="number">0</span>, <span class="number">1</span>]);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Three-Sum"><a href="#Three-Sum" class="headerlink" title="Three Sum"></a>Three Sum</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这个解法一直AC不过去，但是浏览器跑超时的test case速度还行。</span></span><br><span class="line"><span class="keyword">var</span> threeSum = <span class="function"><span class="keyword">function</span>(<span class="params">nums</span>) </span>&#123;</span><br><span class="line">    nums.sort();</span><br><span class="line">    <span class="keyword">const</span> map = nums.reduce(<span class="function">(<span class="params">prev, v, i</span>)=&gt;</span>&#123;</span><br><span class="line">        prev[v] = i;</span><br><span class="line">        <span class="keyword">return</span> prev;</span><br><span class="line">    &#125;, &#123;&#125;);</span><br><span class="line">    <span class="keyword">const</span> result = &#123;&#125;;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i&lt;nums.length; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> j= i+<span class="number">1</span>; j&lt;nums.length; j++) &#123;</span><br><span class="line">            <span class="keyword">const</span> targetIndex = map[<span class="number">0</span>-nums[i]-nums[j]];</span><br><span class="line">            <span class="keyword">if</span>(targetIndex&gt;j) &#123;</span><br><span class="line">                <span class="keyword">const</span> arr = [nums[i], nums[j], nums[targetIndex]];</span><br><span class="line">                result[arr.join(<span class="string">','</span>)] = arr;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Object</span>.values(result);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//这个解法可以AC</span></span><br><span class="line"><span class="keyword">var</span> threeSum = <span class="function"><span class="keyword">function</span>(<span class="params">nums</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> cache = &#123;&#125;;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> num <span class="keyword">of</span> nums) &#123;</span><br><span class="line">        cache[num] = (cache[num] || <span class="number">0</span>) + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> result = &#123;&#125;;</span><br><span class="line">    nums.sort(<span class="function">(<span class="params">a, b</span>)=&gt;</span>a-b);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i&lt;nums.length; i++) &#123;</span><br><span class="line">        <span class="keyword">let</span> low = i+<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">let</span> high = nums.length<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">while</span>(low&lt;high) &#123;<span class="comment">//这里主要利用数组有序的特性，用双指针从首尾向中间逼近</span></span><br><span class="line">            <span class="keyword">let</span> r = nums[i] + nums[low] + nums[high];</span><br><span class="line">            <span class="keyword">if</span>(r&gt;<span class="number">0</span>) &#123;</span><br><span class="line">                high--;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(r&lt;<span class="number">0</span>)&#123;</span><br><span class="line">                low++;</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                result[<span class="string">`<span class="subst">$&#123;nums[i]&#125;</span>_<span class="subst">$&#123;nums[low]&#125;</span>_<span class="subst">$&#123;nums[high]&#125;</span>`</span>] = [nums[i], nums[low], nums[high]];</span><br><span class="line">                low++;</span><br><span class="line">                high--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Object</span>.values(result);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Four-Sum"><a href="#Four-Sum" class="headerlink" title="Four Sum"></a>Four Sum</h2><p>和Three Sum类似，可以基于target + Three Some的方式写出类似的解答。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fourSum = <span class="function"><span class="keyword">function</span>(<span class="params">nums, target</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> cache = &#123;&#125;;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i&lt;nums.length; i++) &#123;</span><br><span class="line">        <span class="keyword">let</span> result = threeSum(nums.slice(<span class="number">0</span>, i).concat(nums.slice(i+<span class="number">1</span>)), target-nums[i]);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> arr <span class="keyword">of</span> result) &#123;</span><br><span class="line">            arr = [...arr, nums[i]];</span><br><span class="line">            <span class="keyword">let</span> cacheKey = arr.sort(<span class="function">(<span class="params">a,b</span>)=&gt;</span>a-b).join(<span class="string">"_"</span>);</span><br><span class="line">            <span class="keyword">if</span>(!cache[cacheKey]) &#123;</span><br><span class="line">                cache[cacheKey] = arr;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Object</span>.values(cache);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/05/20/1-Two-Sum/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-239-Sliding-Window-Maximum" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -812,81 +890,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2020/05/15/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E8%A7%A6%E6%91%B8-%E7%82%B9%E5%87%BB%E4%BA%8B%E4%BB%B6%E5%8F%91%E7%94%9F%E9%A1%BA%E5%BA%8F/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-this指向的改变" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/14/this%E6%8C%87%E5%90%91%E7%9A%84%E6%94%B9%E5%8F%98/">this指向的改变</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/14/this%E6%8C%87%E5%90%91%E7%9A%84%E6%94%B9%E5%8F%98/" class="archive-article-date">
-  	<time datetime="2020-05-14T03:06:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>今天研究了下this的指向会不会被改变<br>用例均在node下执行</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>() &#123;</span><br><span class="line">        <span class="keyword">this</span>.name = <span class="string">"a"</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    say() &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    sayFn() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> a = <span class="keyword">new</span> A();</span><br><span class="line">a.say()<span class="comment">//输出a</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> fn1 = a.say;</span><br><span class="line">fn1();<span class="comment">//报错，TypeError: Cannot read property 'name' of undefined</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> fn2 = a.say.bind(a);</span><br><span class="line">fn2();<span class="comment">//输出a</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> fn3 = a.say.bind(&#123;<span class="attr">name</span>:<span class="string">'b'</span>&#125;);</span><br><span class="line">fn3();<span class="comment">//输出b</span></span><br><span class="line"></span><br><span class="line">a.say.call(&#123;<span class="attr">name</span>:<span class="string">'b'</span>&#125;);<span class="comment">//输出b</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> fn4 = (a.sayFn()).bind(&#123;<span class="attr">name</span>:<span class="string">'b'</span>&#125;)</span><br><span class="line">fn4()<span class="comment">//输出a</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> fn5 = (a.sayFn.bind(&#123;<span class="attr">name</span>:<span class="string">'b'</span>&#125;))()</span><br><span class="line">fn5()<span class="comment">//输出b</span></span><br></pre></td></tr></table></figure>
-
-
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
-<li>除了特殊情况（2，3点）外，this的指向取决于它是作为“函数”还是“成员方法”调用；</li>
-<li><code>bind</code>/<code>call</code>/<code>apply</code>可以改变成员方法this的指向；</li>
-<li>箭头函数的this取决于第一次执行的作用域链，一但绑定不再改变</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/14/this%E6%8C%87%E5%90%91%E7%9A%84%E6%94%B9%E5%8F%98/">展开全文 >></a>
         </p>
       
 
