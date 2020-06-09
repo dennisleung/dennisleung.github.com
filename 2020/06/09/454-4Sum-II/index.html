@@ -6,16 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://dennisleung.github.io">
-  <title>挖坑小能手的填坑日记</title>
+  <title>454. 4Sum II | 挖坑小能手的填坑日记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前端开发攻城狮">
-<meta property="og:type" content="website">
-<meta property="og:title" content="挖坑小能手的填坑日记">
-<meta property="og:url" content="http://dennisleung.github.io/page/5/index.html">
+  <meta name="description" content="原题：454. 4Sum II  思路这道题用dfs会超时，最终用分治 + 2-Sum的思想 解出。 source code123456789101112131415161718192021222324&#x2F;&#x2F; Runtime: 736 ms, faster than 9.18% of JavaScript online submissions for 4Sum II.&#x2F;&#x2F; Memory Usage">
+<meta property="og:type" content="article">
+<meta property="og:title" content="454. 4Sum II">
+<meta property="og:url" content="http://dennisleung.github.io/2020/06/09/454-4Sum-II/index.html">
 <meta property="og:site_name" content="挖坑小能手的填坑日记">
-<meta property="og:description" content="前端开发攻城狮">
+<meta property="og:description" content="原题：454. 4Sum II  思路这道题用dfs会超时，最终用分治 + 2-Sum的思想 解出。 source code123456789101112131415161718192021222324&#x2F;&#x2F; Runtime: 736 ms, faster than 9.18% of JavaScript online submissions for 4Sum II.&#x2F;&#x2F; Memory Usage">
 <meta property="og:locale" content="zh">
+<meta property="article:published_time" content="2020-06-09T14:56:27.000Z">
+<meta property="article:modified_time" content="2020-06-09T15:00:30.849Z">
 <meta property="article:author" content="Dennis Leung">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="leetcode">
 <meta name="twitter:card" content="summary">
   
   
@@ -138,22 +142,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-98-Validate-Binary-Search-Tree" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-454-4Sum-II" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/20/98-Validate-Binary-Search-Tree/">98. Validate Binary Search Tree</a>
+    <h1 class="article-title" itemprop="name">
+      454. 4Sum II
     </h1>
   
 
         
-        <a href="/2020/05/20/98-Validate-Binary-Search-Tree/" class="archive-article-date">
-  	<time datetime="2020-05-20T12:09:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-20</time>
+        <a href="/2020/06/09/454-4Sum-II/" class="archive-article-date">
+  	<time datetime="2020-06-09T14:56:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-09</time>
 </a>
         
       </header>
@@ -161,15 +163,12 @@
     <div class="article-entry" itemprop="articleBody">
       
         <blockquote>
-<p>原题：<a href="https://leetcode.com/problems/validate-binary-search-tree/" target="_blank" rel="noopener">98. Validate Binary Search Tree</a></p>
+<p>原题：<a href="https://leetcode.com/problems/4sum-ii/" target="_blank" rel="noopener">454. 4Sum II</a></p>
 </blockquote>
-<h2 id="解法一"><a href="#解法一" class="headerlink" title="解法一"></a>解法一</h2><p>时间复杂度：O(n)</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 64 ms, faster than 73.11% of JavaScript online submissions for Validate Binary Search Tree.</span></span><br><span class="line"><span class="comment">// Memory Usage: 37.3 MB, less than 84.62% of JavaScript online submissions for Validate Binary Search Tree.</span></span><br><span class="line"><span class="keyword">var</span> isValidBST = <span class="function"><span class="keyword">function</span>(<span class="params">root, min=-Infinity, max=Infinity</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!root) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(root.val&lt;=min || root.val&gt;=max) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> isValidBST(root.left, min, root.val) &amp;&amp; isValidBST(root.right, root.val, max);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>这道题用dfs会超时，最终用分治 + 2-Sum的思想 解出。</p>
+<h3 id="source-code"><a href="#source-code" class="headerlink" title="source code"></a>source code</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 736 ms, faster than 9.18% of JavaScript online submissions for 4Sum II.</span></span><br><span class="line"><span class="comment">// Memory Usage: 101.7 MB, less than 9.94% of JavaScript online submissions for 4Sum II.</span></span><br><span class="line"><span class="keyword">var</span> fourSumCount = <span class="function"><span class="keyword">function</span> (<span class="params">A, B, C, D</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> helper = <span class="function"><span class="keyword">function</span> (<span class="params">arr1, arr2</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> map = &#123;&#125;;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> num1 <span class="keyword">of</span> arr1) &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">let</span> num2 <span class="keyword">of</span> arr2) &#123;</span><br><span class="line">        <span class="keyword">const</span> sum = num1 + num2;</span><br><span class="line">        map[sum] = (map[sum] || <span class="number">0</span>) + <span class="number">1</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> map;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> map1 = helper(A, B);</span><br><span class="line">  <span class="keyword">const</span> map2 = helper(C, D);</span><br><span class="line">  <span class="keyword">let</span> count = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> num1 <span class="keyword">in</span> map1) &#123;</span><br><span class="line">    count += map1[num1] * (map2[-num1] || <span class="number">0</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> count;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<h2 id="解法二"><a href="#解法二" class="headerlink" title="解法二"></a>解法二</h2><p>时间复杂度：O(n)</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 68 ms, faster than 50.77% of JavaScript online submissions for Validate Binary Search Tree.</span></span><br><span class="line"><span class="comment">// Memory Usage: 37.1 MB, less than 100.00% of JavaScript online submissions for Validate Binary Search Tree.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//利用二叉搜索树先序遍历是升序的这个特性</span></span><br><span class="line"><span class="keyword">var</span> isValidBST = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> prev = -<span class="literal">Infinity</span>;</span><br><span class="line">    <span class="keyword">const</span> helper = <span class="function"><span class="keyword">function</span>(<span class="params">node</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!node) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(!helper(node.left)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(prev&gt;=node.val) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        prev = node.val;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> helper(node.right);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> helper(root);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Test-Cases"><a href="#Test-Cases" class="headerlink" title="Test Cases"></a>Test Cases</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">"test1"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(isValidBST(makeTree([<span class="number">2</span>,<span class="number">1</span>,<span class="number">3</span>]))).toEqual(<span class="literal">true</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test2"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(isValidBST(makeTree([<span class="number">5</span>,<span class="number">1</span>,<span class="number">4</span>,<span class="literal">null</span>,<span class="literal">null</span>,<span class="number">3</span>,<span class="number">6</span>]))).toEqual(<span class="literal">false</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test3"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(isValidBST(makeTree([]))).toEqual(<span class="literal">true</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test4"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(isValidBST(makeTree([<span class="number">1</span>]))).toEqual(<span class="literal">true</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test5"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(isValidBST(makeTree([<span class="number">1</span>, <span class="number">1</span>]))).toEqual(<span class="literal">false</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test6"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(isValidBST(makeTree([<span class="number">10</span>,<span class="number">5</span>,<span class="number">15</span>,<span class="literal">null</span>,<span class="literal">null</span>,<span class="number">6</span>,<span class="number">20</span>]))).toEqual(<span class="literal">false</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="test-cases"><a href="#test-cases" class="headerlink" title="test cases"></a>test cases</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">"test1"</span>, () =&gt; &#123;</span><br><span class="line">  expect(fourSumCount([<span class="number">1</span>, <span class="number">2</span>], [<span class="number">-2</span>, <span class="number">-1</span>], [<span class="number">-1</span>, <span class="number">2</span>], [<span class="number">0</span>, <span class="number">2</span>])).toEqual(<span class="number">2</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test2"</span>, () =&gt; &#123;</span><br><span class="line">  expect(fourSumCount([<span class="number">0</span>, <span class="number">0</span>], [<span class="number">0</span>, <span class="number">0</span>], [<span class="number">0</span>, <span class="number">0</span>], [<span class="number">0</span>, <span class="number">0</span>])).toEqual(<span class="number">16</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//这里还有一个超大的case，不赘述了。。</span></span><br></pre></td></tr></table></figure>
       
 
       
@@ -195,16 +194,24 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/20/98-Validate-Binary-Search-Tree/">展开全文 >></a>
-        </p>
-      
 
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2020/06/03/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%B1%82%E8%A7%A3%E6%95%88%E7%8E%87%E5%AF%B9%E6%AF%94/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">斐波那契求解效率对比</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -215,702 +222,23 @@
 
 
 
-
-  
-    <article id="post-1-Two-Sum" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/20/1-Two-Sum/">1. Two Sum</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/20/1-Two-Sum/" class="archive-article-date">
-  	<time datetime="2020-05-19T16:11:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Two-Sum"><a href="#Two-Sum" class="headerlink" title="Two Sum"></a>Two Sum</h2><blockquote>
-<p>原题：<a href="https://leetcode.com/problems/two-sum/" target="_blank" rel="noopener">1. Two Sum</a></p>
-</blockquote>
-<h3 id="source-code"><a href="#source-code" class="headerlink" title="source code"></a>source code</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 76 ms, faster than 52.22% of JavaScript online submissions for Two Sum.</span></span><br><span class="line"><span class="comment">// Memory Usage: 35.5 MB, less than 21.90% of JavaScript online submissions for Two Sum.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> twoSum = <span class="function"><span class="keyword">function</span>(<span class="params">nums, target</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> map = &#123;&#125;;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i&lt;nums.length; i++) &#123;</span><br><span class="line">        <span class="keyword">const</span> targetIndex = map[target-nums[i]];</span><br><span class="line">        <span class="keyword">if</span>(targetIndex!==<span class="keyword">void</span> <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> [targetIndex, i];</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            map[nums[i]] = i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//题干保证只有一个解</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h3 id="test-cases"><a href="#test-cases" class="headerlink" title="test cases:"></a>test cases:</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">"test1"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(twoSum([<span class="number">2</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">15</span>], <span class="number">9</span>)).toEqual([<span class="number">0</span>, <span class="number">1</span>]);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h2 id="Three-Sum"><a href="#Three-Sum" class="headerlink" title="Three Sum"></a>Three Sum</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这个解法一直AC不过去，但是浏览器跑超时的test case速度还行。</span></span><br><span class="line"><span class="keyword">var</span> threeSum = <span class="function"><span class="keyword">function</span>(<span class="params">nums</span>) </span>&#123;</span><br><span class="line">    nums.sort();</span><br><span class="line">    <span class="keyword">const</span> map = nums.reduce(<span class="function">(<span class="params">prev, v, i</span>)=&gt;</span>&#123;</span><br><span class="line">        prev[v] = i;</span><br><span class="line">        <span class="keyword">return</span> prev;</span><br><span class="line">    &#125;, &#123;&#125;);</span><br><span class="line">    <span class="keyword">const</span> result = &#123;&#125;;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i&lt;nums.length; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> j= i+<span class="number">1</span>; j&lt;nums.length; j++) &#123;</span><br><span class="line">            <span class="keyword">const</span> targetIndex = map[<span class="number">0</span>-nums[i]-nums[j]];</span><br><span class="line">            <span class="keyword">if</span>(targetIndex&gt;j) &#123;</span><br><span class="line">                <span class="keyword">const</span> arr = [nums[i], nums[j], nums[targetIndex]];</span><br><span class="line">                result[arr.join(<span class="string">','</span>)] = arr;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Object</span>.values(result);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//这个解法可以AC</span></span><br><span class="line"><span class="keyword">var</span> threeSum = <span class="function"><span class="keyword">function</span>(<span class="params">nums</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> cache = &#123;&#125;;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> num <span class="keyword">of</span> nums) &#123;</span><br><span class="line">        cache[num] = (cache[num] || <span class="number">0</span>) + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> result = &#123;&#125;;</span><br><span class="line">    nums.sort(<span class="function">(<span class="params">a, b</span>)=&gt;</span>a-b);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i&lt;nums.length; i++) &#123;</span><br><span class="line">        <span class="keyword">let</span> low = i+<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">let</span> high = nums.length<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">while</span>(low&lt;high) &#123;<span class="comment">//这里主要利用数组有序的特性，用双指针从首尾向中间逼近</span></span><br><span class="line">            <span class="keyword">let</span> r = nums[i] + nums[low] + nums[high];</span><br><span class="line">            <span class="keyword">if</span>(r&gt;<span class="number">0</span>) &#123;</span><br><span class="line">                high--;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(r&lt;<span class="number">0</span>)&#123;</span><br><span class="line">                low++;</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                result[<span class="string">`<span class="subst">$&#123;nums[i]&#125;</span>_<span class="subst">$&#123;nums[low]&#125;</span>_<span class="subst">$&#123;nums[high]&#125;</span>`</span>] = [nums[i], nums[low], nums[high]];</span><br><span class="line">                low++;</span><br><span class="line">                high--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Object</span>.values(result);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Four-Sum"><a href="#Four-Sum" class="headerlink" title="Four Sum"></a>Four Sum</h2><p>和Three Sum类似，可以基于target + Three Some的方式写出类似的解答。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fourSum = <span class="function"><span class="keyword">function</span>(<span class="params">nums, target</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> cache = &#123;&#125;;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i&lt;nums.length; i++) &#123;</span><br><span class="line">        <span class="keyword">let</span> result = threeSum(nums.slice(<span class="number">0</span>, i).concat(nums.slice(i+<span class="number">1</span>)), target-nums[i]);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> arr <span class="keyword">of</span> result) &#123;</span><br><span class="line">            arr = [...arr, nums[i]];</span><br><span class="line">            <span class="keyword">let</span> cacheKey = arr.sort(<span class="function">(<span class="params">a,b</span>)=&gt;</span>a-b).join(<span class="string">"_"</span>);</span><br><span class="line">            <span class="keyword">if</span>(!cache[cacheKey]) &#123;</span><br><span class="line">                cache[cacheKey] = arr;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Object</span>.values(cache);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/20/1-Two-Sum/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-239-Sliding-Window-Maximum" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/19/239-Sliding-Window-Maximum/">239. Sliding Window Maximum</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/19/239-Sliding-Window-Maximum/" class="archive-article-date">
-  	<time datetime="2020-05-19T15:18:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>原题：<a href="https://leetcode.com/problems/sliding-window-maximum/" target="_blank" rel="noopener">239. Sliding Window Maximum</a></p>
-</blockquote>
-<h2 id="解法一"><a href="#解法一" class="headerlink" title="解法一"></a>解法一</h2><p>思路：滑动窗口，维护一个size为k的大堆。滑动过程中把最老的元素poll，offer最新的元素后调整堆。</p>
-<p>时间复杂度：O(n * logk)</p>
-<h2 id="解法二（Recommend）"><a href="#解法二（Recommend）" class="headerlink" title="解法二（Recommend）"></a>解法二（Recommend）</h2><p>由于窗口大小固定，我们并不需要去维持大堆，只要记录窗口内的最大值即可。这里采用 <strong>双关队列（Dequeue）</strong> 的思路。</p>
-<p>时间复杂度：O(n)</p>
-<h3 id="source-code"><a href="#source-code" class="headerlink" title="source code"></a>source code</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 192 ms, faster than 18.08% of JavaScript online submissions for Sliding Window Maximum.</span></span><br><span class="line"><span class="comment">// Memory Usage: 48 MB, less than 33.33% of JavaScript online submissions for Sliding Window Maximum.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> maxSlidingWindow = <span class="function"><span class="keyword">function</span>(<span class="params">nums, k</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="built_in">window</span> = [];<span class="comment">//存储的是nums的索引，这是时间复杂度为O(n)的关键</span></span><br><span class="line">    <span class="keyword">const</span> result = [];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i&lt;nums.length; i++) &#123;</span><br><span class="line">        <span class="keyword">const</span> num = nums[i];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> j = <span class="number">0</span>; j&lt;<span class="built_in">window</span>.length &amp;&amp; <span class="built_in">window</span>[j]&lt;=i-k; j++) &#123;<span class="comment">//把超出窗口容量的最老的索引出列</span></span><br><span class="line">            <span class="built_in">window</span>.shift();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(<span class="literal">true</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">window</span>.length &amp;&amp; nums[<span class="built_in">window</span>[<span class="built_in">window</span>.length<span class="number">-1</span>]]&lt;=num) &#123;<span class="comment">//每个新增的元素后续只会被比较一次就出列了，所以内层循环的时间复杂度为O(1)</span></span><br><span class="line">                <span class="built_in">window</span>.pop();</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">window</span>.push(i);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(i&gt;=k<span class="number">-1</span>) &#123;</span><br><span class="line">            result.push(nums[<span class="built_in">window</span>[<span class="number">0</span>]]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h3 id="test-cases"><a href="#test-cases" class="headerlink" title="test cases"></a>test cases</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">"test1"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(maxSlidingWindow([<span class="number">1</span>,<span class="number">3</span>,<span class="number">-1</span>,<span class="number">-3</span>,<span class="number">5</span>,<span class="number">3</span>,<span class="number">6</span>,<span class="number">7</span>], <span class="number">3</span>)).toEqual([<span class="number">3</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>]);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test2"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(maxSlidingWindow([<span class="number">1</span>,<span class="number">3</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">0</span>,<span class="number">5</span>], <span class="number">3</span>)).toEqual([<span class="number">3</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">5</span>]);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/19/239-Sliding-Window-Maximum/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-703-Kth-Largest-Element-in-a-Stream" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/19/703-Kth-Largest-Element-in-a-Stream/">703. Kth Largest Element in a Stream</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/19/703-Kth-Largest-Element-in-a-Stream/" class="archive-article-date">
-  	<time datetime="2020-05-19T14:01:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>原题：<a href="https://leetcode.com/problems/kth-largest-element-in-a-stream/" target="_blank" rel="noopener">703. Kth Largest Element in a Stream</a></p>
-</blockquote>
-<p>这道题主要考察优先队列（小堆）的用法，但是js里面没有优先队列，只能自己实现。具体可以参考leetcode上一个大神的实现：<br><a href="https://github.com/jeantimex/javascript-problems-and-solutions/blob/master/src/common/priority-queue.js" target="_blank" rel="noopener">priority-queue.js</a></p>
-<h2 id="Source-Code"><a href="#Source-Code" class="headerlink" title="Source Code"></a>Source Code</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 196 ms, faster than 78.06% of JavaScript online submissions for Kth Largest Element in a Stream.</span></span><br><span class="line"><span class="comment">// Memory Usage: 45 MB, less than 75.00% of JavaScript online submissions for Kth Largest Element in a Stream.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> KthLargest = <span class="function"><span class="keyword">function</span>(<span class="params">k, nums</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.pq = <span class="keyword">new</span> PriorityQueue(<span class="literal">true</span>);</span><br><span class="line">    <span class="keyword">this</span>.k = k;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> num <span class="keyword">of</span> nums) &#123;</span><br><span class="line">        <span class="keyword">this</span>.add(num);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/** </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number&#125;</span> <span class="variable">val</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">KthLargest.prototype.add = <span class="function"><span class="keyword">function</span>(<span class="params">val</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(<span class="keyword">this</span>.pq.size()&lt;<span class="keyword">this</span>.k) &#123;</span><br><span class="line">      <span class="keyword">this</span>.pq.offer(val, val);</span><br><span class="line">  &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> peek = <span class="keyword">this</span>.pq.peek();</span><br><span class="line">      <span class="keyword">if</span>(peek&lt;val) &#123;</span><br><span class="line">          <span class="keyword">this</span>.pq.poll();</span><br><span class="line">          <span class="keyword">this</span>.pq.offer(val, val);</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">this</span>.pq.peek();<span class="comment">//nums' length ≥ k-1, 所以不需要考虑队列长度小于k需要返回什么</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Test-Cases"><a href="#Test-Cases" class="headerlink" title="Test Cases"></a>Test Cases</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">"test1"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(kthLargest.add(<span class="number">3</span>)).toEqual(<span class="number">4</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test2"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(kthLargest.add(<span class="number">5</span>)).toEqual(<span class="number">5</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test3"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(kthLargest.add(<span class="number">10</span>)).toEqual(<span class="number">5</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test4"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(kthLargest.add(<span class="number">9</span>)).toEqual(<span class="number">8</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test5"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(kthLargest.add(<span class="number">4</span>)).toEqual(<span class="number">8</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/19/703-Kth-Largest-Element-in-a-Stream/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-232-implement-queue-using-stacks" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/19/232-implement-queue-using-stacks/">232. Implement Queue using Stacks</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/19/232-implement-queue-using-stacks/" class="archive-article-date">
-  	<time datetime="2020-05-18T16:26:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>原题：<a href="https://leetcode.com/problems/implement-queue-using-stacks/" target="_blank" rel="noopener">232. Implement Queue using Stacks</a><br>类似的题有：<a href="https://leetcode.com/problems/implement-stack-using-queues/" target="_blank" rel="noopener">225. Implement Stack using Queues</a></p>
-</blockquote>
-<p>栈是FILO，队列是FIFO，想用栈实现队列，用的是 <strong>“负负得正”</strong> 的思想。</p>
-<h2 id="Source-Code"><a href="#Source-Code" class="headerlink" title="Source Code"></a>Source Code</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stack</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>() &#123;</span><br><span class="line">        <span class="keyword">this</span>.stack = [];</span><br><span class="line">    &#125;</span><br><span class="line">    push(x) &#123;</span><br><span class="line">        <span class="keyword">this</span>.stack.push(x);</span><br><span class="line">    &#125;</span><br><span class="line">    pop() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.stack.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    empty() &#123;</span><br><span class="line">        <span class="keyword">return</span> !<span class="keyword">this</span>.stack.length;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> MyQueue = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.input = <span class="keyword">new</span> Stack();</span><br><span class="line">    <span class="keyword">this</span>.output = <span class="keyword">new</span> Stack();</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Push element x to the back of queue. </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number&#125;</span> <span class="variable">x</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;void&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">MyQueue.prototype.push = <span class="function"><span class="keyword">function</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.input.push(x);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Removes the element from in front of queue and returns that element.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">MyQueue.prototype.pop = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>._adjust();</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.output.pop();</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Get the front element.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">MyQueue.prototype.peek = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>._adjust();</span><br><span class="line">    <span class="keyword">const</span> peekEl = <span class="keyword">this</span>.output.pop();</span><br><span class="line">    <span class="keyword">this</span>.output.push(peekEl);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> peekEl;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">MyQueue.prototype._adjust = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!<span class="keyword">this</span>.output.empty()) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(!<span class="keyword">this</span>.input.empty()) &#123;</span><br><span class="line">        <span class="keyword">this</span>.output.push(<span class="keyword">this</span>.input.pop());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Returns whether the queue is empty.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;boolean&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">MyQueue.prototype.empty = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.input.empty() &amp;&amp; <span class="keyword">this</span>.output.empty();</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Test-Cases"><a href="#Test-Cases" class="headerlink" title="Test Cases"></a>Test Cases</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> queue = <span class="keyword">new</span> MyQueue();</span><br><span class="line">queue.push(<span class="number">1</span>);</span><br><span class="line">queue.push(<span class="number">2</span>);</span><br><span class="line">test(<span class="string">"test1"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(queue.peek()).toEqual(<span class="number">1</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test2"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(queue.pop()).toEqual(<span class="number">1</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test3"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(queue.empty()).toEqual(<span class="literal">false</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test4"</span>, ()=&gt;&#123;</span><br><span class="line">    queue.pop();</span><br><span class="line">    expect(queue.empty()).toEqual(<span class="literal">true</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/19/232-implement-queue-using-stacks/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-20-Valid-Parentheses" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/18/20-Valid-Parentheses/">20. Valid Parentheses</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/18/20-Valid-Parentheses/" class="archive-article-date">
-  	<time datetime="2020-05-18T15:56:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>原题：<a href="https://leetcode.com/problems/valid-parentheses/" target="_blank" rel="noopener">20. Valid Parentheses</a></p>
-</blockquote>
-<h2 id="解法一（Recommended）"><a href="#解法一（Recommended）" class="headerlink" title="解法一（Recommended）"></a>解法一（Recommended）</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 52 ms, faster than 83.97% of JavaScript online submissions for Valid Parentheses.</span></span><br><span class="line"><span class="comment">// Memory Usage: 33.7 MB, less than 95.00% of JavaScript online submissions for Valid Parentheses.</span></span><br><span class="line"><span class="comment">//时间复杂度：O(n)</span></span><br><span class="line"><span class="keyword">var</span> isValid = <span class="function"><span class="keyword">function</span>(<span class="params">s</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> queue = [];</span><br><span class="line">    <span class="keyword">const</span> match = &#123;<span class="string">'('</span>:<span class="string">')'</span>, <span class="string">'['</span>:<span class="string">']'</span>, <span class="string">'&#123;'</span>:<span class="string">'&#125;'</span>&#125;;</span><br><span class="line">    <span class="keyword">let</span> cur = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(cur&lt;s.length) &#123;</span><br><span class="line">        <span class="keyword">const</span> ch = s[cur];</span><br><span class="line">        <span class="keyword">if</span>(match[ch]) &#123;</span><br><span class="line">            queue.push(ch);</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">const</span> pre = queue.pop();</span><br><span class="line">            <span class="keyword">if</span>(!pre || !match[pre] || match[pre]!=ch) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        cur++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> !queue.length;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="解法二"><a href="#解法二" class="headerlink" title="解法二"></a>解法二</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 76 ms, faster than 18.01% of JavaScript online submissions for Valid Parentheses.</span></span><br><span class="line"><span class="comment">// Memory Usage: 35.9 MB, less than 8.33% of JavaScript online submissions for Valid Parentheses.</span></span><br><span class="line"><span class="comment">//时间复杂度：O(n^2)</span></span><br><span class="line"><span class="keyword">var</span> isValid = <span class="function"><span class="keyword">function</span>(<span class="params">s</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> length;</span><br><span class="line">    <span class="keyword">while</span>(length != s.length) &#123;</span><br><span class="line">        length = s.length;</span><br><span class="line">        s = s.replace(<span class="string">'&#123;&#125;'</span>, <span class="string">''</span>).replace(<span class="string">'[]'</span>, <span class="string">''</span>).replace(<span class="string">'()'</span>, <span class="string">''</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> !s.length;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Test-Cases"><a href="#Test-Cases" class="headerlink" title="Test Cases"></a>Test Cases</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">"test1"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(isValid(<span class="string">""</span>)).toEqual(<span class="literal">true</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test2"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(isValid(<span class="string">"&#123;"</span>)).toEqual(<span class="literal">false</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test3"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(isValid(<span class="string">"&#123;&#125;&#125;"</span>)).toEqual(<span class="literal">false</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test4"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(isValid(<span class="string">"&#123;&#125;"</span>)).toEqual(<span class="literal">true</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test5"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(isValid(<span class="string">"[]&#123;&#125;()"</span>)).toEqual(<span class="literal">true</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test6"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(isValid(<span class="string">"[[[[]"</span>)).toEqual(<span class="literal">false</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test7"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(isValid(<span class="string">"[&#123;&#125;]"</span>)).toEqual(<span class="literal">true</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test8"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(isValid(<span class="string">"[&#123;]&#125;"</span>)).toEqual(<span class="literal">false</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test8"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(isValid(<span class="string">"]][["</span>)).toEqual(<span class="literal">false</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/18/20-Valid-Parentheses/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Reverse-Nodes-in-k-Group" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/18/Reverse-Nodes-in-k-Group/">Reverse Nodes in k-Group</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/18/Reverse-Nodes-in-k-Group/" class="archive-article-date">
-  	<time datetime="2020-05-18T03:20:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>原题：<a href="https://leetcode.com/problems/reverse-nodes-in-k-group/" target="_blank" rel="noopener">25.Reverse Nodes in k-Group</a></p>
-</blockquote>
-<h2 id="Source-Code"><a href="#Source-Code" class="headerlink" title="Source Code"></a>Source Code</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * function ListNode(val, next) &#123;</span></span><br><span class="line"><span class="comment"> *     this.val = (val===undefined ? 0 : val)</span></span><br><span class="line"><span class="comment"> *     this.next = (next===undefined ? null : next)</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Runtime: 112 ms, faster than 12.97% of JavaScript online submissions for Reverse Nodes in k-Group.</span></span><br><span class="line"><span class="comment">// Memory Usage: 38.3 MB, less than 100.00% of JavaScript online submissions for Reverse Nodes in k-Group.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;ListNode&#125;</span> <span class="variable">head</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number&#125;</span> <span class="variable">k</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;ListNode&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> reverseKGroup = <span class="function"><span class="keyword">function</span>(<span class="params">head, k</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> helper = <span class="function"><span class="keyword">function</span>(<span class="params">pre</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">let</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">let</span> cur = pre.next;</span><br><span class="line">        <span class="keyword">while</span>(cur &amp;&amp; count++<span class="xml"><span class="tag">&lt;<span class="name">k)</span> &#123;</span></span></span><br><span class="line"><span class="xml">            cur = cur.next;</span></span><br><span class="line"><span class="xml">        &#125;</span></span><br><span class="line">        if(count&lt;k) &#123;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">        let head = pre.next;</span><br><span class="line">        let stub = pre.next;</span><br><span class="line">        cur = stub.next;</span><br><span class="line">        let i = 0;</span><br><span class="line">        while(cur &amp;&amp; ++i&lt;k) &#123;</span><br><span class="line">            [head.next, stub, cur.next, cur] = [cur.next, cur, stub, cur.next];</span><br><span class="line">        &#125;</span><br><span class="line">        pre.next = stub;</span><br><span class="line">        </span><br><span class="line">        return head;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    const root = new ListNode();</span><br><span class="line">    root.next = head;</span><br><span class="line">    let pre = root;</span><br><span class="line">    while(pre) &#123;</span><br><span class="line">        pre = helper(pre);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    return root.next;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Test-Cases"><a href="#Test-Cases" class="headerlink" title="Test Cases"></a>Test Cases</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">"test1"</span>, ()=&gt;&#123;</span><br><span class="line">    <span class="keyword">const</span> list = makeLink([]);</span><br><span class="line">    expect(reverseKGroup(list, <span class="number">1</span>)).toEqual(makeLink([]));</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test2"</span>, ()=&gt;&#123;</span><br><span class="line">    <span class="keyword">const</span> list = makeLink([<span class="number">1</span>]);</span><br><span class="line">    expect(reverseKGroup(list, <span class="number">1</span>)).toEqual(makeLink([<span class="number">1</span>]));</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test3"</span>, ()=&gt;&#123;</span><br><span class="line">    <span class="keyword">const</span> list = makeLink([<span class="number">1</span>]);</span><br><span class="line">    expect(reverseKGroup(list, <span class="number">2</span>)).toEqual(makeLink([<span class="number">1</span>]));</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test4"</span>, ()=&gt;&#123;</span><br><span class="line">    <span class="keyword">const</span> list = makeLink([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]);</span><br><span class="line">    expect(reverseKGroup(list, <span class="number">2</span>)).toEqual(makeLink([<span class="number">2</span>,<span class="number">1</span>,<span class="number">3</span>]));</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test5"</span>, ()=&gt;&#123;</span><br><span class="line">    <span class="keyword">const</span> list = makeLink([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]);</span><br><span class="line">    expect(reverseKGroup(list, <span class="number">3</span>)).toEqual(makeLink([<span class="number">3</span>,<span class="number">2</span>,<span class="number">1</span>]));</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test6"</span>, ()=&gt;&#123;</span><br><span class="line">    <span class="keyword">const</span> list = makeLink([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]);</span><br><span class="line">    expect(reverseKGroup(list, <span class="number">3</span>)).toEqual(makeLink([<span class="number">3</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">6</span>,<span class="number">5</span>,<span class="number">4</span>]));</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test7"</span>, ()=&gt;&#123;</span><br><span class="line">    <span class="keyword">const</span> list = makeLink([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]);</span><br><span class="line">    expect(reverseKGroup(list, <span class="number">3</span>)).toEqual(makeLink([<span class="number">3</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">4</span>,<span class="number">5</span>]));</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/18/Reverse-Nodes-in-k-Group/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-linked-list-cycle-ii" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/18/linked-list-cycle-ii/">Linked List Cycle ii</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/18/linked-list-cycle-ii/" class="archive-article-date">
-  	<time datetime="2020-05-17T23:36:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>原题地址：<a href="https://leetcode.com/problems/linked-list-cycle-ii/" target="_blank" rel="noopener">Linked List Cycle II</a></p>
-</blockquote>
-<h2 id="解法一"><a href="#解法一" class="headerlink" title="解法一"></a>解法一</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//brute force，很容易想到</span></span><br><span class="line"><span class="keyword">var</span> detectCycle = <span class="function"><span class="keyword">function</span>(<span class="params">head</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">set</span> = new Set();</span><br><span class="line">    while(head) &#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">set</span>.has(head)) &#123;</span><br><span class="line">            <span class="keyword">return</span> head;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">set</span>.add(head);</span><br><span class="line">        head = head.next;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return null;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="解法二"><a href="#解法二" class="headerlink" title="解法二"></a>解法二</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> detectCycle = <span class="function"><span class="keyword">function</span>(<span class="params">head</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> slow = head;</span><br><span class="line">    <span class="keyword">let</span> fast = head;</span><br><span class="line">    <span class="keyword">while</span> (slow &amp;&amp; fast &amp;&amp; fast.next) &#123;</span><br><span class="line">        slow = slow.next;</span><br><span class="line">        fast = fast.next.next;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (slow === fast) &#123; <span class="comment">//这里有些难理解</span></span><br><span class="line">            <span class="keyword">while</span> (head !== fast) &#123;</span><br><span class="line">                head = head.next;</span><br><span class="line">                fast = fast.next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> head;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>这个解法用的还是 <a href="https://leetcode.com/problems/linked-list-cycle/" target="_blank" rel="noopener">Linked List Cycle</a>里面的<strong>快慢双指针</strong>的思路。</p>
-<p>外层循环通过快慢指针<strong>判断是否有环</strong>，内层循环<strong>找出环的起始点</strong>。</p>
-<p>下面用一幅图解释下为什么内层循环这样做可以找到环的起始点：<br><img src="/img/preloader.gif" data-original="/2020/05/18/linked-list-cycle-ii/pic.jpg" alt="pic"><br>假设链表起点到环起点距离为x1，环起点到快慢指针相遇节点距离为x3，环的长度为2*x2。</p>
-<p>快慢指针相遇时慢指针走的距离是：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">slowDistance &#x3D; x1 + x2</span><br></pre></td></tr></table></figure>
-<p>快指针有的距离是：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fastDistance &#x3D; x1 + x3 + 2 * x2</span><br></pre></td></tr></table></figure>
-<p>由于快指针移动速度是慢指针两倍：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fastDistance &#x3D; 2 * slowDistance</span><br></pre></td></tr></table></figure>
-<p>由上可得：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x1 &#x3D; 2 * x2 - x3</span><br></pre></td></tr></table></figure>
-<p><code>x1</code>是链表起点到环起点的距离，<code>2 * x2 - x3</code>是快指针<strong>绕回</strong>环起点的距离。<strong>因此只要以相同速度移动链表起点和快指针，它们第一次一定会在环起点相遇。</strong></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/18/linked-list-cycle-ii/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-找出旧数组变成新数组的操作" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/16/%E6%89%BE%E5%87%BA%E6%97%A7%E6%95%B0%E7%BB%84%E5%8F%98%E6%88%90%E6%96%B0%E6%95%B0%E7%BB%84%E7%9A%84%E6%93%8D%E4%BD%9C/">找出旧数组变成新数组的操作</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/16/%E6%89%BE%E5%87%BA%E6%97%A7%E6%95%B0%E7%BB%84%E5%8F%98%E6%88%90%E6%96%B0%E6%95%B0%E7%BB%84%E7%9A%84%E6%93%8D%E4%BD%9C/" class="archive-article-date">
-  	<time datetime="2020-05-16T07:46:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>面试时候的一道算法题。<br>给出新旧两个数组，找出旧数组演变成新数组的一个可行的operations。operations可能包含的操作有remove/insert/swap三种。</p>
-<p>思路：先通过remove/insert使得旧数组和新数组有一样的元素，然后再通过swap演变成和新数组一样。</p>
-<p>给出brute force的解法：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> findOperations = <span class="function"><span class="keyword">function</span>(<span class="params">oldArr, newArr</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> makeMap = <span class="function"><span class="params">arr</span>=&gt;</span>arr.reduce(<span class="function">(<span class="params">prev, v, i</span>)=&gt;</span>&#123;</span><br><span class="line">        prev.set(v, (prev.get(v) || <span class="number">0</span>) + <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span> prev;</span><br><span class="line">    &#125;, <span class="keyword">new</span> <span class="built_in">Map</span>());</span><br><span class="line">    <span class="keyword">const</span> oldMap = makeMap(oldArr);</span><br><span class="line">    <span class="keyword">const</span> newMap = makeMap(newArr);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> inserts = <span class="keyword">new</span> <span class="built_in">Map</span>();</span><br><span class="line">    <span class="keyword">const</span> removes = <span class="keyword">new</span> <span class="built_in">Map</span>();</span><br><span class="line">    <span class="keyword">const</span> swap = <span class="keyword">new</span> <span class="built_in">Map</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> findInsert = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> [v, count] <span class="keyword">of</span> newMap) &#123;</span><br><span class="line">            <span class="keyword">if</span>(!oldMap.get(v)) &#123;</span><br><span class="line">                inserts.set(v, count)</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(oldMap.get(v)&lt;count) &#123;</span><br><span class="line">                inserts.set(v, count - oldMap.get(v));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> findRemove = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> [v, count] <span class="keyword">of</span> oldMap) &#123;</span><br><span class="line">            <span class="keyword">if</span>(!newMap.get(v)) &#123;</span><br><span class="line">                removes.set(v, count)</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(oldMap.get(v)&gt;newMap.get(v)) &#123;</span><br><span class="line">                removes.set(v, count - newMap.get(v));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    findInsert();</span><br><span class="line">    findRemove();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> operations = [];</span><br><span class="line">    <span class="keyword">const</span> removeOld = <span class="function"><span class="keyword">function</span>(<span class="params">v, count</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i&lt;count; i++) &#123;</span><br><span class="line">            <span class="keyword">const</span> index = oldArr.indexOf(v);<span class="comment">//这里无需再判断-1了</span></span><br><span class="line">            operations.push([<span class="string">"remove"</span>, index]);</span><br><span class="line">            oldArr = oldArr.slice(<span class="number">0</span>, index).concat(oldArr.slice(index+<span class="number">1</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> insertOld = <span class="function"><span class="keyword">function</span>(<span class="params">v, count</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i&lt;count; i++) &#123;</span><br><span class="line">            operations.push([<span class="string">"insert"</span>, oldArr.length, v]);</span><br><span class="line">            oldArr.push(v);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> [v, count] <span class="keyword">of</span> removes) &#123;</span><br><span class="line">        removeOld(v, count);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> [v, count] <span class="keyword">of</span> inserts) &#123;</span><br><span class="line">        insertOld(v, count);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(i&lt;newArr.length) &#123;</span><br><span class="line">        <span class="keyword">if</span>(oldArr[i]==newArr[i]) &#123;</span><br><span class="line">            i++;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">const</span> swapIndex = oldArr.indexOf(newArr[i], i+<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">const</span> tmp = oldArr[i];</span><br><span class="line">        oldArr[i] = oldArr[swapIndex];</span><br><span class="line">        oldArr[swapIndex] = tmp;</span><br><span class="line">        swap.set(i, swapIndex);</span><br><span class="line">        i++;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> [v, swapIndex] <span class="keyword">of</span> swap) &#123;</span><br><span class="line">        operations.push([<span class="string">"swap"</span>, v, swapIndex]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> operations;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//test code:</span></span><br><span class="line"><span class="keyword">const</span> oldArr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"><span class="keyword">const</span> newArr = [<span class="number">4</span>, <span class="number">3</span>];</span><br><span class="line"><span class="built_in">console</span>.log(findOperations(oldArr, newArr));</span><br><span class="line"></span><br><span class="line"><span class="comment">//output</span></span><br><span class="line">[ </span><br><span class="line">  [ <span class="string">'remove'</span>, <span class="number">0</span> ],<span class="comment">//移除第0个元素</span></span><br><span class="line">  [ <span class="string">'remove'</span>, <span class="number">0</span> ],</span><br><span class="line">  [ <span class="string">'insert'</span>, <span class="number">1</span>, <span class="number">4</span> ],<span class="comment">//在索引1的位置插入4</span></span><br><span class="line">  [ <span class="string">'swap'</span>, <span class="number">0</span>, <span class="number">1</span> ] <span class="comment">//交换索引0和索引1的元素</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/16/%E6%89%BE%E5%87%BA%E6%97%A7%E6%95%B0%E7%BB%84%E5%8F%98%E6%88%90%E6%96%B0%E6%95%B0%E7%BB%84%E7%9A%84%E6%93%8D%E4%BD%9C/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-浏览器为什么要限制同源策略-为什么script标签不受同源策略限制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/16/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E9%99%90%E5%88%B6%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5-%E4%B8%BA%E4%BB%80%E4%B9%88script%E6%A0%87%E7%AD%BE%E4%B8%8D%E5%8F%97%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5%E9%99%90%E5%88%B6/">浏览器为什么要限制同源策略?为什么script标签不受同源策略限制?</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/16/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E9%99%90%E5%88%B6%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5-%E4%B8%BA%E4%BB%80%E4%B9%88script%E6%A0%87%E7%AD%BE%E4%B8%8D%E5%8F%97%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5%E9%99%90%E5%88%B6/" class="archive-article-date">
-  	<time datetime="2020-05-16T01:49:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>面试的时候遇到的一道题，写一下自己的理解，不一定正确。</p>
-</blockquote>
-<p>浏览器实现了同源策略，目的肯定是为了网络安全。如果没有SOP，恶意站点可以随意获取、请求别的站点的内容，真“裸奔”在互联网上。</p>
-<p>那为什么浏览器不实现彻底的SOP，而允许了像<code>script</code>、<code>img</code>这类标签可以请求其他站点的资源呢？</p>
-<p>这个问题google了一圈没有一个明确的说法，stackoverflow上有类似的问题，但是没有给出明确的答案。把各种观点总结下，先说结论：</p>
-<p><strong>浏览器没有实现彻底的SOP，是一个多方协商、折中、相对稳妥的方案：</strong></p>
-<ul>
-<li>首先明确一个观点，SOP是必须的；</li>
-<li>但是彻底的SOP是不现实的，一个站点很难完全不依赖任何第三方资源；</li>
-<li>在不彻底SOP背景下产生的安全问题，如XSS、XSCF，都有对应的解决方案；</li>
-<li>可能存在的一些历史因素（需要向下兼容）</li>
-</ul>
-<p>这道题没搞懂面试官是想考察什么，当时的回答是一个站点很难完全不依赖跨域资源，如果完全SOP，像现在很常见的CDN就用不了了。但是面试官貌似对这个答案不是很满意= =。。。说SOP的出现比CDN早很多。。</p>
-<p>先暂且记录下现有的理解，后面有新的体会再补充。。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">网络安全</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">html</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/16/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E9%99%90%E5%88%B6%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5-%E4%B8%BA%E4%BB%80%E4%B9%88script%E6%A0%87%E7%AD%BE%E4%B8%8D%E5%8F%97%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5%E9%99%90%E5%88%B6/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/4/">« Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/6/">Next »</a>
-    </nav>
+  
+  <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script>
+  var cloudTieConfig = {
+    url: "http://dennisleung.github.io/2020/06/09/454-4Sum-II/", 
+    sourceId: "454-4Sum-II",
+    productKey: "7b8ed868ba8c43919aec18514f14a586",
+    target: "cloud-tie-wrapper"
+  };
+</script>
+<script src="//img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+  
+
   
 
 
@@ -933,8 +261,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

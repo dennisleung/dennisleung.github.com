@@ -140,6 +140,85 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-买卖股票问题通用解法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/30/%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E9%97%AE%E9%A2%98%E9%80%9A%E7%94%A8%E8%A7%A3%E6%B3%95/">买卖股票问题通用解法</a>
+    </h1>
+  
+
+        
+        <a href="/2020/05/30/%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E9%97%AE%E9%A2%98%E9%80%9A%E7%94%A8%E8%A7%A3%E6%B3%95/" class="archive-article-date">
+  	<time datetime="2020-05-30T14:01:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>leetcode上买卖股票系列问题：</p>
+<ul>
+<li><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock" target="_blank" rel="noopener">121. Best Time to Buy and Sell Stock</a> 只能买卖一次</li>
+<li><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii" target="_blank" rel="noopener">122. Best Time to Buy and Sell Stock II</a> 能买卖无数次</li>
+<li><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii" target="_blank" rel="noopener">123. Best Time to Buy and Sell Stock III</a> 至多买卖2次</li>
+<li><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv" target="_blank" rel="noopener">188. Best Time to Buy and Sell Stock IV</a> 至多买卖k次</li>
+<li><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown" target="_blank" rel="noopener">309. Best Time to Buy and Sell Stock with Cooldown</a> 能买卖无数次，但有冷静期</li>
+<li><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/" target="_blank" rel="noopener">714. Best Time to Buy and Sell Stock with Transaction Fe<br>e</a> 能买卖无数次，但是每次交易有手续费</li>
+</ul>
+<p>大体思路都是DP，用通用解法能暴力过121、122、123，稍加修改能过309。</p>
+<p>188用通用解法会提示runtime error，需要进行状态压缩，解法可以参考<a href="/2020/05/30/188-Best-Time-to-Buy-and-Sell-Stock-IV/">这个</a>;</p>
+<h3 id="通用解法"><a href="#通用解法" class="headerlink" title="通用解法"></a>通用解法</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> maxProfit = <span class="function"><span class="keyword">function</span> (<span class="params">maxTransTimes, prices</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!maxTransTimes || !prices || !prices.length) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> helper = <span class="function"><span class="keyword">function</span> (<span class="params">prices, maxTransTimes</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//三维数组mp[i][k][j]</span></span><br><span class="line">    <span class="comment">//i标识第几天（0&lt;=i&lt;=prices.length-1）</span></span><br><span class="line">    <span class="comment">//k标识到第i天进行了多少笔交易（0&lt;=k&lt;=maxTransTimes），注意买入后并卖出才算一笔完整的交易</span></span><br><span class="line">    <span class="comment">//j标识第i天手上有没有股票（0&lt;=j&lt;=1）</span></span><br><span class="line">    <span class="keyword">const</span> mp = <span class="keyword">new</span> <span class="built_in">Array</span>(prices.length).fill(<span class="number">0</span>).map(<span class="function">(<span class="params">v</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Array</span>(maxTransTimes + <span class="number">1</span>).fill(<span class="number">0</span>).map(<span class="function">(<span class="params">v</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> [<span class="number">0</span>, <span class="number">0</span>];</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> k = <span class="number">0</span>; k &lt;= maxTransTimes; k++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (k === <span class="number">0</span>) &#123;</span><br><span class="line">        mp[<span class="number">0</span>][k][<span class="number">1</span>] = -prices[<span class="number">0</span>]; <span class="comment">//第1天买入</span></span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">//第1天是无法完成交易的</span></span><br><span class="line">        mp[<span class="number">0</span>][k][<span class="number">0</span>] = -<span class="literal">Infinity</span>;</span><br><span class="line">        mp[<span class="number">0</span>][k][<span class="number">1</span>] = -<span class="literal">Infinity</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt; prices.length; i++) &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">let</span> k = <span class="number">0</span>; k &lt;= maxTransTimes; k++) &#123;</span><br><span class="line">        mp[i][k][<span class="number">0</span>] = <span class="built_in">Math</span>.max(</span><br><span class="line">          mp[i - <span class="number">1</span>][k][<span class="number">0</span>], <span class="comment">//第i天不动</span></span><br><span class="line">          k === <span class="number">0</span> ? -<span class="literal">Infinity</span> : mp[i - <span class="number">1</span>][k - <span class="number">1</span>][<span class="number">1</span>] + prices[i] <span class="comment">//第i天卖</span></span><br><span class="line">        );</span><br><span class="line">        mp[i][k][<span class="number">1</span>] = <span class="built_in">Math</span>.max(</span><br><span class="line">          mp[i - <span class="number">1</span>][k][<span class="number">1</span>], <span class="comment">//第i天不动</span></span><br><span class="line">          mp[i - <span class="number">1</span>][k][<span class="number">0</span>] - prices[i] <span class="comment">//第i天买</span></span><br><span class="line">        );</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> mp;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> mp = helper(prices, maxTransTimes);</span><br><span class="line">  <span class="keyword">let</span> max = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; prices.length; i++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> k = <span class="number">0</span>; k &lt;= maxTransTimes; k++) &#123;</span><br><span class="line">      max = <span class="built_in">Math</span>.max(max, mp[i][k][<span class="number">0</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> max;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/05/30/%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E9%97%AE%E9%A2%98%E9%80%9A%E7%94%A8%E8%A7%A3%E6%B3%95/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-用generator-promise实现async-await" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -866,80 +945,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2020/05/25/231-Power-of-Two/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-191-Number-of-1-Bits" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/25/191-Number-of-1-Bits/">191. Number of 1 Bits</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/25/191-Number-of-1-Bits/" class="archive-article-date">
-  	<time datetime="2020-05-24T16:59:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-25</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>原题：<a href="https://leetcode.com/problems/number-of-1-bits/" target="_blank" rel="noopener">191. Number of 1 Bits</a></p>
-</blockquote>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>位运算。</p>
-<h2 id="source-code"><a href="#source-code" class="headerlink" title="source code"></a>source code</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 72 ms, faster than 26.58% of JavaScript online submissions for Number of 1 Bits.</span></span><br><span class="line"><span class="comment">// Memory Usage: 36.1 MB, less than 10.00% of JavaScript online submissions for Number of 1 Bits.</span></span><br><span class="line"><span class="keyword">var</span> hammingWeight = <span class="function"><span class="keyword">function</span> (<span class="params">n</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> count = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span> (n != <span class="number">0</span>) &#123;</span><br><span class="line">    count++;</span><br><span class="line">    n = n &amp; (n - <span class="number">1</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> count;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="test-case"><a href="#test-case" class="headerlink" title="test case"></a>test case</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">"test1"</span>, () =&gt; &#123;</span><br><span class="line">  expect(hammingWeight(<span class="number">11</span>)).toEqual(<span class="number">3</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/25/191-Number-of-1-Bits/">展开全文 >></a>
         </p>
       
 
