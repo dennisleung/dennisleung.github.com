@@ -140,6 +140,89 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-浏览器为什么要限制同源策略-为什么script标签不受同源策略限制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/16/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E9%99%90%E5%88%B6%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5-%E4%B8%BA%E4%BB%80%E4%B9%88script%E6%A0%87%E7%AD%BE%E4%B8%8D%E5%8F%97%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5%E9%99%90%E5%88%B6/">浏览器为什么要限制同源策略?为什么script标签不受同源策略限制?</a>
+    </h1>
+  
+
+        
+        <a href="/2020/05/16/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E9%99%90%E5%88%B6%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5-%E4%B8%BA%E4%BB%80%E4%B9%88script%E6%A0%87%E7%AD%BE%E4%B8%8D%E5%8F%97%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5%E9%99%90%E5%88%B6/" class="archive-article-date">
+  	<time datetime="2020-05-16T01:49:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>面试的时候遇到的一道题，写一下自己的理解，不一定正确。</p>
+</blockquote>
+<p>浏览器实现了同源策略，目的肯定是为了网络安全。如果没有SOP，恶意站点可以随意获取、请求别的站点的内容，真“裸奔”在互联网上。</p>
+<p>那为什么浏览器不实现彻底的SOP，而允许了像<code>script</code>、<code>img</code>这类标签可以请求其他站点的资源呢？</p>
+<p>这个问题google了一圈没有一个明确的说法，stackoverflow上有类似的问题，但是没有给出明确的答案。把各种观点总结下，先说结论：</p>
+<p><strong>浏览器没有实现彻底的SOP，是一个多方协商、折中、相对稳妥的方案：</strong></p>
+<ul>
+<li>首先明确一个观点，SOP是必须的；</li>
+<li>但是彻底的SOP是不现实的，一个站点很难完全不依赖任何第三方资源；</li>
+<li>在不彻底SOP背景下产生的安全问题，如XSS、XSCF，都有对应的解决方案；</li>
+<li>可能存在的一些历史因素（需要向下兼容）</li>
+</ul>
+<p>这道题没搞懂面试官是想考察什么，当时的回答是一个站点很难完全不依赖跨域资源，如果完全SOP，像现在很常见的CDN就用不了了。但是面试官貌似对这个答案不是很满意= =。。。说SOP的出现比CDN早很多。。</p>
+<p>先暂且记录下现有的理解，后面有新的体会再补充。。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">网络安全</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">html</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/05/16/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E9%99%90%E5%88%B6%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5-%E4%B8%BA%E4%BB%80%E4%B9%88script%E6%A0%87%E7%AD%BE%E4%B8%8D%E5%8F%97%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5%E9%99%90%E5%88%B6/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-移动端触摸-点击事件发生顺序" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -916,88 +999,9 @@
 
 
   
-    <article id="post-String-raw处理模板字符串" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/11/String-raw%E5%A4%84%E7%90%86%E6%A8%A1%E6%9D%BF%E5%AD%97%E7%AC%A6%E4%B8%B2/">String.raw处理模板字符串</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/11/String-raw%E5%A4%84%E7%90%86%E6%A8%A1%E6%9D%BF%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="archive-article-date">
-  	<time datetime="2020-05-11T02:52:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>假设现在有这样一个需求，将需要将<code>´${a}\n${b}´</code> （a=1，b=2）处理成 <code>1\n2</code>。</p>
-<p>如果不做任何处理，模板字符串将输出：<br><img src="/img/preloader.gif" data-original="/2020/05/11/String-raw%E5%A4%84%E7%90%86%E6%A8%A1%E6%9D%BF%E5%AD%97%E7%AC%A6%E4%B8%B2/output.jpg" alt="output"></p>
-<p>解决这个问题有两个办法：</p>
-<ul>
-<li><p>模板字符串中增加转义符：</p>
-  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">´$&#123;a&#125;\\n$&#123;b&#125;´</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>使用String.raw</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">String</span>.raw´$&#123;a&#125;\n$&#123;b&#125;´</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h3 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h3><ul>
-<li><a href="https://www.cnblogs.com/lxxhome/p/7656231.html" target="_blank" rel="noopener">ES6:string.raw浅析</a></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/11/String-raw%E5%A4%84%E7%90%86%E6%A8%A1%E6%9D%BF%E5%AD%97%E7%AC%A6%E4%B8%B2/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/5/">« Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/7/">Next »</a>
+      <a class="extend prev" rel="prev" href="/page/5/">« Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/7/">Next »</a>
     </nav>
   
 

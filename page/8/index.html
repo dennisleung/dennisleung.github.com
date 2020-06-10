@@ -6,12 +6,12 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://dennisleung.github.io">
-  <title>Tag: 算法 | 挖坑小能手的填坑日记</title>
+  <title>挖坑小能手的填坑日记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="前端开发攻城狮">
 <meta property="og:type" content="website">
 <meta property="og:title" content="挖坑小能手的填坑日记">
-<meta property="og:url" content="http://dennisleung.github.io/tags/%E7%AE%97%E6%B3%95/page/2/index.html">
+<meta property="og:url" content="http://dennisleung.github.io/page/8/index.html">
 <meta property="og:site_name" content="挖坑小能手的填坑日记">
 <meta property="og:description" content="前端开发攻城狮">
 <meta property="og:locale" content="zh">
@@ -140,442 +140,130 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-2016-11-06-plus_in_JavaScript" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/06/2016-11-06-plus_in_JavaScript/">JavaScript 中的“+”运算</a>
+    </h1>
+  
+
+        
+        <a href="/2016/11/06/2016-11-06-plus_in_JavaScript/" class="archive-article-date">
+  	<time datetime="2016-11-06T14:22:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-11-06</time>
+</a>
+        
+      </header>
     
-    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>前几天在朋友圈看到看到一个JavaScript中对象和数组“+”运算的问题，发现自己不能完全理解里面的答案，来查漏补缺一下。</p>
+</blockquote>
+<ul>
+<li>TOC<br>{:toc}</li>
+</ul>
+<h4 id="Question"><a href="#Question" class="headerlink" title="Question:"></a>Question:</h4><p>问题包含四个：</p>
+<ul>
+<li>[] + [] = ?</li>
+<li>[] + {} = ?</li>
+<li>{} + [] = ?</li>
+<li>{} + {} = ?</li>
+</ul>
+<h4 id="chrome下表现"><a href="#chrome下表现" class="headerlink" title="chrome下表现"></a>chrome下表现</h4><ul>
+<li>[] + [] = “”</li>
+<li>[] + {} = “{object Object}”</li>
+<li>{} + [] = 0</li>
+<li>{} + {} = “{object Object}{object Object}”</li>
+</ul>
+<h4 id="FF-下表现"><a href="#FF-下表现" class="headerlink" title="FF 下表现"></a>FF 下表现</h4><ul>
+<li>[] + [] = “”</li>
+<li>[] + {} = “{object Object}”</li>
+<li>{} + [] = 0</li>
+<li>{} + {} = NaN</li>
+</ul>
+<h4 id="Node-下表现"><a href="#Node-下表现" class="headerlink" title="Node 下表现"></a>Node 下表现</h4><p>与 chrome表现一致</p>
+<h4 id="ECMA中对“-”的描述："><a href="#ECMA中对“-”的描述：" class="headerlink" title="ECMA中对“+”的描述："></a>ECMA中对“+”的描述：</h4><p><img src="/img/preloader.gif" data-original="/2016/11/06/2016-11-06-plus_in_JavaScript/getValue_definition_in_ecma.png" alt="ECMA对+运算符的描述"></p>
+<p>参考了 ecma 中对 <code>getValue</code> 的描述，里面有一句 <code>then let get be the [[Get]] internal method of base</code> 看得不太懂，找不到<code>get</code>这个函数变量是哪来的，不过在这个场景下，我们可以判断[]和{}调用 getValue 返回的结果分别是 []和{}。<br>接下来到 <code>getPrimitive</code> 方法， ECMA中的描述：<br><img src="/img/preloader.gif" data-original="/2016/11/06/2016-11-06-plus_in_JavaScript/getPrimitive_definition_in_ecma.png" alt="ECMA对getPrimitive的描述"></p>
+<p>另外在网上找到了一个小诀窍：<strong>当+作用在一个是数字一个是字符串的情况下，+作为连接运算符</strong>。</p>
+<h4 id="分析："><a href="#分析：" class="headerlink" title="分析："></a>分析：</h4><p><strong>使用+运算符进行运算时，是没有指定转换方式的，JavaScript 内部会默认进行 toNumber 转换。</strong>（划重点）</p>
+<ul>
+<li><p>[] + []</p>
+<p>  []调用 valueOf 返回 []，不是原始值，调用 toString，返回””，为原始值。因此结果是”” + “” = “”。</p>
+</li>
+<li><p>[] + {}</p>
+<p>  {}调用 valueOf 返回 {}，不是原始值，调用 toString，返回”{object Object}”。因此结果是”” + “{object Object}” = “{object Object}”。</p>
+</li>
+</ul>
+<p>第三和第四个是以 <code>{</code>开始的，情况比较特殊，在 Chrome 和 FF 下的表现也不一致。</p>
+<ul>
+<li><p>{} + []</p>
+<p>  <em>当一个语句以 <code>{</code> 开始时，浏览器会认为它是一个语句块，知道匹配到一个 <code>}</code>。</em> 因此这个返回值实际上是后面 <code>+[]</code> 的结果，这是一个单值运算，隐式转化调用toNumber。toNumber 会先调用 getPrimitive 取到[]的原始值为””，然后将””转换为数字————0。</p>
+<p>  如果不想{}被默认为代码块，可以通过添加<code>()</code>。({} + [] = “{object Object}”)</p>
+</li>
+<li><p>{} + {}<br>  这个运算个人感觉Chrome 的实现是有问题的，它的逻辑和第三点矛盾了，而 FF 的结果才是正确的。</p>
+<p>  这个实际上是 +{} 的运算结果。toNumber 把 {}的原始值 “{object Object}” 转换成数值时是 NaN，很正确，没毛病~</p>
+</li>
+</ul>
+<h4 id="后话"><a href="#后话" class="headerlink" title="后话"></a>后话</h4><p>感觉自己的前端基础还是很一般，js有很多内部的逻辑都没弄清楚，上班后更是懒了很少学习新东西，真的很怀念以前在学校做项目，菜鸟一只每次学习到新东西很兴奋的时光。<br>ECMA的官方文档是个好东西，最权威，最透彻，虽然英文看起来有点痛苦。<br>给自己打下气，知道现在学习前端还是使我很愉♂悦的~望能坚持下去。</p>
+<h4 id="Reference"><a href="#Reference" class="headerlink" title="Reference:"></a>Reference:</h4><ul>
+<li><a href="http://http://ecma-international.org/ecma-262/" target="_blank" rel="noopener">ECMA 官网文档</a></li>
+<li><a href="http://www.cnblogs.com/ziyunfei/archive/2012/09/15/2685885.html" target="_blank" rel="noopener">[译]JavaScript中,{}+{}等于多少?</a></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/27/152-Maximum-Product-Subarray/" class="archive-article-date">
-  	<time datetime="2020-05-26T17:00:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-27</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/27/152-Maximum-Product-Subarray/">152. Maximum Product Subarray</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">干货储物柜</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/11/06/2016-11-06-plus_in_JavaScript/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/26/120-Triangle/" class="archive-article-date">
-  	<time datetime="2020-05-26T05:11:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/26/120-Triangle/">120. Triangle</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        
+    </div>
+</aside>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/26/70-Climbing-Stairs/" class="archive-article-date">
-  	<time datetime="2020-05-26T01:05:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/26/70-Climbing-Stairs/">70. Climbing Stairs</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/25/52-N-Queens-II/" class="archive-article-date">
-  	<time datetime="2020-05-25T14:41:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/25/52-N-Queens-II/">52. N-Queens II</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/25/338-Counting-Bits/" class="archive-article-date">
-  	<time datetime="2020-05-25T06:18:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/25/338-Counting-Bits/">338. Counting Bits</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/25/231-Power-of-Two/" class="archive-article-date">
-  	<time datetime="2020-05-24T17:14:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/25/231-Power-of-Two/">231. Power of Two</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/25/191-Number-of-1-Bits/" class="archive-article-date">
-  	<time datetime="2020-05-24T16:59:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/25/191-Number-of-1-Bits/">191. Number of 1 Bits</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/24/212-Word-Search-II/" class="archive-article-date">
-  	<time datetime="2020-05-24T15:48:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-24</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/24/212-Word-Search-II/">212. Word Search II</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/24/79-Word-Search/" class="archive-article-date">
-  	<time datetime="2020-05-24T15:42:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-24</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/24/79-Word-Search/">79. Word Search</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/24/208-Implement-Trie-Prefix-Tree/" class="archive-article-date">
-  	<time datetime="2020-05-24T15:20:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-24</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/24/208-Implement-Trie-Prefix-Tree/">208. Implement Trie (Prefix Tree)</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
   
-    </div></section>
-  
-
-    
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/tags/%E7%AE%97%E6%B3%95/">« Prev</a><a class="page-number" href="/tags/%E7%AE%97%E6%B3%95/">1</a><span class="page-number current">2</span><a class="page-number" href="/tags/%E7%AE%97%E6%B3%95/page/3/">3</a><a class="page-number" href="/tags/%E7%AE%97%E6%B3%95/page/4/">4</a><a class="page-number" href="/tags/%E7%AE%97%E6%B3%95/page/5/">5</a><a class="extend next" rel="next" href="/tags/%E7%AE%97%E6%B3%95/page/3/">Next »</a>
+      <a class="extend prev" rel="prev" href="/page/7/">« Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span>
     </nav>
   
 
@@ -599,10 +287,10 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: false,
+		isHome: true,
 		isPost: false,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,

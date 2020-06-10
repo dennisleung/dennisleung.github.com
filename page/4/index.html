@@ -140,6 +140,83 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-111-Minimum-Depth-of-Binary-Tree" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/23/111-Minimum-Depth-of-Binary-Tree/">111. Minimum Depth of Binary Tree</a>
+    </h1>
+  
+
+        
+        <a href="/2020/05/23/111-Minimum-Depth-of-Binary-Tree/" class="archive-article-date">
+  	<time datetime="2020-05-23T06:50:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>原题：<a href="https://leetcode.com/problems/minimum-depth-of-binary-tree/" target="_blank" rel="noopener">111. Minimum Depth of Binary Tree</a></p>
+</blockquote>
+<h2 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h2><p>思路：DFS<br>时间复杂度：O(n)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 80 ms, faster than 17.32% of JavaScript online submissions for Minimum Depth of Binary Tree.</span></span><br><span class="line"><span class="comment">// Memory Usage: 38.4 MB, less than 20.00% of JavaScript online submissions for Minimum Depth of Binary Tree.</span></span><br><span class="line"><span class="keyword">var</span> minDepth = <span class="function"><span class="keyword">function</span> (<span class="params">root</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!root) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (root.left &amp;&amp; root.right) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span> + <span class="built_in">Math</span>.min(minDepth(root.left), minDepth(root.right));</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (root.left) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span> + minDepth(root.left);</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (root.right) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span> + minDepth(root.right);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h2><p>思路：BFS<br>时间复杂度：O(n)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 72 ms, faster than 21.72% of JavaScript online submissions for Minimum Depth of Binary Tree.</span></span><br><span class="line"><span class="comment">// Memory Usage: 40.6 MB, less than 20.00% of JavaScript online submissions for Minimum Depth of Binary Tree.</span></span><br><span class="line"><span class="keyword">var</span> minDepth = <span class="function"><span class="keyword">function</span> (<span class="params">root</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!root) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> queue = [[root, <span class="number">0</span>]];</span><br><span class="line">  <span class="keyword">let</span> minLevel = <span class="literal">Infinity</span>;</span><br><span class="line">  <span class="keyword">while</span> (queue.length) &#123;</span><br><span class="line">    <span class="keyword">const</span> [node, level] = queue.shift();</span><br><span class="line">    !node.left &amp;&amp; !node.right &amp;&amp; (minLevel = <span class="built_in">Math</span>.min(minLevel, level));</span><br><span class="line">    node.left &amp;&amp; queue.push([node.left, level + <span class="number">1</span>]);</span><br><span class="line">    node.right &amp;&amp; queue.push([node.right, level + <span class="number">1</span>]);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> minLevel + <span class="number">1</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="test-cases"><a href="#test-cases" class="headerlink" title="test cases"></a>test cases</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">"test1"</span>, () =&gt; &#123;</span><br><span class="line">  expect(minDepth(makeTree([<span class="number">3</span>, <span class="number">9</span>, <span class="number">20</span>, <span class="literal">null</span>, <span class="literal">null</span>, <span class="number">15</span>, <span class="number">7</span>]))).toEqual(<span class="number">2</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test2"</span>, () =&gt; &#123;</span><br><span class="line">  expect(minDepth(makeTree([]))).toEqual(<span class="number">0</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test3"</span>, () =&gt; &#123;</span><br><span class="line">  expect(minDepth(makeTree([<span class="number">1</span>]))).toEqual(<span class="number">1</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test4"</span>, () =&gt; &#123;</span><br><span class="line">  expect(minDepth(makeTree([<span class="number">1</span>, <span class="number">2</span>]))).toEqual(<span class="number">2</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/05/23/111-Minimum-Depth-of-Binary-Tree/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-104-Maximum-Depth-of-Binary-Tree" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -845,91 +922,9 @@
 
 
   
-    <article id="post-235-Lowest-Common-Ancestor-of-a-Binary-Search-Tree" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/20/235-Lowest-Common-Ancestor-of-a-Binary-Search-Tree/">235. Lowest Common Ancestor of a Binary Search Tree</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/20/235-Lowest-Common-Ancestor-of-a-Binary-Search-Tree/" class="archive-article-date">
-  	<time datetime="2020-05-20T14:46:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="235-Lowest-Common-Ancestor-of-a-Binary-Search-Tree"><a href="#235-Lowest-Common-Ancestor-of-a-Binary-Search-Tree" class="headerlink" title="235. Lowest Common Ancestor of a Binary Search Tree"></a>235. Lowest Common Ancestor of a Binary Search Tree</h2><blockquote>
-<p>原题：<a href="https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/" target="_blank" rel="noopener">235. Lowest Common Ancestor of a Binary Search Tree</a></p>
-</blockquote>
-<p>时间复杂度：O(n)</p>
-<h3 id="Source-Code"><a href="#Source-Code" class="headerlink" title="Source Code"></a>Source Code</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 168 ms, faster than 5.31% of JavaScript online submissions for Lowest Common Ancestor of a Binary Search Tree.</span></span><br><span class="line"><span class="comment">// Memory Usage: 43.9 MB, less than 20.00% of JavaScript online submissions for Lowest Common Ancestor of a Binary Search Tree.</span></span><br><span class="line"><span class="keyword">var</span> lowestCommonAncestor = <span class="function"><span class="keyword">function</span>(<span class="params">root, p, q</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> helper = <span class="function"><span class="keyword">function</span>(<span class="params">root, p, q</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(q.val&lt;root.val) &#123;</span><br><span class="line">            <span class="keyword">return</span> helper(root.left, p, q);</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(p.val&gt;root.val) &#123;</span><br><span class="line">            <span class="keyword">return</span> helper(root.right, p, q);</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> root;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(p.val&gt;q.val) &#123;</span><br><span class="line">        [p, q] = [q, p];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> helper(root, p, q);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="Test-Cases"><a href="#Test-Cases" class="headerlink" title="Test Cases"></a>Test Cases</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">"test1"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(lowestCommonAncestor(makeTree([<span class="number">6</span>,<span class="number">2</span>,<span class="number">8</span>,<span class="number">0</span>,<span class="number">4</span>,<span class="number">7</span>,<span class="number">9</span>,<span class="literal">null</span>,<span class="literal">null</span>,<span class="number">3</span>,<span class="number">5</span>]), <span class="keyword">new</span> TreeNode(<span class="number">2</span>), <span class="keyword">new</span> TreeNode(<span class="number">8</span>)).val).toEqual(<span class="number">6</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test2"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(lowestCommonAncestor(makeTree([<span class="number">6</span>,<span class="number">2</span>,<span class="number">8</span>,<span class="number">0</span>,<span class="number">4</span>,<span class="number">7</span>,<span class="number">9</span>,<span class="literal">null</span>,<span class="literal">null</span>,<span class="number">3</span>,<span class="number">5</span>]), <span class="keyword">new</span> TreeNode(<span class="number">2</span>), <span class="keyword">new</span> TreeNode(<span class="number">4</span>)).val).toEqual(<span class="number">2</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h2 id="236-Lowest-Common-Ancestor-of-a-Binary-Tree"><a href="#236-Lowest-Common-Ancestor-of-a-Binary-Tree" class="headerlink" title="236. Lowest Common Ancestor of a Binary Tree"></a>236. Lowest Common Ancestor of a Binary Tree</h2><blockquote>
-<p>原题：<a href="https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/submissions/" target="_blank" rel="noopener">236. Lowest Common Ancestor of a Binary Tree</a></p>
-</blockquote>
-<p>时间复杂度：O(n)</p>
-<h3 id="Source-Code-1"><a href="#Source-Code-1" class="headerlink" title="Source Code"></a>Source Code</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 84 ms, faster than 22.42% of JavaScript online submissions for Lowest Common Ancestor of a Binary Tree.</span></span><br><span class="line"><span class="comment">// Memory Usage: 41.3 MB, less than 100.00% of JavaScript online submissions for Lowest Common Ancestor of a Binary Tree.</span></span><br><span class="line"><span class="keyword">var</span> lowestCommonAncestor = <span class="function"><span class="keyword">function</span>(<span class="params">root, p, q</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> helper = <span class="function"><span class="keyword">function</span>(<span class="params">root, p, q</span>) </span>&#123;<span class="comment">//find p or q</span></span><br><span class="line">        <span class="keyword">if</span>(!root || root.val==p.val || root.val==q.val) &#123;</span><br><span class="line">            <span class="keyword">return</span> root;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">const</span> left = helper(root.left, p, q);</span><br><span class="line">        <span class="keyword">const</span> right = helper(root.right, p, q);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> left ? (right ? root : left) : right;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> helper(root, p, q);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="Test-Cases-1"><a href="#Test-Cases-1" class="headerlink" title="Test Cases"></a>Test Cases</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">"test1"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(lowestCommonAncestor(makeTree([<span class="number">3</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">6</span>,<span class="number">2</span>,<span class="number">0</span>,<span class="number">8</span>,<span class="literal">null</span>,<span class="literal">null</span>,<span class="number">7</span>,<span class="number">4</span>]), <span class="keyword">new</span> TreeNode(<span class="number">5</span>), <span class="keyword">new</span> TreeNode(<span class="number">1</span>)).val).toEqual(<span class="number">3</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test2"</span>, ()=&gt;&#123;</span><br><span class="line">    expect(lowestCommonAncestor(makeTree([<span class="number">3</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">6</span>,<span class="number">2</span>,<span class="number">0</span>,<span class="number">8</span>,<span class="literal">null</span>,<span class="literal">null</span>,<span class="number">7</span>,<span class="number">4</span>]), <span class="keyword">new</span> TreeNode(<span class="number">5</span>), <span class="keyword">new</span> TreeNode(<span class="number">4</span>)).val).toEqual(<span class="number">5</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">html</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/20/235-Lowest-Common-Ancestor-of-a-Binary-Search-Tree/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/3/">« Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/5/">Next »</a>
+      <a class="extend prev" rel="prev" href="/page/3/">« Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/5/">Next »</a>
     </nav>
   
 
