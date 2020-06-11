@@ -140,6 +140,84 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-2017-06-04-yii-try-catch" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/04/2017-06-04-yii-try-catch/">Yii中try/catch不起作用的问题</a>
+    </h1>
+  
+
+        
+        <a href="/2017/06/04/2017-06-04-yii-try-catch/" class="archive-article-date">
+  	<time datetime="2017-06-04T06:26:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>最近公司的验证码接口被恶意刷，为此上线了各种各样的防刷策略。<br>生成验证码的逻辑很普通：当接收到请求的时候，检测 mobile 在 DB 中是否存在发送记录，如果没有，新建一条记录，mobile 为主键。插入记录在事务中，如果调用短信网关失败，会执行回滚。<br>当接口被恶意刷、请求密集的时候，同一个手机号前一条记录还未插入成功，后面的记录再执行插入会提示主键冲突。为了保证接口始终能正常返回（主要是主键冲突后会产生一个500错误，运维系统不断告警惊动了大佬= =），将操作DB的代码用try/catch 进行处理。</p>
+</blockquote>
+<p>看起来非常简单的一个改动，try/catch Exception后 <strong>phpStorm 自动补全依赖</strong> ，打算简单自测后上线。谁知道模拟密集请求的时候接口还是报错了，try/catch 未能捕获到错误。<br>排查后发现 phpStorm 自动补全依赖的时候引入的是 <code>yii\base\Exception</code>：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> <span class="title">yii</span>\<span class="title">base</span>\<span class="title">Exception</span>;</span><br></pre></td></tr></table></figure>
+<p>修改成 <code>\Exception</code> 后解决。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> \<span class="title">Exception</span>;</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">干货储物柜</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Yii</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">php</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/06/04/2017-06-04-yii-try-catch/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-2016-11-06-plus_in_JavaScript" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
