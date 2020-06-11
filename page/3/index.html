@@ -140,6 +140,80 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-52-N-Queens-II" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/25/52-N-Queens-II/">52. N-Queens II</a>
+    </h1>
+  
+
+        
+        <a href="/2020/05/25/52-N-Queens-II/" class="archive-article-date">
+  	<time datetime="2020-05-25T14:41:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-25</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>原题：<a href="https://leetcode.com/problems/n-queens-ii/" target="_blank" rel="noopener">52. N-Queens II</a></p>
+</blockquote>
+<h3 id="source-code"><a href="#source-code" class="headerlink" title="source code"></a>source code</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 72 ms, faster than 43.26% of JavaScript online submissions for N-Queens II.</span></span><br><span class="line"><span class="comment">// Memory Usage: 34.6 MB, less than 100.00% of JavaScript online submissions for N-Queens II.</span></span><br><span class="line"><span class="keyword">var</span> totalNQueens = <span class="function"><span class="keyword">function</span> (<span class="params">n</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> count = <span class="number">0</span>;</span><br><span class="line">  <span class="comment">//row：标记第几行</span></span><br><span class="line">  <span class="comment">//col：二进制的中1标记哪些列已被占用</span></span><br><span class="line">  <span class="comment">//pie：二进制的中1标记哪些撇已被占用</span></span><br><span class="line">  <span class="comment">//na：二进制的中1标记哪些捺已被占用</span></span><br><span class="line">  <span class="keyword">const</span> dfs = <span class="function"><span class="keyword">function</span> (<span class="params">row, col, pie, na</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (row &gt;= n) &#123;</span><br><span class="line">      count++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//(col | pie | na) 找出已经被占用的位置</span></span><br><span class="line">    <span class="comment">//~(col | pie | na) 找出没被占用的位置（01互换，因为后面的位运算都是基于1的）</span></span><br><span class="line">    <span class="comment">//&amp; ((1 &lt;&lt; n) - 1) 上一步取反后前面都是1，这一步则是打掉前面多余的1</span></span><br><span class="line">    <span class="keyword">let</span> bits = ~(col | pie | na) &amp; ((<span class="number">1</span> &lt;&lt; n) - <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">while</span> (bits &gt; <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="comment">//得到最低位1</span></span><br><span class="line">      <span class="keyword">const</span> p = bits &amp; -bits;</span><br><span class="line">      <span class="comment">//row+1：下一行</span></span><br><span class="line">      <span class="comment">//col|p：把当前Q的位置填入</span></span><br><span class="line">      <span class="comment">//(pie | p) &lt;&lt; 1：把当前Q的位置填入，因为当前Q对下一行撇的影响是左下角45°，所以左移一位</span></span><br><span class="line">      <span class="comment">//(na | p) &gt;&gt; 1：把当前Q的位置填入，因为当前Q对下一行捺的影响是右下角45°，所以右移一位</span></span><br><span class="line">      dfs(row + <span class="number">1</span>, col | p, (pie | p) &lt;&lt; <span class="number">1</span>, (na | p) &gt;&gt; <span class="number">1</span>);</span><br><span class="line">      <span class="comment">//最低位1已经试过了，打掉</span></span><br><span class="line">      bits = bits &amp; (bits - <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  dfs(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> count;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="test-cases"><a href="#test-cases" class="headerlink" title="test cases"></a>test cases</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">"test1"</span>, () =&gt; &#123;</span><br><span class="line">  expect(totalNQueens(<span class="number">4</span>)).toEqual(<span class="number">2</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/05/25/52-N-Queens-II/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-338-Counting-Bits" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -813,88 +887,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2020/05/24/36-Valid-Sudoku/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-51-N-Queens" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/23/51-N-Queens/">51. N-Queens</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/23/51-N-Queens/" class="archive-article-date">
-  	<time datetime="2020-05-23T08:34:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>原题：<a href="https://leetcode.com/problems/n-queens/" target="_blank" rel="noopener">51. N-Queens</a></p>
-</blockquote>
-<h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><p>这道题主要用到 <strong>回溯</strong> 的思想解题。<br><img src="/img/preloader.gif" data-original="/2020/05/23/51-N-Queens/n-queen.jpg" alt="n-queen"><br>假设第i行Q占据图中的位置，则她的四条攻击路径如图所示。</p>
-<p>容易得出：路径3（撇）经过的单元格都有<code>y+x=c1</code>，路径4（捺）经过的单元格都有<code>y-x=c2</code>，其中c1/c2是一个常数。</p>
-<ul>
-<li>由于我们逐行扫描，所以路径1必然不会冲突。</li>
-<li>对于路径2，使用<code>col</code>标记已经占用的列</li>
-<li>对于路径3，使用<code>xySum</code>标记已经被占用的撇</li>
-<li>对于路径4，使用<code>xyDiff</code>标记已经占用的捺</li>
-</ul>
-<p>最后回溯即可。</p>
-<h2 id="source-code"><a href="#source-code" class="headerlink" title="source code"></a>source code</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 88 ms, faster than 33.33% of JavaScript online submissions for N-Queens.</span></span><br><span class="line"><span class="comment">// Memory Usage: 39.3 MB, less than 100.00% of JavaScript online submissions for N-Queens.</span></span><br><span class="line"><span class="keyword">var</span> solveNQueens = <span class="function"><span class="keyword">function</span> (<span class="params">n</span>) </span>&#123;</span><br><span class="line">  <span class="comment">//左上角为原点，横向为x，纵向为y</span></span><br><span class="line">  <span class="keyword">const</span> col = &#123;&#125;; <span class="comment">//列</span></span><br><span class="line">  <span class="keyword">const</span> xySum = &#123;&#125;; <span class="comment">//撇，y+x=c</span></span><br><span class="line">  <span class="keyword">const</span> xyDiff = &#123;&#125;; <span class="comment">//捺，y-x=c</span></span><br><span class="line">  <span class="keyword">const</span> result = [];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> helper = <span class="function"><span class="keyword">function</span> (<span class="params">y, tmp</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//x为第几行</span></span><br><span class="line">    <span class="comment">//tmp为中间结果，值为第y行皇后的位置</span></span><br><span class="line">    <span class="keyword">if</span> (y &gt;= n) &#123;</span><br><span class="line">      <span class="comment">//到底</span></span><br><span class="line">      result.push(tmp);</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> x = <span class="number">0</span>; x &lt; n; x++) &#123;</span><br><span class="line">      <span class="comment">//对每一列假设求解</span></span><br><span class="line">      <span class="keyword">if</span> (!col[x] &amp;&amp; !xySum[x + y] &amp;&amp; !xyDiff[y - x]) &#123;</span><br><span class="line">        col[x] = <span class="number">1</span>;</span><br><span class="line">        xySum[x + y] = <span class="number">1</span>;</span><br><span class="line">        xyDiff[y - x] = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        helper(y + <span class="number">1</span>, [...tmp, x]);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//恢复现场</span></span><br><span class="line">        col[x] = <span class="number">0</span>;</span><br><span class="line">        xySum[x + y] = <span class="number">0</span>;</span><br><span class="line">        xyDiff[y - x] = <span class="number">0</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  helper(<span class="number">0</span>, []);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> result.map(<span class="function">(<span class="params">v</span>) =&gt;</span></span><br><span class="line">    v.map(<span class="function">(<span class="params">qi</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> arr = <span class="keyword">new</span> <span class="built_in">Array</span>(n).fill(<span class="string">"."</span>);</span><br><span class="line">      arr[qi] = <span class="string">"Q"</span>;</span><br><span class="line">      <span class="keyword">return</span> arr.join(<span class="string">""</span>);</span><br><span class="line">    &#125;)</span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="test-cases"><a href="#test-cases" class="headerlink" title="test cases"></a>test cases</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">"test1"</span>, () =&gt; &#123;</span><br><span class="line">  expect(solveNQueens(<span class="number">4</span>).sort()).toEqual(</span><br><span class="line">    [</span><br><span class="line">      [</span><br><span class="line">        <span class="string">".Q.."</span>, <span class="comment">// Solution 1</span></span><br><span class="line">        <span class="string">"...Q"</span>,</span><br><span class="line">        <span class="string">"Q..."</span>,</span><br><span class="line">        <span class="string">"..Q."</span>,</span><br><span class="line">      ],</span><br><span class="line"></span><br><span class="line">      [</span><br><span class="line">        <span class="string">"..Q."</span>, <span class="comment">// Solution 2</span></span><br><span class="line">        <span class="string">"Q..."</span>,</span><br><span class="line">        <span class="string">"...Q"</span>,</span><br><span class="line">        <span class="string">".Q.."</span>,</span><br><span class="line">      ],</span><br><span class="line">    ].sort()</span><br><span class="line">  );</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/23/51-N-Queens/">展开全文 >></a>
         </p>
       
 
