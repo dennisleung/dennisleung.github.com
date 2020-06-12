@@ -140,6 +140,94 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-js与native交互方式总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/12/js%E4%B8%8Enative%E4%BA%A4%E4%BA%92%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93/">js与native交互方式总结</a>
+    </h1>
+  
+
+        
+        <a href="/2020/06/12/js%E4%B8%8Enative%E4%BA%A4%E4%BA%92%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93/" class="archive-article-date">
+  	<time datetime="2020-06-12T02:33:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="javascript-core"><a href="#javascript-core" class="headerlink" title="javascript core"></a>javascript core</h3><p>可以理解成native往webview context注册了一个全局方法，通过这个方法可以使用一些native提供的能力。</p>
+<h3 id="url-scheme"><a href="#url-scheme" class="headerlink" title="url scheme"></a>url scheme</h3><p>系统提供的通过某个特定前缀url拉起app的功能，url的path可以指定功能、query能携带参数。<br>优点：</p>
+<ul>
+<li>实现简单</li>
+<li>行为统一（例如想点击链接创建一个新的webview打开指定页面，可以直接把scehme url赋给a标签的href）</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>不支持回调</li>
+</ul>
+<h3 id="jsbrigde"><a href="#jsbrigde" class="headerlink" title="jsbrigde"></a>jsbrigde</h3><p><img src="/img/preloader.gif" data-original="/2020/06/12/js%E4%B8%8Enative%E4%BA%A4%E4%BA%92%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93/jsbridge.jpg" alt="jsbridge与native交互"></p>
+<ul>
+<li>支持回调</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>实现稍微复杂</li>
+<li>前端需要包装统一调用模块</li>
+</ul>
+<h3 id="题外话"><a href="#题外话" class="headerlink" title="题外话"></a>题外话</h3><p>jsbridge是通过iframe发出请求的（试了image等媒体标签不行，location.href可以，猜测shouldoverideUrlLoading只会拦截webview的请求），但是处理iframe的时候有些点需要注意。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">openUrl</span>(<span class="params">url</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> iframe = <span class="built_in">document</span>.createElement(<span class="string">'iframe'</span>);</span><br><span class="line"></span><br><span class="line">    iframe.style.cssText = <span class="string">'display:none;width:0px;height:0px;'</span>;</span><br><span class="line">    <span class="keyword">if</span> (exports.iOS) &#123;</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">          ios 必须先赋值, 然后 append, 否者连续的 api调用会间隔着失败</span></span><br><span class="line"><span class="comment">          也就是 api1(); api2(); api3(); api4(); 的连续调用,</span></span><br><span class="line"><span class="comment">          只有 api1 和 api3 会真正调用到客户端（iOS13.5无法复现这个问题）</span></span><br><span class="line"><span class="comment">          */</span></span><br><span class="line">        iframe.src = url;</span><br><span class="line">    &#125;</span><br><span class="line">    (<span class="built_in">document</span>.body || <span class="built_in">document</span>.documentElement).appendChild(iframe);</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">      android 这里必须先添加到页面, 然后再设置 src  </span></span><br><span class="line"><span class="comment">      先设置 src 再 append 到页面, 会导致在接口回调(callback)中嵌套调用 api会失败,</span></span><br><span class="line"><span class="comment">      iframe会直接当成普通url来解析</span></span><br><span class="line"><span class="comment">      */</span></span><br><span class="line">    <span class="keyword">if</span> (exports.android) &#123; <span class="comment">// android 必须先append 然后赋值</span></span><br><span class="line">        iframe.src = url;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// android 捕获了iframe的url之后, 也是中断 js 进程的, 所以这里可以用个 setTimeout 0 来删除 iframe</span></span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        iframe.parentNode.removeChild(iframe);</span><br><span class="line">    &#125;, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">hybrid</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/06/12/js%E4%B8%8Enative%E4%BA%A4%E4%BA%92%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-315-Count-of-Smaller-Numbers-After-Self" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -834,149 +922,6 @@
 
 
   
-    <article id="post-形如if-0-100-0-怎么执行" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/01/%E5%BD%A2%E5%A6%82if-0-100-0-%E6%80%8E%E4%B9%88%E6%89%A7%E8%A1%8C/">形如if(0&lt;100&lt;0)怎么执行</a>
-    </h1>
-  
-
-        
-        <a href="/2020/06/01/%E5%BD%A2%E5%A6%82if-0-100-0-%E6%80%8E%E4%B9%88%E6%89%A7%E8%A1%8C/" class="archive-article-date">
-  	<time datetime="2020-06-01T15:25:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>面试时候遇到的一道题，因为不熟悉编译原理，被虐的体无完肤。。。</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//写出下面的打印结果</span></span><br><span class="line"><span class="keyword">if</span> (<span class="number">0</span> &lt; <span class="number">100</span> &lt; <span class="number">0</span>) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"a"</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"b"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="number">0</span> &lt; <span class="number">100</span> &lt; <span class="number">0</span> + <span class="number">4</span>) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"c"</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"d"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// output:</span></span><br><span class="line"><span class="comment">// a</span></span><br><span class="line"><span class="comment">// c</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h3><p>第一个if语句中从左往右执行，<code>0&lt;100</code> 为 <code>true</code>，<code>true&lt;0</code> getPrimitive后变成 <code>1&lt;0</code>，因此第一个结果为 <code>false</code>。</p>
-<p>第二if语句中，<code>+</code>优先级大于<code>&lt;</code>，因为变成 <code>0&lt;100&lt;4</code>， <code>0&lt;100</code> 为 <code>true</code>，<code>true&lt;4</code> getPrimitive后变成 <code>1&lt;4</code>，因此第一个结果为 <code>true</code>。</p>
-<h3 id="javascript运算符笔记"><a href="#javascript运算符笔记" class="headerlink" title="javascript运算符笔记"></a>javascript运算符笔记</h3><table>
-<thead>
-<tr>
-<th>运算符</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>. [] ()</td>
-<td>字段访问、数组下标、函数调用以及表达式分组</td>
-</tr>
-<tr>
-<td>++ – - ~ ! delete new typeof void</td>
-<td>一元运算符、返回数据类型、对象创建、未定义值</td>
-</tr>
-<tr>
-<td>* / %</td>
-<td>乘法、除法、取模</td>
-</tr>
-<tr>
-<td>+ - +</td>
-<td>加法、减法、字符串连接</td>
-</tr>
-<tr>
-<td>&lt;&lt; &gt;&gt; &gt;&gt;&gt;</td>
-<td>移位</td>
-</tr>
-<tr>
-<td>&lt; &lt;= &gt; &gt;= instanceof</td>
-<td>小于、小于等于、大于、大于等于、instanceof</td>
-</tr>
-<tr>
-<td>== != === !==</td>
-<td>等于、不等于、严格相等、非严格相等</td>
-</tr>
-<tr>
-<td>&amp;</td>
-<td>按位与</td>
-</tr>
-<tr>
-<td>^</td>
-<td>按位异或</td>
-</tr>
-<tr>
-<td>|</td>
-<td>按位或</td>
-</tr>
-<tr>
-<td>&amp;&amp;</td>
-<td>逻辑与</td>
-</tr>
-<tr>
-<td>||</td>
-<td>逻辑或</td>
-</tr>
-<tr>
-<td>?:</td>
-<td>条件</td>
-</tr>
-<tr>
-<td>= oP=</td>
-<td>赋值、运算赋值</td>
-</tr>
-<tr>
-<td>,</td>
-<td>多重求值</td>
-</tr>
-</tbody></table>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">编译原理</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/06/01/%E5%BD%A2%E5%A6%82if-0-100-0-%E6%80%8E%E4%B9%88%E6%89%A7%E8%A1%8C/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/">Next »</a>
@@ -1147,6 +1092,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">hybrid</a>
               </li>
             
             <div class="clearfix"></div>
