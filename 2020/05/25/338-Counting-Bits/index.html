@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://dennisleung.github.io">
   <title>338. Counting Bits | 挖坑小能手的填坑日记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="原题：338. Counting Bits  思路DP + Bit Manupulation。主用运用 ** x &amp; (x-1) 移除x最低位1的思想。**。 source code12345678910&#x2F;&#x2F; Runtime: 96 ms, faster than 72.42% of JavaScript online submissions for Counting Bits.&#x2F;&#x2F; M">
+  <meta name="description" content="原题：338. Counting Bits  思路DP + Bit Manupulation。主用运用 x &amp; (x-1) 移除x最低位1的思想。。 source code12345678910&#x2F;&#x2F; Runtime: 96 ms, faster than 72.42% of JavaScript online submissions for Counting Bits.&#x2F;&#x2F; Memory">
 <meta property="og:type" content="article">
 <meta property="og:title" content="338. Counting Bits">
 <meta property="og:url" content="http://dennisleung.github.io/2020/05/25/338-Counting-Bits/index.html">
 <meta property="og:site_name" content="挖坑小能手的填坑日记">
-<meta property="og:description" content="原题：338. Counting Bits  思路DP + Bit Manupulation。主用运用 ** x &amp; (x-1) 移除x最低位1的思想。**。 source code12345678910&#x2F;&#x2F; Runtime: 96 ms, faster than 72.42% of JavaScript online submissions for Counting Bits.&#x2F;&#x2F; M">
+<meta property="og:description" content="原题：338. Counting Bits  思路DP + Bit Manupulation。主用运用 x &amp; (x-1) 移除x最低位1的思想。。 source code12345678910&#x2F;&#x2F; Runtime: 96 ms, faster than 72.42% of JavaScript online submissions for Counting Bits.&#x2F;&#x2F; Memory">
 <meta property="og:locale" content="zh">
 <meta property="article:published_time" content="2020-05-25T06:18:29.000Z">
-<meta property="article:modified_time" content="2020-05-25T06:20:51.424Z">
+<meta property="article:modified_time" content="2020-06-13T10:10:20.768Z">
 <meta property="article:author" content="Dennis Leung">
-<meta property="article:tag" content="算法">
 <meta property="article:tag" content="leetcode">
+<meta property="article:tag" content="算法">
 <meta name="twitter:card" content="summary">
   
   
@@ -165,7 +165,7 @@
         <blockquote>
 <p>原题：<a href="https://leetcode.com/problems/counting-bits/" target="_blank" rel="noopener">338. Counting Bits</a></p>
 </blockquote>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>DP + Bit Manupulation。主用运用 ** <code>x &amp; (x-1)</code> 移除x最低位1的思想。**。</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>DP + Bit Manupulation。主用运用 <strong><code>x &amp; (x-1)</code> 移除x最低位1的思想。</strong>。</p>
 <h2 id="source-code"><a href="#source-code" class="headerlink" title="source code"></a>source code</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 96 ms, faster than 72.42% of JavaScript online submissions for Counting Bits.</span></span><br><span class="line"><span class="comment">// Memory Usage: 42.1 MB, less than 100.00% of JavaScript online submissions for Counting Bits.</span></span><br><span class="line"><span class="keyword">var</span> countBits = <span class="function"><span class="keyword">function</span> (<span class="params">num</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> result = [<span class="number">0</span>];</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt;= num; i++) &#123;</span><br><span class="line">    result[i] = result[i &amp; (i - <span class="number">1</span>)] + <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <h2 id="test-cases"><a href="#test-cases" class="headerlink" title="test cases"></a>test cases</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">"test1"</span>, () =&gt; &#123;</span><br><span class="line">  expect(countBits(<span class="number">0</span>)).toEqual([<span class="number">0</span>]);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test2"</span>, () =&gt; &#123;</span><br><span class="line">  expect(countBits(<span class="number">1</span>)).toEqual([<span class="number">0</span>, <span class="number">1</span>]);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test3"</span>, () =&gt; &#123;</span><br><span class="line">  expect(countBits(<span class="number">2</span>)).toEqual([<span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>]);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test4"</span>, () =&gt; &#123;</span><br><span class="line">  expect(countBits(<span class="number">5</span>)).toEqual([<span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>]);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
@@ -182,11 +182,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
         		</li>
       		
 		</ul>
@@ -334,6 +334,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">leetcode</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">并查集</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
@@ -358,6 +370,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">html</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">HTML</a>
               </li>
              
@@ -374,31 +390,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">hybrid</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">网络安全</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">css</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">html</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">移动开发</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">leetcode</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">编译原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -410,15 +410,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">并查集</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">hybrid</a>
+                <a href="javascript:void(0)" class="js-tag color5">编译原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">移动开发</a>
               </li>
             
             <div class="clearfix"></div>

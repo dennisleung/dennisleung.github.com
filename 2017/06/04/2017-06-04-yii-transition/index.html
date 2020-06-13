@@ -8,15 +8,15 @@
   <link rel="dns-prefetch" href="http://dennisleung.github.io">
   <title>Yii中事务不起作用的问题 | 挖坑小能手的填坑日记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在开发过程中操作 DB 事务时发现有时候会回滚失败。  ** 只有当所有操作都在同一个连接中进行时，才是可回滚的。 **公司的前辈们针对不同的库操作自行维护了一个连接池（Yii中也有类似的逻辑），出现事务不起作用的时候，有可能是操作不是同一个连接导致的（特别是 Yii 这种通常使用 model 等 ORM 操作的的框架，很容易忽略这个问题）。   Summary对 DB 连接以及框架内部实现不透">
+  <meta name="description" content="在开发过程中操作 DB 事务时发现有时候会回滚失败。  只有当所有操作都在同一个连接中进行时，才是可回滚的。公司的前辈们针对不同的库操作自行维护了一个连接池（Yii中也有类似的逻辑），出现事务不起作用的时候，有可能是操作不是同一个连接导致的（特别是 Yii 这种通常使用 model 等 ORM 操作的的框架，很容易忽略这个问题）。   Summary对 DB 连接以及框架内部实现不透彻的时候很容">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Yii中事务不起作用的问题">
 <meta property="og:url" content="http://dennisleung.github.io/2017/06/04/2017-06-04-yii-transition/index.html">
 <meta property="og:site_name" content="挖坑小能手的填坑日记">
-<meta property="og:description" content="在开发过程中操作 DB 事务时发现有时候会回滚失败。  ** 只有当所有操作都在同一个连接中进行时，才是可回滚的。 **公司的前辈们针对不同的库操作自行维护了一个连接池（Yii中也有类似的逻辑），出现事务不起作用的时候，有可能是操作不是同一个连接导致的（特别是 Yii 这种通常使用 model 等 ORM 操作的的框架，很容易忽略这个问题）。   Summary对 DB 连接以及框架内部实现不透">
+<meta property="og:description" content="在开发过程中操作 DB 事务时发现有时候会回滚失败。  只有当所有操作都在同一个连接中进行时，才是可回滚的。公司的前辈们针对不同的库操作自行维护了一个连接池（Yii中也有类似的逻辑），出现事务不起作用的时候，有可能是操作不是同一个连接导致的（特别是 Yii 这种通常使用 model 等 ORM 操作的的框架，很容易忽略这个问题）。   Summary对 DB 连接以及框架内部实现不透彻的时候很容">
 <meta property="og:locale" content="zh">
 <meta property="article:published_time" content="2017-06-04T07:07:00.000Z">
-<meta property="article:modified_time" content="2017-06-04T07:22:47.000Z">
+<meta property="article:modified_time" content="2020-06-13T10:10:47.586Z">
 <meta property="article:author" content="Dennis Leung">
 <meta property="article:tag" content="干货储物柜">
 <meta property="article:tag" content="Yii">
@@ -166,11 +166,11 @@
         <blockquote>
 <p>在开发过程中操作 DB 事务时发现有时候会回滚失败。</p>
 </blockquote>
-<p>** 只有当所有操作都在同一个连接中进行时，才是可回滚的。 **<br>公司的前辈们针对不同的库操作自行维护了一个连接池（Yii中也有类似的逻辑），出现事务不起作用的时候，有可能是操作不是同一个连接导致的（特别是 Yii 这种通常使用 model 等 ORM 操作的的框架，很容易忽略这个问题）。</p>
+<p><strong>只有当所有操作都在同一个连接中进行时，才是可回滚的。</strong><br>公司的前辈们针对不同的库操作自行维护了一个连接池（Yii中也有类似的逻辑），出现事务不起作用的时候，有可能是操作不是同一个连接导致的（特别是 Yii 这种通常使用 model 等 ORM 操作的的框架，很容易忽略这个问题）。</p>
 <br>
 
-<h1 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h1><p>对 DB 连接以及框架内部实现不透彻的时候很容易踩坑。<br>有时候写写sql也挺好，现在操作跨库事务的时候一般都写一个获取连接的工厂方法（负责保证唯一连接、心跳检测等）。<br>** 直接通过sql跨库操作时一定要注意权限！ **<br>** 直接通过sql跨库操作时一定要注意权限！ **<br>** 直接通过sql跨库操作时一定要注意权限！ **<br>（很重要所以说三次，踩坑老司机= =）</p>
-<p>PS: 除了权限，** 不同库是否在同一个实例 ** 也是一个需要注意的点 。</p>
+<h1 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h1><p>对 DB 连接以及框架内部实现不透彻的时候很容易踩坑。<br>有时候写写sql也挺好，现在操作跨库事务的时候一般都写一个获取连接的工厂方法（负责保证唯一连接、心跳检测等）。<br><strong>直接通过sql跨库操作时一定要注意权限！</strong><br><strong>直接通过sql跨库操作时一定要注意权限！</strong><br><strong>直接通过sql跨库操作时一定要注意权限！</strong><br>（很重要所以说三次，踩坑老司机= =）</p>
+<p>PS: 除了权限，<strong>不同库是否在同一个实例</strong> 也是一个需要注意的点 。</p>
 
       
 
@@ -340,6 +340,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">leetcode</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">并查集</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
@@ -364,6 +376,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">html</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">HTML</a>
               </li>
              
@@ -380,31 +396,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">hybrid</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">网络安全</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">css</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">html</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">移动开发</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">leetcode</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">编译原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -416,15 +416,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">并查集</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">hybrid</a>
+                <a href="javascript:void(0)" class="js-tag color5">编译原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">移动开发</a>
               </li>
             
             <div class="clearfix"></div>
