@@ -140,6 +140,244 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-浏览器为什么要限制同源策略-为什么script标签不受同源策略限制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/16/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E9%99%90%E5%88%B6%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5-%E4%B8%BA%E4%BB%80%E4%B9%88script%E6%A0%87%E7%AD%BE%E4%B8%8D%E5%8F%97%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5%E9%99%90%E5%88%B6/">浏览器为什么要限制同源策略?为什么script标签不受同源策略限制?</a>
+    </h1>
+  
+
+        
+        <a href="/2020/05/16/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E9%99%90%E5%88%B6%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5-%E4%B8%BA%E4%BB%80%E4%B9%88script%E6%A0%87%E7%AD%BE%E4%B8%8D%E5%8F%97%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5%E9%99%90%E5%88%B6/" class="archive-article-date">
+  	<time datetime="2020-05-16T01:49:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>面试的时候遇到的一道题，写一下自己的理解，不一定正确。</p>
+</blockquote>
+<p>浏览器实现了同源策略，目的肯定是为了网络安全。如果没有SOP，恶意站点可以随意获取、请求别的站点的内容，真“裸奔”在互联网上。</p>
+<p>那为什么浏览器不实现彻底的SOP，而允许了像<code>script</code>、<code>img</code>这类标签可以请求其他站点的资源呢？</p>
+<p>这个问题google了一圈没有一个明确的说法，stackoverflow上有类似的问题，但是没有给出明确的答案。把各种观点总结下，先说结论：</p>
+<p><strong>浏览器没有实现彻底的SOP，是一个多方协商、折中、相对稳妥的方案：</strong></p>
+<ul>
+<li>首先明确一个观点，SOP是必须的；</li>
+<li>但是彻底的SOP是不现实的，一个站点很难完全不依赖任何第三方资源；</li>
+<li>在不彻底SOP背景下产生的安全问题，如XSS、XSCF，都有对应的解决方案；</li>
+<li>可能存在的一些历史因素（需要向下兼容）</li>
+</ul>
+<p>这道题没搞懂面试官是想考察什么，当时的回答是一个站点很难完全不依赖跨域资源，如果完全SOP，像现在很常见的CDN就用不了了。但是面试官貌似对这个答案不是很满意= =。。。说SOP的出现比CDN早很多。。</p>
+<p>先暂且记录下现有的理解，后面有新的体会再补充。。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">html</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">网络安全</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/05/16/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E9%99%90%E5%88%B6%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5-%E4%B8%BA%E4%BB%80%E4%B9%88script%E6%A0%87%E7%AD%BE%E4%B8%8D%E5%8F%97%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5%E9%99%90%E5%88%B6/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-移动端触摸-点击事件发生顺序" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/15/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E8%A7%A6%E6%91%B8-%E7%82%B9%E5%87%BB%E4%BA%8B%E4%BB%B6%E5%8F%91%E7%94%9F%E9%A1%BA%E5%BA%8F/">移动端触摸/点击事件发生顺序</a>
+    </h1>
+  
+
+        
+        <a href="/2020/05/15/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E8%A7%A6%E6%91%B8-%E7%82%B9%E5%87%BB%E4%BA%8B%E4%BB%B6%E5%8F%91%E7%94%9F%E9%A1%BA%E5%BA%8F/" class="archive-article-date">
+  	<time datetime="2020-05-15T13:57:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>记录下touchstart、touchmove、touchend、click的触发顺序</p>
+<p>实验环境：mac chromium模拟器，iPhoneX Safari</p>
+</blockquote>
+<h2 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> evts = [<span class="string">"touchstart"</span>, <span class="string">"touchmove"</span>, <span class="string">"touchend"</span>, <span class="string">"click"</span>]</span><br><span class="line">evts.forEach(<span class="function"><span class="params">evt</span> =&gt;</span> <span class="built_in">document</span>.body.addEventListener(evt, () =&gt; <span class="built_in">console</span>.log(evt)))</span><br></pre></td></tr></table></figure>
+
+<h2 id="点击页面"><a href="#点击页面" class="headerlink" title="点击页面"></a>点击页面</h2><p>touchstart -&gt; touchend -&gt; click</p>
+<p>touchmove事件不触发</p>
+<h2 id="在页面滑动"><a href="#在页面滑动" class="headerlink" title="在页面滑动"></a>在页面滑动</h2><p>touchstart -&gt; touchmove(可能触发多次) -&gt; touchend</p>
+<p>click事件不触发</p>
+<h2 id="长按页面-hold"><a href="#长按页面-hold" class="headerlink" title="长按页面(hold)"></a>长按页面(hold)</h2><p>iPhone: touchstart -&gt; touchend<br>mac: touchstart （在mac上长按呼出了force touch，没触发touchend。。）</p>
+<p>touchmove和click事件不触发</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">html</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">移动开发</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/05/15/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E8%A7%A6%E6%91%B8-%E7%82%B9%E5%87%BB%E4%BA%8B%E4%BB%B6%E5%8F%91%E7%94%9F%E9%A1%BA%E5%BA%8F/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-this指向的改变" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/14/this%E6%8C%87%E5%90%91%E7%9A%84%E6%94%B9%E5%8F%98/">this指向的改变</a>
+    </h1>
+  
+
+        
+        <a href="/2020/05/14/this%E6%8C%87%E5%90%91%E7%9A%84%E6%94%B9%E5%8F%98/" class="archive-article-date">
+  	<time datetime="2020-05-14T03:06:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>今天研究了下this的指向会不会被改变<br>用例均在node下执行</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>() &#123;</span><br><span class="line">        <span class="keyword">this</span>.name = <span class="string">"a"</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    say() &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    sayFn() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> a = <span class="keyword">new</span> A();</span><br><span class="line">a.say()<span class="comment">//输出a</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> fn1 = a.say;</span><br><span class="line">fn1();<span class="comment">//报错，TypeError: Cannot read property 'name' of undefined</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> fn2 = a.say.bind(a);</span><br><span class="line">fn2();<span class="comment">//输出a</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> fn3 = a.say.bind(&#123;<span class="attr">name</span>:<span class="string">'b'</span>&#125;);</span><br><span class="line">fn3();<span class="comment">//输出b</span></span><br><span class="line"></span><br><span class="line">a.say.call(&#123;<span class="attr">name</span>:<span class="string">'b'</span>&#125;);<span class="comment">//输出b</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> fn4 = (a.sayFn()).bind(&#123;<span class="attr">name</span>:<span class="string">'b'</span>&#125;)</span><br><span class="line">fn4()<span class="comment">//输出a</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> fn5 = (a.sayFn.bind(&#123;<span class="attr">name</span>:<span class="string">'b'</span>&#125;))()</span><br><span class="line">fn5()<span class="comment">//输出b</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>除了特殊情况（2，3点）外，this的指向取决于它是作为“函数”还是“成员方法”调用；</li>
+<li><code>bind</code>/<code>call</code>/<code>apply</code>可以改变成员方法this的指向；</li>
+<li>箭头函数的this取决于第一次执行的作用域链，一但绑定不再改变</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/05/14/this%E6%8C%87%E5%90%91%E7%9A%84%E6%94%B9%E5%8F%98/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-hexo-lazyload-image不生效" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -761,235 +999,9 @@
 
 
   
-    <article id="post-String-raw处理模板字符串" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/11/String-raw%E5%A4%84%E7%90%86%E6%A8%A1%E6%9D%BF%E5%AD%97%E7%AC%A6%E4%B8%B2/">String.raw处理模板字符串</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/11/String-raw%E5%A4%84%E7%90%86%E6%A8%A1%E6%9D%BF%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="archive-article-date">
-  	<time datetime="2020-05-11T02:52:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>假设现在有这样一个需求，将需要将<code>´${a}\n${b}´</code> （a=1，b=2）处理成 <code>1\n2</code>。</p>
-<p>如果不做任何处理，模板字符串将输出：<br><img src="/img/preloader.gif" data-original="/2020/05/11/String-raw%E5%A4%84%E7%90%86%E6%A8%A1%E6%9D%BF%E5%AD%97%E7%AC%A6%E4%B8%B2/output.jpg" alt="output"></p>
-<p>解决这个问题有两个办法：</p>
-<ul>
-<li><p>模板字符串中增加转义符：</p>
-  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">´$&#123;a&#125;\\n$&#123;b&#125;´</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>使用String.raw</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">String</span>.raw´$&#123;a&#125;\n$&#123;b&#125;´</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h3 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h3><ul>
-<li><a href="https://www.cnblogs.com/lxxhome/p/7656231.html" target="_blank" rel="noopener">ES6:string.raw浅析</a></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/11/String-raw%E5%A4%84%E7%90%86%E6%A8%A1%E6%9D%BF%E5%AD%97%E7%AC%A6%E4%B8%B2/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-图片加载失败自动使用默认占位图的方法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/06/%E5%9B%BE%E7%89%87%E5%8A%A0%E8%BD%BD%E5%A4%B1%E8%B4%A5%E8%87%AA%E5%8A%A8%E4%BD%BF%E7%94%A8%E9%BB%98%E8%AE%A4%E5%8D%A0%E4%BD%8D%E5%9B%BE%E7%9A%84%E6%96%B9%E6%B3%95/">图片加载失败自动使用默认占位图的方法</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/06/%E5%9B%BE%E7%89%87%E5%8A%A0%E8%BD%BD%E5%A4%B1%E8%B4%A5%E8%87%AA%E5%8A%A8%E4%BD%BF%E7%94%A8%E9%BB%98%E8%AE%A4%E5%8D%A0%E4%BD%8D%E5%9B%BE%E7%9A%84%E6%96%B9%E6%B3%95/" class="archive-article-date">
-  	<time datetime="2020-05-06T04:53:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>加载图片 <code>imgs/qrcode1.png</code> 失败的时候，自动展示默认占位图 <code>imgs/hot.png</code> 。</p>
-</blockquote>
-<h3 id="方法1：使用伪元素"><a href="#方法1：使用伪元素" class="headerlink" title="方法1：使用伪元素"></a>方法1：使用伪元素</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="css">    <span class="selector-class">.broken-img</span><span class="selector-pseudo">:before</span> &#123;</span></span><br><span class="line">        content: "";</span><br><span class="line">        display: inline-block;</span><br><span class="line">        width: 75px;</span><br><span class="line">        height: 42px;</span><br><span class="line">        background: url('imgs/hot.png');</span><br><span class="line">        background-position: center;</span><br><span class="line">        background-size: cover;</span><br><span class="line">        background-repeat: no-repeat;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--注意图片的alt要设置为空--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"imgs/qrcode1.png"</span> <span class="attr">class</span>=<span class="string">"broken-img"</span> <span class="attr">alt</span>=<span class="string">""</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="方法2：使用onerror替换src"><a href="#方法2：使用onerror替换src" class="headerlink" title="方法2：使用onerror替换src"></a>方法2：使用onerror替换src</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--注意onerror里面要清空onerror的句柄（this.onerror=null）--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"imgs/qrcode1.png"</span> <span class="attr">alt</span>=<span class="string">"qrcode"</span> <span class="attr">onerror</span>=<span class="string">"this.onerror=null;this.src='imgs/hot.png'"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">干货储物柜</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">html</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">css</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/06/%E5%9B%BE%E7%89%87%E5%8A%A0%E8%BD%BD%E5%A4%B1%E8%B4%A5%E8%87%AA%E5%8A%A8%E4%BD%BF%E7%94%A8%E9%BB%98%E8%AE%A4%E5%8D%A0%E4%BD%8D%E5%9B%BE%E7%9A%84%E6%96%B9%E6%B3%95/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-hexo-asset-image-link-fail" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/06/hexo-asset-image-link-fail/">hexo插入本地图片失败问题</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/06/hexo-asset-image-link-fail/" class="archive-article-date">
-  	<time datetime="2020-05-06T01:54:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在hexo插入本地图片的方法网上很多，不再赘述，可以看这个：<br><a href="https://www.jianshu.com/p/f72aaad7b852" target="_blank" rel="noopener">HEXO插入图片（详细版）</a></p>
-<p>但是昨天尝试往markdown里面插入一张名称<code>http-server.png</code>的图片时一直失败，查看控制台的log发现没有这张图片的process log（正常应该会出现<code>update link as xxx</code>），生成html里面img src也是原来的，没有替换。<br><img src="/img/preloader.gif" data-original="/2020/05/06/hexo-asset-image-link-fail/console.jpg" alt="console里面没有对应的process log"></p>
-<p>于是查看了<code>node_modules/hexo-assets-image/index.js</code>，发现里面判断src的正则有问题。这里原意应该是不替换http链接，但是错误把名称里面带有<code>http</code>的本地链接也过滤了。<br><img src="/img/preloader.gif" data-original="/2020/05/06/hexo-asset-image-link-fail/wrong-reg.jpg" alt="hexo-assets-image原代码"></p>
-<p>简单修改成：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(!<span class="regexp">/^http(s?)\/\/.*/</span>.test(src) &amp;&amp; !<span class="regexp">/^\s*\//</span>.test(src)) &#123;</span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>重新<code>hexo generate</code>生成后解决。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/06/hexo-asset-image-link-fail/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/6/">« Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/8/">Next »</a>
+      <a class="extend prev" rel="prev" href="/page/6/">« Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/8/">Next »</a>
     </nav>
   
 

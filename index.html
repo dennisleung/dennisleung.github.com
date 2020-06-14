@@ -140,6 +140,232 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-实现每隔i秒循环打印i" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/14/%E5%AE%9E%E7%8E%B0%E6%AF%8F%E9%9A%94i%E7%A7%92%E5%BE%AA%E7%8E%AF%E6%89%93%E5%8D%B0i/">实现每隔i秒循环打印i</a>
+    </h1>
+  
+
+        
+        <a href="/2020/06/14/%E5%AE%9E%E7%8E%B0%E6%AF%8F%E9%9A%94i%E7%A7%92%E5%BE%AA%E7%8E%AF%E6%89%93%E5%8D%B0i/" class="archive-article-date">
+  	<time datetime="2020-06-14T14:16:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>面试时候的一道题，实现如下功能：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">输出 <span class="number">1</span> </span><br><span class="line">间隔 <span class="number">1</span>s </span><br><span class="line">输出 <span class="number">2</span> </span><br><span class="line">间隔 <span class="number">2</span>s </span><br><span class="line">输出 <span class="number">3</span> </span><br><span class="line">间隔 <span class="number">3</span>s </span><br><span class="line">输出 <span class="number">1</span> </span><br><span class="line">间隔 <span class="number">1</span>s </span><br><span class="line">输出 <span class="number">2</span> </span><br><span class="line">间隔 <span class="number">2</span>s </span><br><span class="line">输出 <span class="number">3</span></span><br><span class="line">... 循环</span><br></pre></td></tr></table></figure>
+
+<h3 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h3><p>思路：await + Promise</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> helper = <span class="function"><span class="keyword">function</span> (<span class="params">i</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(i);</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve</span>) </span>&#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      resolve();</span><br><span class="line">    &#125;, i * <span class="number">1000</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> fn = <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> range = <span class="number">4</span>;</span><br><span class="line">  <span class="keyword">let</span> cur = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">    cur = ++cur % <span class="number">4</span> || <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">await</span> helper(cur);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">fn();</span><br></pre></td></tr></table></figure>
+
+<h3 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h3><p>思路：for await…of + generator</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> iterable = &#123;</span><br><span class="line">  [<span class="built_in">Symbol</span>.asyncIterator]() &#123;</span><br><span class="line">    <span class="keyword">const</span> range = <span class="number">4</span>;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      i: <span class="number">0</span>,</span><br><span class="line">      next() &#123;</span><br><span class="line">        <span class="keyword">this</span>.i = ++<span class="keyword">this</span>.i % range || <span class="number">1</span>;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.i);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve</span>) =&gt;</span> &#123;</span><br><span class="line">          setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">            resolve(&#123; <span class="attr">done</span>: <span class="literal">false</span> &#125;);</span><br><span class="line">          &#125;, <span class="keyword">this</span>.i * <span class="number">1000</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">(<span class="keyword">async</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> <span class="keyword">await</span> (<span class="keyword">let</span> _ <span class="keyword">of</span> iterable) &#123;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/06/14/%E5%AE%9E%E7%8E%B0%E6%AF%8F%E9%9A%94i%E7%A7%92%E5%BE%AA%E7%8E%AF%E6%89%93%E5%8D%B0i/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-多次调用bind时this的指向问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/14/%E5%A4%9A%E6%AC%A1%E8%B0%83%E7%94%A8bind%E6%97%B6this%E7%9A%84%E6%8C%87%E5%90%91%E9%97%AE%E9%A2%98/">多次调用bind时this的指向问题</a>
+    </h1>
+  
+
+        
+        <a href="/2020/06/14/%E5%A4%9A%E6%AC%A1%E8%B0%83%E7%94%A8bind%E6%97%B6this%E7%9A%84%E6%8C%87%E5%90%91%E9%97%AE%E9%A2%98/" class="archive-article-date">
+  	<time datetime="2020-06-14T13:48:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>先看题：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123; <span class="attr">id</span>: <span class="string">"a"</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> b = &#123; <span class="attr">id</span>: <span class="string">"b"</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> fn = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.id, <span class="built_in">arguments</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">fn.bind(a, <span class="number">1</span>).bind(b, <span class="number">2</span>)(<span class="number">3</span>); <span class="comment">//输出：a [Arguments] &#123; '0': 1, '1': 2, '2': 3 &#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>先说结论：</p>
+<blockquote>
+<p>多次调用bind，this指向第一次绑定，参数叠加。</p>
+</blockquote>
+<p>要理解为什么this没有覆盖，我们先尝试实现一个bind的polyfill：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.bind = <span class="function"><span class="keyword">function</span> (<span class="params">ctx, ...args1</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> fn = <span class="keyword">this</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">...args2</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> fn.apply(ctx, [...args1, ...args2]);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>可以看到，除了第一次bind是直接作用在fn本身，<strong>后面的bind实际上都是作用在返回的闭包函数上</strong>，因此this指向第一次绑定。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/06/14/%E5%A4%9A%E6%AC%A1%E8%B0%83%E7%94%A8bind%E6%97%B6this%E7%9A%84%E6%8C%87%E5%90%91%E9%97%AE%E9%A2%98/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-箭头函数this的指向问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/14/%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0this%E7%9A%84%E6%8C%87%E5%90%91%E9%97%AE%E9%A2%98/">箭头函数this的指向问题</a>
+    </h1>
+  
+
+        
+        <a href="/2020/06/14/%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0this%E7%9A%84%E6%8C%87%E5%90%91%E9%97%AE%E9%A2%98/" class="archive-article-date">
+  	<time datetime="2020-06-14T13:31:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>面试时候的一道题：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o = &#123;&#125;</span><br><span class="line"></span><br><span class="line">o.foo = <span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="keyword">this</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">o.foo()()()</span><br></pre></td></tr></table></figure>
+<p>结果是输出三次 <code>o</code> 。第一个由于是 <code>.</code>方式的调用，this指向o。后面的this指向指向需要需要探究下。</p>
+<p>MDN上关于箭头函数this指向的解释：</p>
+<blockquote>
+<p>箭头函数不会创建自己的this,它只会从自己的作用域链的上一层继承this。 (<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/Arrow_functions" target="_blank" rel="noopener">MDN</a>)</p>
+</blockquote>
+<p>个人理解：</p>
+<blockquote>
+<p>箭头函数没有自己的this，它会 <strong>在声明的时候捕获作用域中的this，并后续不再改变</strong> 。</p>
+</blockquote>
+<p>第二个输出（第一个箭头函数）的this在 <code>o.foo()</code> 时候声明，捕获了this（o）。</p>
+<p>第三个输出（第二个箭头函数）的this在 <code>o.foo()()</code>时候生命，捕获了上一步的this（o）。</p>
+<p>为了验证这一个想法我们再写一个demo测试：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o = &#123;&#125;;</span><br><span class="line"><span class="keyword">var</span> a = &#123; <span class="attr">id</span>: <span class="string">"a"</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> b = &#123; <span class="attr">id</span>: <span class="string">"b"</span> &#125;;</span><br><span class="line"></span><br><span class="line">o.foo = <span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">o.foo.bind(a)().bind(b)()();</span><br></pre></td></tr></table></figure>
+<p>结果输出 <code>a b b</code>。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/06/14/%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0this%E7%9A%84%E6%8C%87%E5%90%91%E9%97%AE%E9%A2%98/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-javascript中的那些类型隐式转换" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -706,237 +932,9 @@
 
 
   
-    <article id="post-227-Basic-Calculator-II" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/10/227-Basic-Calculator-II/">227. Basic Calculator II</a>
-    </h1>
-  
-
-        
-        <a href="/2020/06/10/227-Basic-Calculator-II/" class="archive-article-date">
-  	<time datetime="2020-06-10T15:33:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>原题：<a href="https://leetcode.com/problems/basic-calculator-ii/" target="_blank" rel="noopener">227. Basic Calculator II</a></p>
-</blockquote>
-<h3 id="source-code"><a href="#source-code" class="headerlink" title="source code"></a>source code</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 128 ms, faster than 13.03% of JavaScript online submissions for Basic Calculator II.</span></span><br><span class="line"><span class="comment">// Memory Usage: 55.8 MB, less than 5.44% of JavaScript online submissions for Basic Calculator II.</span></span><br><span class="line"><span class="keyword">var</span> calculate = <span class="function"><span class="keyword">function</span> (<span class="params">s</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> chs = s</span><br><span class="line">    .replace(<span class="regexp">/\s/g</span>, <span class="string">""</span>)</span><br><span class="line">    .replace(<span class="regexp">/([^\d])/g</span>, <span class="string">"&amp;$1&amp;"</span>) <span class="comment">//这里有点投机取巧了</span></span><br><span class="line">    .split(<span class="string">"&amp;"</span>);</span><br><span class="line">  <span class="keyword">const</span> queue = [];</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; chs.length; i++) &#123;</span><br><span class="line">    <span class="comment">//注意这里不能用while(chs.length) &#123;ch.shift()&#125;，当case很大的时候数组操作耗时会超时</span></span><br><span class="line">    <span class="keyword">const</span> ch = chs[i];</span><br><span class="line">    <span class="keyword">if</span> (<span class="regexp">/\d/</span>.test(ch)) &#123;</span><br><span class="line">      queue.push(<span class="built_in">parseInt</span>(ch));</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> b = <span class="built_in">parseInt</span>(chs[++i]);</span><br><span class="line">      <span class="keyword">if</span> (ch === <span class="string">"+"</span>) &#123;</span><br><span class="line">        queue.push(b);</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (ch === <span class="string">"-"</span>) &#123;</span><br><span class="line">        queue.push(-b);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> a = <span class="built_in">parseInt</span>(queue.pop());</span><br><span class="line">        queue.push(ch === <span class="string">"*"</span> ? a * b : ~~(a / b));</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> queue.reduce(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a + b, <span class="number">0</span>); <span class="comment">//because the given expression is always valid</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h3 id="test-cases"><a href="#test-cases" class="headerlink" title="test cases"></a>test cases</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">"test1"</span>, () =&gt; &#123;</span><br><span class="line">  expect(calculate(<span class="string">"3+2*2"</span>)).toEqual(<span class="number">7</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test2"</span>, () =&gt; &#123;</span><br><span class="line">  expect(calculate(<span class="string">" 3/2 "</span>)).toEqual(<span class="number">1</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test3"</span>, () =&gt; &#123;</span><br><span class="line">  expect(calculate(<span class="string">" 3+5 / 2 "</span>)).toEqual(<span class="number">5</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test4"</span>, () =&gt; &#123;</span><br><span class="line">  expect(calculate(<span class="string">"12+37*5"</span>)).toEqual(<span class="number">197</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test5"</span>, () =&gt; &#123;</span><br><span class="line">  expect(calculate(<span class="string">"1+1+1"</span>)).toEqual(<span class="number">3</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//这里还有个超大的case，一不注意就容易超时</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="其它解法："><a href="#其它解法：" class="headerlink" title="其它解法："></a>其它解法：</h3><ul>
-<li><p><a href="https://leetcode.com/problems/basic-calculator-ii/discuss/135740/Clean-JavaScript-solution" target="_blank" rel="noopener">Clean JavaScript solution</a> <strong>Recommend</strong></p>
-<p>大体流程差不多，但是数字是逐字处理累加，非常模板的答案（面试官估计会更想看这个）。</p>
-</li>
-<li><p><a href="https://leetcode.com/problems/basic-calculator-ii/discuss/63030/Concise-JavaScript-abusing-replacements" target="_blank" rel="noopener">Concise JavaScript abusing replacements</a></p>
-<p>非常巧妙的切入点，有点奇淫技巧了。</p>
-</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/06/10/227-Basic-Calculator-II/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-454-4Sum-II" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/09/454-4Sum-II/">454. 4Sum II</a>
-    </h1>
-  
-
-        
-        <a href="/2020/06/09/454-4Sum-II/" class="archive-article-date">
-  	<time datetime="2020-06-09T14:56:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>原题：<a href="https://leetcode.com/problems/4sum-ii/" target="_blank" rel="noopener">454. 4Sum II</a></p>
-</blockquote>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>这道题用dfs会超时，最终用分治 + 2-Sum的思想 解出。</p>
-<h3 id="source-code"><a href="#source-code" class="headerlink" title="source code"></a>source code</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 736 ms, faster than 9.18% of JavaScript online submissions for 4Sum II.</span></span><br><span class="line"><span class="comment">// Memory Usage: 101.7 MB, less than 9.94% of JavaScript online submissions for 4Sum II.</span></span><br><span class="line"><span class="keyword">var</span> fourSumCount = <span class="function"><span class="keyword">function</span> (<span class="params">A, B, C, D</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> helper = <span class="function"><span class="keyword">function</span> (<span class="params">arr1, arr2</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> map = &#123;&#125;;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> num1 <span class="keyword">of</span> arr1) &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">let</span> num2 <span class="keyword">of</span> arr2) &#123;</span><br><span class="line">        <span class="keyword">const</span> sum = num1 + num2;</span><br><span class="line">        map[sum] = (map[sum] || <span class="number">0</span>) + <span class="number">1</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> map;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> map1 = helper(A, B);</span><br><span class="line">  <span class="keyword">const</span> map2 = helper(C, D);</span><br><span class="line">  <span class="keyword">let</span> count = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> num1 <span class="keyword">in</span> map1) &#123;</span><br><span class="line">    count += map1[num1] * (map2[-num1] || <span class="number">0</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> count;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h3 id="test-cases"><a href="#test-cases" class="headerlink" title="test cases"></a>test cases</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">"test1"</span>, () =&gt; &#123;</span><br><span class="line">  expect(fourSumCount([<span class="number">1</span>, <span class="number">2</span>], [<span class="number">-2</span>, <span class="number">-1</span>], [<span class="number">-1</span>, <span class="number">2</span>], [<span class="number">0</span>, <span class="number">2</span>])).toEqual(<span class="number">2</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test2"</span>, () =&gt; &#123;</span><br><span class="line">  expect(fourSumCount([<span class="number">0</span>, <span class="number">0</span>], [<span class="number">0</span>, <span class="number">0</span>], [<span class="number">0</span>, <span class="number">0</span>], [<span class="number">0</span>, <span class="number">0</span>])).toEqual(<span class="number">16</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//这里还有一个超大的case，不赘述了。。</span></span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/06/09/454-4Sum-II/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-斐波那契求解效率对比" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/03/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%B1%82%E8%A7%A3%E6%95%88%E7%8E%87%E5%AF%B9%E6%AF%94/">斐波那契求解效率对比</a>
-    </h1>
-  
-
-        
-        <a href="/2020/06/03/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%B1%82%E8%A7%A3%E6%95%88%E7%8E%87%E5%AF%B9%E6%AF%94/" class="archive-article-date">
-  	<time datetime="2020-06-03T15:15:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="方法1：递归（不剪枝）"><a href="#方法1：递归（不剪枝）" class="headerlink" title="方法1：递归（不剪枝）"></a>方法1：递归（不剪枝）</h3><p>时间复杂度：O(2^n)</p>
-<h3 id="方法2：递推"><a href="#方法2：递推" class="headerlink" title="方法2：递推"></a>方法2：递推</h3><p>时间复杂度：O(n)</p>
-<h3 id="方法3：通项公式-矩阵相乘"><a href="#方法3：通项公式-矩阵相乘" class="headerlink" title="方法3：通项公式/矩阵相乘"></a>方法3：通项公式/矩阵相乘</h3><p>时间复杂度：O(logn)</p>
-<p>重点来说下这种解法，下面是推导过程：</p>
-<p><img src="/img/preloader.gif" data-original="/2020/06/03/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%B1%82%E8%A7%A3%E6%95%88%E7%8E%87%E5%AF%B9%E6%AF%94/fibonaci.svg" alt="推导过程"></p>
-<p>因此最终问题简化成求解 <strong>n-1个矩阵相乘</strong> 。类似<code>pow(x, n)</code>，用分治法求解时间复杂度为<code>log(n)</code>。</p>
-<p>关于矩阵乘法，阮一峰老师的这篇文章讲得很清楚：<a href="http://www.ruanyifeng.com/blog/2015/09/matrix-multiplication.html" target="_blank" rel="noopener">理解矩阵乘法</a>。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/06/03/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%B1%82%E8%A7%A3%E6%95%88%E7%8E%87%E5%AF%B9%E6%AF%94/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/">Next »</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/2/">Next »</a>
     </nav>
   
 
