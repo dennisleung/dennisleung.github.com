@@ -140,6 +140,129 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-利用Apple-Script脚本爬取微信公众号文章" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/07/%E5%88%A9%E7%94%A8Apple-Script%E8%84%9A%E6%9C%AC%E7%88%AC%E5%8F%96%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E6%96%87%E7%AB%A0/">利用Apple Script脚本爬取微信公众号文章</a>
+    </h1>
+  
+
+        
+        <a href="/2020/07/07/%E5%88%A9%E7%94%A8Apple-Script%E8%84%9A%E6%9C%AC%E7%88%AC%E5%8F%96%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E6%96%87%E7%AB%A0/" class="archive-article-date">
+  	<time datetime="2020-07-07T15:40:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>背景：</p>
+<p>公司的产品大佬想做一个基于rss爬取热点文章的运营工具，爬取的文章经过审核、清洗后投放在app上增加用户黏性。</p>
+<p>和运营同学勾兑后了解到目前她们获取热点的来源主要是微信公众号，于是一期主要解决微信公众号文章的爬取问题。</p>
+</blockquote>
+<h2 id="Rss-Hub"><a href="#Rss-Hub" class="headerlink" title="Rss Hub"></a>Rss Hub</h2><p>官网：<a href="https://docs.rsshub.app/" target="_blank" rel="noopener">https://docs.rsshub.app/</a></p>
+<p><strong>Rss Hub</strong> 是一个生成rss feed的工具，生成的rss feed添加到rss client后即可订阅。</p>
+<p>Rss Hub文档里面列举了一些公众号的源，但是由于微信的反爬策略严格，均已失效。</p>
+<h2 id="造轮子"><a href="#造轮子" class="headerlink" title="造轮子"></a>造轮子</h2><p>既然现成的轮子不能用，那我们就另辟蹊径（zao lun zi）。<br>先贴整体的流程图：</p>
+<p><img src="/img/preloader.gif" data-original="/2020/07/07/%E5%88%A9%E7%94%A8Apple-Script%E8%84%9A%E6%9C%AC%E7%88%AC%E5%8F%96%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E6%96%87%E7%AB%A0/%E5%88%A9%E7%94%A8AppleScript%E7%88%AC%E5%8F%96%E5%85%AC%E4%BC%97%E5%8F%B7%E6%96%87%E7%AB%A0.jpg" alt="利用AppleScript爬取公众号文章"></p>
+<p>通过过mac微信打开公众号消息列表进行抓包，可以抓到这三个主要的接口：  </p>
+<ul>
+<li><p><a href="https://mp.weixin.qq.com/mp/getmasssendmsg?`__biz`=1&amp;`uin`=2&amp;`key`=3&amp;devicetype=iMac+MacBookPro14%2C1+OSX+OSX+10.14.3+build(18D42)&amp;version=12040112&amp;lang=zh_CN&amp;nettype=WIFI&amp;ascene=3&amp;fontScale=100&amp;pass_ticket=4" target="_blank" rel="noopener">https://mp.weixin.qq.com/mp/getmasssendmsg?`__biz`=1&amp;`uin`=2&amp;`key`=3&amp;devicetype=iMac+MacBookPro14%2C1+OSX+OSX+10.14.3+build(18D42)&amp;version=12040112&amp;lang=zh_CN&amp;nettype=WIFI&amp;ascene=3&amp;fontScale=100&amp;pass_ticket=4</a></p>
+<p>每次点击查看公众号历史消息打开的新窗口就是这个链接。注意到链接里面有几个重要的参数：</p>
+<ul>
+<li><code>__biz</code> 公众号id</li>
+<li><code>uin</code> 猜测是用户id，同一用户不变</li>
+<li><code>key</code> 一个带expire的token，查阅网上的说法以前可以通过 <strong>getA8Key</strong> 生成万能key，但是已经失效。抓包也找不到这个key更新下发的请求，猜测使用了私密协议传输</li>
+</ul>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/mp/profile_ext?action=getmsg&amp;`__biz`=1&amp;f=json&amp;`offset`=0&amp;`count`=10&amp;is_ok=1&amp;scene=124&amp;`uin`=2&amp;`key`=3&amp;pass_ticket=&amp;wxtoken=&amp;appmsg_token=&amp;x5=0&amp;f=json" target="_blank" rel="noopener">https://mp.weixin.qq.com/mp/profile_ext?action=getmsg&amp;`__biz`=1&amp;f=json&amp;`offset`=0&amp;`count`=10&amp;is_ok=1&amp;scene=124&amp;`uin`=2&amp;`key`=3&amp;pass_ticket=&amp;wxtoken=&amp;appmsg_token=&amp;x5=0&amp;f=json</a></p>
+<p>这是微信公众号历史消息列表的分页接口。有几个重要的参数：</p>
+<ul>
+<li><code>__biz</code></li>
+<li><code>uin</code></li>
+<li><code>key</code></li>
+<li><code>offset</code> 偏移量</li>
+<li><code>count</code> 页容量，试过更改这个字段为一个很大的值尝试一次性拉取所有文章，但是返回的内容无变化，猜测有内部策略。微信客户端的默认值是<strong>10</strong>，我们循环捞取直到返回的<code>can_msg_continue</code>不为1即可</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>hexo markdown对Apple Script的支持不好，没有语法高亮。source code可以到gist上看：<a href="https://gist.github.com/dennisleung/56084309ec16f1dd3168715b934c913f" target="_blank" rel="noopener">dennisleung/利用Apple Script爬取微信公众号历史文章</a></p>
+</blockquote>
+<h3 id="Step-1"><a href="#Step-1" class="headerlink" title="Step 1"></a>Step 1</h3><p>这个方案的难点是怎么实现定时自动点击公众号，这段时间刚好在研究mac自动化，于是用Apple Script写了一个定时点击关注公众号列表的程序。</p>
+<p>要注意的一个点是尝试直接用Apple Script去点击微信的某个UI元素时会出现<code>missing value</code>，stack exchange上也有类似的问题：</p>
+<p><a href="https://apple.stackexchange.com/questions/266784/how-do-i-make-the-mouse-click-at-current-location-using-applescript" target="_blank" rel="noopener">How do I make the mouse click at current location using AppleScript?
+</a>。</p>
+<p>回复里面有一个大佬提供一个<code>MouseTools</code>的工具，可以通过命令行模拟鼠标操作。因此我们只要保证微信窗口在顶层，获取想要点击的UI元素的坐标，再通过Apple Script执行MouseTools即可。</p>
+<p>直接上源码：<br><img src="/img/preloader.gif" data-original="/2020/07/07/%E5%88%A9%E7%94%A8Apple-Script%E8%84%9A%E6%9C%AC%E7%88%AC%E5%8F%96%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E6%96%87%E7%AB%A0/apple_script%E6%BA%90%E7%A0%81.png" alt="apple script源码"></p>
+<h3 id="Step-2"><a href="#Step-2" class="headerlink" title="Step 2"></a>Step 2</h3><p>通过配置全局代理，微信的请求会被转发到whistle上。结合whistle的auto-save插件对getmasssendmsg请求log自动保存。然后通过一个定时脚本从最新的log中解析出__biz、uin、key落地即可。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//解析log，更新key</span></span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">"fs-extra"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> root = <span class="string">"/Users/dennisleung/Downloads/crawlWx"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> getLatestKey = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> files = <span class="keyword">await</span> fs.readdir(<span class="string">`<span class="subst">$&#123;root&#125;</span>/keys`</span>);</span><br><span class="line">  <span class="keyword">let</span> latestFile = <span class="string">""</span>;</span><br><span class="line">  <span class="keyword">let</span> latestUpdateTime = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> file <span class="keyword">of</span> files) &#123;</span><br><span class="line">    <span class="keyword">const</span> stat = <span class="keyword">await</span> fs.stat(<span class="string">`<span class="subst">$&#123;root&#125;</span>/keys/<span class="subst">$&#123;file&#125;</span>`</span>);</span><br><span class="line">    <span class="keyword">if</span> (stat.isFile() &amp;&amp; stat.ctime &gt; latestUpdateTime) &#123;</span><br><span class="line">      latestFile = file;</span><br><span class="line">      latestUpdateTime = stat.ctime;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (!latestFile) &#123;</span><br><span class="line">    <span class="built_in">console</span>.error(<span class="string">"no latest file"</span>);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> content = <span class="keyword">await</span> fs.readFile(<span class="string">`<span class="subst">$&#123;root&#125;</span>/keys/<span class="subst">$&#123;latestFile&#125;</span>`</span>);</span><br><span class="line">  <span class="keyword">const</span> match = content</span><br><span class="line">    .toString()</span><br><span class="line">    .match(</span><br><span class="line">      /https:\/\/mp\.weixin\.qq\.com\/mp\/getmasssendmsg\?__biz=([\w=]+)&amp;uin=([\w=%]+)&amp;key=([\w=]+)&amp;<span class="regexp">/</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">  if (!match) &#123;</span></span><br><span class="line"><span class="regexp">    console.error("no match");</span></span><br><span class="line"><span class="regexp">    return;</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">  return &#123;</span></span><br><span class="line"><span class="regexp">    __biz: match[1],</span></span><br><span class="line"><span class="regexp">    uin: match[2],</span></span><br><span class="line"><span class="regexp">    key: match[3],</span></span><br><span class="line"><span class="regexp">  &#125;;</span></span><br><span class="line"><span class="regexp">&#125;;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">const exportConfig = async (config) =&gt; &#123;</span></span><br><span class="line"><span class="regexp">  const path = `$&#123;root&#125;/</span>config.json<span class="string">`;</span></span><br><span class="line"><span class="string">  await fs.writeFile(path, JSON.stringify(config));</span></span><br><span class="line"><span class="string">&#125;;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">const helper = async () =&gt; &#123;</span></span><br><span class="line"><span class="string">  const config = await getLatestKey();</span></span><br><span class="line"><span class="string">  if (!config) &#123;</span></span><br><span class="line"><span class="string">    return;</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">  exportConfig(config);</span></span><br><span class="line"><span class="string">  console.log("config exported:", config);</span></span><br><span class="line"><span class="string">&#125;;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">helper();</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Step-3"><a href="#Step-3" class="headerlink" title="Step 3"></a>Step 3</h3><p>有了必要的凭证，最后循环请求分页接口获取列表：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//分页爬取公众号消息列表</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> axios = <span class="built_in">require</span>(<span class="string">"axios"</span>);</span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">"fs-extra"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> getArticles = <span class="keyword">async</span> (biz, uin, key) =&gt; &#123;</span><br><span class="line">  <span class="keyword">let</span> offset = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">const</span> count = <span class="number">10</span>;</span><br><span class="line">  <span class="keyword">let</span> list = [];</span><br><span class="line">  <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> url = <span class="string">`https://mp.weixin.qq.com/mp/profile_ext?action=getmsg&amp;__biz=<span class="subst">$&#123;biz&#125;</span>&amp;f=json&amp;offset=<span class="subst">$&#123;offset&#125;</span>&amp;count=<span class="subst">$&#123;count&#125;</span>&amp;is_ok=1&amp;scene=124&amp;uin=<span class="subst">$&#123;uin&#125;</span>&amp;key=<span class="subst">$&#123;key&#125;</span>&amp;pass_ticket=&amp;wxtoken=&amp;appmsg_token=&amp;x5=0&amp;f=json`</span>;</span><br><span class="line">    <span class="keyword">const</span> res = <span class="keyword">await</span> axios.request(&#123;</span><br><span class="line">      url,</span><br><span class="line">      method: <span class="string">"get"</span>,</span><br><span class="line">      headers: &#123;</span><br><span class="line">        Host: <span class="string">"mp.weixin.qq.com"</span>,</span><br><span class="line">        Accept:</span><br><span class="line">          <span class="string">"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"</span>,</span><br><span class="line">        <span class="string">"User-Agent"</span>:</span><br><span class="line">          <span class="string">"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/605.1.15 (KHTML, like Gecko) MicroMessenger/6.8.0(0x16080000) MacWechat/2.4.1(0x12040112) Chrome/39.0.2171.95 Safari/537.36 NetType/WIFI WindowsWechat"</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> data = res.data;</span><br><span class="line">    <span class="keyword">if</span> (!data) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"get data fail"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (data.ret) &#123;</span><br><span class="line">      <span class="comment">//错误</span></span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"get data response fail"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> msgList = <span class="built_in">JSON</span>.parse(data.general_msg_list);</span><br><span class="line">    list = list.concat(msgList.list);</span><br><span class="line">    offset = data[<span class="string">"next_offset"</span>];</span><br><span class="line">    <span class="keyword">if</span> (data[<span class="string">"can_msg_continue"</span>] != <span class="number">1</span>) &#123;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> list;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> getConfig = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> str = <span class="keyword">await</span> (</span><br><span class="line">    <span class="keyword">await</span> fs.readFile(<span class="string">"/Users/dennisleung/Downloads/crawlWx/config.json"</span>)</span><br><span class="line">  ).toString();</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">JSON</span>.parse(str);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> getCurrentTime = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> d = <span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line">  <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;d.getFullYear()&#125;</span>-<span class="subst">$&#123;</span></span></span><br><span class="line"><span class="string"><span class="subst">    d.getMonth() + <span class="number">1</span></span></span></span><br><span class="line"><span class="string"><span class="subst">  &#125;</span>-<span class="subst">$&#123;d.getDate()&#125;</span> <span class="subst">$&#123;d.getHours()&#125;</span>:<span class="subst">$&#123;d.getMinutes()&#125;</span>:<span class="subst">$&#123;d.getSeconds()&#125;</span>`</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> handler = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"crawling start, time:"</span> + getCurrentTime());</span><br><span class="line">  <span class="keyword">const</span> &#123; biz, uin, key &#125; = <span class="keyword">await</span> getConfig();</span><br><span class="line">  <span class="keyword">const</span> articles = <span class="keyword">await</span> getArticles(biz, uin, key);</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"article count:"</span>, articles.length);</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"crawling done, time:"</span> + getCurrentTime());</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> start = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  handler();</span><br><span class="line">  setTimeout(start, <span class="number">60000</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">start();</span><br></pre></td></tr></table></figure>
+
+<h2 id="Apple-Script相关学习资料"><a href="#Apple-Script相关学习资料" class="headerlink" title="Apple Script相关学习资料"></a>Apple Script相关学习资料</h2><ul>
+<li><a href="https://blog.51cto.com/6095891/2160009" target="_blank" rel="noopener">AppleScript 快速入门</a></li>
+<li><a href="https://www.jianshu.com/p/5162a0d59f22" target="_blank" rel="noopener">Applescript语法整理</a></li>
+<li><a href="https://sspai.com/post/43758" target="_blank" rel="noopener">手把手教你用 AppleScript 模拟鼠标键盘操作，实现 macOS 系统的自动化操作</a></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Apple Script</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">爬虫</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">微信公众号</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/07/07/%E5%88%A9%E7%94%A8Apple-Script%E8%84%9A%E6%9C%AC%E7%88%AC%E5%8F%96%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E6%96%87%E7%AB%A0/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-实现每隔i秒循环打印i" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -856,82 +979,6 @@
 
 
   
-    <article id="post-124-Binary-Tree-Maximum-Path-Sum" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/11/124-Binary-Tree-Maximum-Path-Sum/">124. Binary Tree Maximum Path Sum</a>
-    </h1>
-  
-
-        
-        <a href="/2020/06/11/124-Binary-Tree-Maximum-Path-Sum/" class="archive-article-date">
-  	<time datetime="2020-06-11T09:48:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>原题：<a href="https://leetcode.com/problems/binary-tree-maximum-path-sum/" target="_blank" rel="noopener">124. Binary Tree Maximum Path Sum</a></p>
-</blockquote>
-<h3 id="source-code"><a href="#source-code" class="headerlink" title="source code"></a>source code</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Runtime: 108 ms, faster than 13.49% of JavaScript online submissions for Binary Tree Maximum Path Sum.</span></span><br><span class="line"><span class="comment">// Memory Usage: 45.1 MB, less than 15.23% of JavaScript online submissions for Binary Tree Maximum Path Sum.</span></span><br><span class="line"><span class="keyword">var</span> maxPathSum = <span class="function"><span class="keyword">function</span> (<span class="params">root</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!root) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">let</span> sum = -<span class="literal">Infinity</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//这道题最重要是理解helper的作用，这里helper(root)返回以root为路径端点（其后代节点构造成路径）的最大和</span></span><br><span class="line">  <span class="keyword">const</span> helper = <span class="function"><span class="keyword">function</span> (<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!root) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> left = helper(root.left);</span><br><span class="line">    <span class="keyword">const</span> right = helper(root.right);</span><br><span class="line">    sum = <span class="built_in">Math</span>.max(</span><br><span class="line">      left + root.val,</span><br><span class="line">      root.val + right,</span><br><span class="line">      left + root.val + right,</span><br><span class="line">      root.val,</span><br><span class="line">      sum</span><br><span class="line">    );</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.max(left, right, <span class="number">0</span>) + root.val;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  helper(root);</span><br><span class="line">  <span class="keyword">return</span> sum;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="test-cases"><a href="#test-cases" class="headerlink" title="test cases"></a>test cases</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">"test1"</span>, () =&gt; &#123;</span><br><span class="line">  expect(maxPathSum(makeTree([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]))).toEqual(<span class="number">6</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"test2"</span>, () =&gt; &#123;</span><br><span class="line">  expect(maxPathSum(makeTree([<span class="number">-10</span>, <span class="number">9</span>, <span class="number">20</span>, <span class="literal">null</span>, <span class="literal">null</span>, <span class="number">15</span>, <span class="number">7</span>]))).toEqual(<span class="number">42</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//helper可以进一步优化</span></span><br><span class="line"><span class="keyword">const</span> helper = <span class="function"><span class="keyword">function</span> (<span class="params">root</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!root) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">const</span> left = <span class="built_in">Math</span>.max(helper(root.left), <span class="number">0</span>); <span class="comment">//如果helper(root.left)是负数，那么其实完全可以舍弃左边的节点，直接返回root.val</span></span><br><span class="line">  <span class="keyword">const</span> right = <span class="built_in">Math</span>.max(helper(root.right), <span class="number">0</span>);</span><br><span class="line">  sum = <span class="built_in">Math</span>.max(left + root.val + right, sum);</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Math</span>.max(left, right) + root.val;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/06/11/124-Binary-Tree-Maximum-Path-Sum/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/2/">Next »</a>
@@ -1106,6 +1153,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">移动开发</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Apple Script</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">微信公众号</a>
               </li>
             
             <div class="clearfix"></div>
