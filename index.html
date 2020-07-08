@@ -172,7 +172,7 @@
 <p><img src="/img/preloader.gif" data-original="/2020/07/07/%E5%88%A9%E7%94%A8Apple-Script%E8%84%9A%E6%9C%AC%E7%88%AC%E5%8F%96%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E6%96%87%E7%AB%A0/%E5%88%A9%E7%94%A8AppleScript%E7%88%AC%E5%8F%96%E5%85%AC%E4%BC%97%E5%8F%B7%E6%96%87%E7%AB%A0.jpg" alt="利用AppleScript爬取公众号文章"></p>
 <p>通过过mac微信打开公众号消息列表进行抓包，可以抓到这三个主要的接口：  </p>
 <ul>
-<li><p><a href="https://mp.weixin.qq.com/mp/getmasssendmsg?`__biz`=1&amp;`uin`=2&amp;`key`=3&amp;devicetype=iMac+MacBookPro14%2C1+OSX+OSX+10.14.3+build(18D42)&amp;version=12040112&amp;lang=zh_CN&amp;nettype=WIFI&amp;ascene=3&amp;fontScale=100&amp;pass_ticket=4" target="_blank" rel="noopener">https://mp.weixin.qq.com/mp/getmasssendmsg?`__biz`=1&amp;`uin`=2&amp;`key`=3&amp;devicetype=iMac+MacBookPro14%2C1+OSX+OSX+10.14.3+build(18D42)&amp;version=12040112&amp;lang=zh_CN&amp;nettype=WIFI&amp;ascene=3&amp;fontScale=100&amp;pass_ticket=4</a></p>
+<li><p><span style="word-break:break-all">ht<span>tps://</span>mp.weixin.qq.com/mp/getmasssendmsg?<code>__biz</code>=1&amp;<code>uin</code>=2&amp;<code>key</code>=3&amp;devicetype=iMac+MacBookPro14%2C1+OSX+OSX+10.14.3+build(18D42)&amp;version=12040112&amp;lang=zh_CN&amp;nettype=WIFI&amp;ascene=3&amp;fontScale=100&amp;pass_ticket=4</span></p>
 <p>每次点击查看公众号历史消息打开的新窗口就是这个链接。注意到链接里面有几个重要的参数：</p>
 <ul>
 <li><code>__biz</code> 公众号id</li>
@@ -180,7 +180,7 @@
 <li><code>key</code> 一个带expire的token，查阅网上的说法以前可以通过 <strong>getA8Key</strong> 生成万能key，但是已经失效。抓包也找不到这个key更新下发的请求，猜测使用了私密协议传输</li>
 </ul>
 </li>
-<li><p><a href="https://mp.weixin.qq.com/mp/profile_ext?action=getmsg&amp;`__biz`=1&amp;f=json&amp;`offset`=0&amp;`count`=10&amp;is_ok=1&amp;scene=124&amp;`uin`=2&amp;`key`=3&amp;pass_ticket=&amp;wxtoken=&amp;appmsg_token=&amp;x5=0&amp;f=json" target="_blank" rel="noopener">https://mp.weixin.qq.com/mp/profile_ext?action=getmsg&amp;`__biz`=1&amp;f=json&amp;`offset`=0&amp;`count`=10&amp;is_ok=1&amp;scene=124&amp;`uin`=2&amp;`key`=3&amp;pass_ticket=&amp;wxtoken=&amp;appmsg_token=&amp;x5=0&amp;f=json</a></p>
+<li><p><span style="word-break:break-all">ht<span>tps://</span>mp.weixin.qq.com/mp/profile_ext?action=getmsg&amp;<code>__biz</code>=1&amp;f=json&amp;<code>offset</code>=0&amp;<code>count</code>=10&amp;is_ok=1&amp;scene=124&amp;<code>uin</code>=2&amp;<code>key</code>=3&amp;pass_ticket=&amp;wxtoken=&amp;appmsg_token=&amp;x5=0&amp;f=json</span></p>
 <p>这是微信公众号历史消息列表的分页接口。有几个重要的参数：</p>
 <ul>
 <li><code>__biz</code></li>
